@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6335B5421DEB597B007A62F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5411DEB597B007A62F0 /* AppDelegate.swift */; };
+		6335B5471DEB597B007A62F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6335B5451DEB597B007A62F0 /* Main.storyboard */; };
+		6335B5491DEB597B007A62F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6335B5481DEB597B007A62F0 /* Assets.xcassets */; };
+		6335B54C1DEB597B007A62F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */; };
+		6335B5571DEB597C007A62F0 /* semnetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5561DEB597C007A62F0 /* semnetTests.swift */; };
+		6335B5621DEB597C007A62F0 /* semnetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5611DEB597C007A62F0 /* semnetUITests.swift */; };
+		6335B5701DEB59E5007A62F0 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B56F1DEB59E5007A62F0 /* SignInVC.swift */; };
+		6335B5721DEB5EDE007A62F0 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5711DEB5EDE007A62F0 /* SignUpVC.swift */; };
+		6335B5761DEB6368007A62F0 /* pp.jpg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6335B5751DEB6368007A62F0 /* pp.jpg.gif */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6335B5531DEB597C007A62F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6335B5361DEB597B007A62F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6335B53D1DEB597B007A62F0;
+			remoteInfo = semnet;
+		};
+		6335B55E1DEB597C007A62F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6335B5361DEB597B007A62F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6335B53D1DEB597B007A62F0;
+			remoteInfo = semnet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6335B53E1DEB597B007A62F0 /* semnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semnet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6335B5411DEB597B007A62F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6335B5461DEB597B007A62F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6335B5481DEB597B007A62F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6335B54B1DEB597B007A62F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6335B54D1DEB597B007A62F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6335B5521DEB597C007A62F0 /* semnetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semnetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6335B5561DEB597C007A62F0 /* semnetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = semnetTests.swift; sourceTree = "<group>"; };
+		6335B5581DEB597C007A62F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6335B55D1DEB597C007A62F0 /* semnetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semnetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6335B5611DEB597C007A62F0 /* semnetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = semnetUITests.swift; sourceTree = "<group>"; };
+		6335B5631DEB597C007A62F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6335B56F1DEB59E5007A62F0 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		6335B5711DEB5EDE007A62F0 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		6335B5751DEB6368007A62F0 /* pp.jpg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pp.jpg.gif; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6335B53B1DEB597B007A62F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6335B54F1DEB597C007A62F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6335B55A1DEB597C007A62F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6335B5351DEB597B007A62F0 = {
+			isa = PBXGroup;
+			children = (
+				6335B5401DEB597B007A62F0 /* semnet */,
+				6335B5551DEB597C007A62F0 /* semnetTests */,
+				6335B5601DEB597C007A62F0 /* semnetUITests */,
+				6335B53F1DEB597B007A62F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6335B53F1DEB597B007A62F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6335B53E1DEB597B007A62F0 /* semnet.app */,
+				6335B5521DEB597C007A62F0 /* semnetTests.xctest */,
+				6335B55D1DEB597C007A62F0 /* semnetUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6335B5401DEB597B007A62F0 /* semnet */ = {
+			isa = PBXGroup;
+			children = (
+				6335B5751DEB6368007A62F0 /* pp.jpg.gif */,
+				6335B56F1DEB59E5007A62F0 /* SignInVC.swift */,
+				6335B5711DEB5EDE007A62F0 /* SignUpVC.swift */,
+				6335B5411DEB597B007A62F0 /* AppDelegate.swift */,
+				6335B5451DEB597B007A62F0 /* Main.storyboard */,
+				6335B5481DEB597B007A62F0 /* Assets.xcassets */,
+				6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */,
+				6335B54D1DEB597B007A62F0 /* Info.plist */,
+			);
+			path = semnet;
+			sourceTree = "<group>";
+		};
+		6335B5551DEB597C007A62F0 /* semnetTests */ = {
+			isa = PBXGroup;
+			children = (
+				6335B5561DEB597C007A62F0 /* semnetTests.swift */,
+				6335B5581DEB597C007A62F0 /* Info.plist */,
+			);
+			path = semnetTests;
+			sourceTree = "<group>";
+		};
+		6335B5601DEB597C007A62F0 /* semnetUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6335B5611DEB597C007A62F0 /* semnetUITests.swift */,
+				6335B5631DEB597C007A62F0 /* Info.plist */,
+			);
+			path = semnetUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6335B53D1DEB597B007A62F0 /* semnet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6335B5661DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnet" */;
+			buildPhases = (
+				6335B53A1DEB597B007A62F0 /* Sources */,
+				6335B53B1DEB597B007A62F0 /* Frameworks */,
+				6335B53C1DEB597B007A62F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = semnet;
+			productName = semnet;
+			productReference = 6335B53E1DEB597B007A62F0 /* semnet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6335B5511DEB597C007A62F0 /* semnetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6335B5691DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetTests" */;
+			buildPhases = (
+				6335B54E1DEB597C007A62F0 /* Sources */,
+				6335B54F1DEB597C007A62F0 /* Frameworks */,
+				6335B5501DEB597C007A62F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6335B5541DEB597C007A62F0 /* PBXTargetDependency */,
+			);
+			name = semnetTests;
+			productName = semnetTests;
+			productReference = 6335B5521DEB597C007A62F0 /* semnetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6335B55C1DEB597C007A62F0 /* semnetUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6335B56C1DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetUITests" */;
+			buildPhases = (
+				6335B5591DEB597C007A62F0 /* Sources */,
+				6335B55A1DEB597C007A62F0 /* Frameworks */,
+				6335B55B1DEB597C007A62F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6335B55F1DEB597C007A62F0 /* PBXTargetDependency */,
+			);
+			name = semnetUITests;
+			productName = semnetUITests;
+			productReference = 6335B55D1DEB597C007A62F0 /* semnetUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6335B5361DEB597B007A62F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = celikel;
+				TargetAttributes = {
+					6335B53D1DEB597B007A62F0 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+					6335B5511DEB597C007A62F0 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6335B53D1DEB597B007A62F0;
+					};
+					6335B55C1DEB597C007A62F0 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6335B53D1DEB597B007A62F0;
+					};
+				};
+			};
+			buildConfigurationList = 6335B5391DEB597B007A62F0 /* Build configuration list for PBXProject "semnet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6335B5351DEB597B007A62F0;
+			productRefGroup = 6335B53F1DEB597B007A62F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6335B53D1DEB597B007A62F0 /* semnet */,
+				6335B5511DEB597C007A62F0 /* semnetTests */,
+				6335B55C1DEB597C007A62F0 /* semnetUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6335B53C1DEB597B007A62F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6335B54C1DEB597B007A62F0 /* LaunchScreen.storyboard in Resources */,
+				6335B5761DEB6368007A62F0 /* pp.jpg.gif in Resources */,
+				6335B5491DEB597B007A62F0 /* Assets.xcassets in Resources */,
+				6335B5471DEB597B007A62F0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6335B5501DEB597C007A62F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6335B55B1DEB597C007A62F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6335B53A1DEB597B007A62F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6335B5701DEB59E5007A62F0 /* SignInVC.swift in Sources */,
+				6335B5721DEB5EDE007A62F0 /* SignUpVC.swift in Sources */,
+				6335B5421DEB597B007A62F0 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6335B54E1DEB597C007A62F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6335B5571DEB597C007A62F0 /* semnetTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6335B5591DEB597C007A62F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6335B5621DEB597C007A62F0 /* semnetUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6335B5541DEB597C007A62F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6335B53D1DEB597B007A62F0 /* semnet */;
+			targetProxy = 6335B5531DEB597C007A62F0 /* PBXContainerItemProxy */;
+		};
+		6335B55F1DEB597C007A62F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6335B53D1DEB597B007A62F0 /* semnet */;
+			targetProxy = 6335B55E1DEB597C007A62F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6335B5451DEB597B007A62F0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6335B5461DEB597B007A62F0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6335B54B1DEB597B007A62F0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6335B5641DEB597C007A62F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6335B5651DEB597C007A62F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6335B5671DEB597C007A62F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = semnet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6335B5681DEB597C007A62F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = semnet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		6335B56A1DEB597C007A62F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = semnetTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/semnet.app/semnet";
+			};
+			name = Debug;
+		};
+		6335B56B1DEB597C007A62F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = semnetTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/semnet.app/semnet";
+			};
+			name = Release;
+		};
+		6335B56D1DEB597C007A62F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = semnetUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = semnet;
+			};
+			name = Debug;
+		};
+		6335B56E1DEB597C007A62F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = semnetUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = semnet;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6335B5391DEB597B007A62F0 /* Build configuration list for PBXProject "semnet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6335B5641DEB597C007A62F0 /* Debug */,
+				6335B5651DEB597C007A62F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6335B5661DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6335B5671DEB597C007A62F0 /* Debug */,
+				6335B5681DEB597C007A62F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6335B5691DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6335B56A1DEB597C007A62F0 /* Debug */,
+				6335B56B1DEB597C007A62F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6335B56C1DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6335B56D1DEB597C007A62F0 /* Debug */,
+				6335B56E1DEB597C007A62F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6335B5361DEB597B007A62F0 /* Project object */;
+}
