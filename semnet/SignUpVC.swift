@@ -95,38 +95,38 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBAction func signUpBtn_click(_ sender: Any) {
         if (usernameTxtField.text!.isEmpty || passwordTxtField.text!.isEmpty || repeatPasswordTxtField.text!.isEmpty || firstnameTxtField.text!.isEmpty || lastnameTxtField.text!.isEmpty) {
             
-            
-            let alert = UIAlertController(title: "Warning", message: "please fill required fields", preferredStyle: UIAlertControllerStyle.alert)
-            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
-            
-            return
-        }
-        
-        
-        if passwordTxtField.text != repeatPasswordTxtField.text {
-            
-            
-            let alert = UIAlertController(title: "Warning", message: "passwords do not match", preferredStyle: UIAlertControllerStyle.alert)
-            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
-            
+            presentAlert(alertMessage: "please fill required fields")
             return
         }
 
-        
+        if passwordTxtField.text != repeatPasswordTxtField.text {
+            presentAlert(alertMessage: "passwords do not match")
+            return
+        }
+
         UserManager.sharedInstance.create(user: usernameTxtField.text!, password: passwordTxtField.text!, firstname: firstnameTxtField.text!, lastname: lastnameTxtField.text!, onCompletion: { json in
             print(json)
             let code = json["errorCode"]
-            print(code)
+            
+            if(code != "SNET_0"){
+                self.presentAlert(alertMessage: "An error occured while creating user")
+                return
+            }
+            let token = json["token"]
+            print(token)
         })
     }
     
     @IBAction func cancelBtn_click(_ sender: Any) {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func presentAlert(alertMessage : String){
+        let alert = UIAlertController(title: "Warning", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
