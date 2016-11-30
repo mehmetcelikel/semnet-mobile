@@ -8,6 +8,14 @@
 
 import UIKit
 
+let userBaseURL = "http://107.170.24.239:9000/v1/user/"
+let loginEndpoint: String = userBaseURL + "/login"
+let userCreateEndpoint: String = userBaseURL + "/create"
+let userGetEndpoint: String = userBaseURL + "/get"
+
+let screenWidth = UIScreen.main.bounds.width;
+let screenHeight = UIScreen.main.bounds.height;
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

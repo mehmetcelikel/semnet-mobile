@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -104,22 +105,40 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return
         }
 
-        UserManager.sharedInstance.create(user: usernameTxtField.text!, password: passwordTxtField.text!, firstname: firstnameTxtField.text!, lastname: lastnameTxtField.text!, onCompletion: { json in
-            print(json)
-            let code = json["errorCode"]
-            
-            if(code != "SNET_0"){
-                self.presentAlert(alertMessage: "An error occured while creating user")
-                return
-            }
-            let token = json["token"]
-            print(token)
+         let createParams : [String: Any] =
+            ["username" : usernameTxtField.text!,
+             "password" : passwordTxtField.text!,
+             "firstname" : firstnameTxtField.text!,
+             "lastname" : lastnameTxtField.text!
+            ]
+        
+        createUser(parameters: createParams, completionHandler:{(UIBackgroundFetchResult) -> Void in
+            self.returnToLogin()
         })
     }
     
     @IBAction func cancelBtn_click(_ sender: Any) {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func createUser(parameters: Parameters, completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
+        Alamofire.request(userCreateEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    self.presentAlert(alertMessage: "An error occured while creating user")
+                    return
+                }
+                print(json)
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    self.presentAlert(alertMessage: "An error occured while creating user")
+                    return
+                }
+                completionHandler(UIBackgroundFetchResult.newData)
+        }
     }
     
     func presentAlert(alertMessage : String){
@@ -129,4 +148,11 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.present(alert, animated: true, completion: nil)
     }
     
+    func returnToLogin() {
+        UserDefaults.standard.set(nil, forKey: "authToken")
+        UserDefaults.standard.set(nil, forKey: "userId")
+        UserDefaults.standard.synchronize()
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        self.present(vc, animated: true, completion: nil)
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SignInVC: UIViewController {
 
@@ -50,7 +51,40 @@ class SignInVC: UIViewController {
         
         self.view.endEditing(true)
         
-        UserManager.sharedInstance.login(user: self.usernameTxtField.text!, password: self.passwordTxtField.text!, onCompletion: { json in
+        let parameters: Parameters = [
+            "username": self.usernameTxtField.text!,
+            "password": self.passwordTxtField.text!
+        ]
+        
+        
+        Alamofire.request(loginEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    return
+                }
+                print(json)
+                
+                let code = json["errorCode"] as! String?
+                if(code != "SNET_0"){
+                    self.presentAlert(alertMessage: "Username and password does not match")
+                    return
+                }
+                
+                let authToken = json["token"] as! String?
+                let userId = json["id"] as! String?
+                
+                UserDefaults.standard.set(authToken, forKey: "authToken")
+                UserDefaults.standard.set(userId, forKey: "userId")
+                
+                UserDefaults.standard.synchronize()
+                
+                let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.login()
+        }
+        
+        
+        /*UserManager.sharedInstance.login(user: self.usernameTxtField.text!, password: self.passwordTxtField.text!, onCompletion: { json in
             print(json)
             let code = json["errorCode"]
                 
@@ -68,7 +102,7 @@ class SignInVC: UIViewController {
             
             let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.login()
-        })
+        })*/
     }
     
     func presentAlert(alertMessage : String){

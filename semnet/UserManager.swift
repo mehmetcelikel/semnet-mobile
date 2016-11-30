@@ -28,4 +28,15 @@ class UserManager: NSObject {
         RestApiManager.sharedInstance.makeHTTPPostRequest(path: route, body: createParams as [String : AnyObject], onCompletion: { json, err in onCompletion(json as JSON)
         })
     }
+    
+    func get(userId: String, onCompletion: @escaping (JSON) -> Void) {
+        
+        let authToken : String? = UserDefaults.standard.string(forKey: "authToken")
+        
+        let getParams : [String: Any] = ["id" : userId, "authToken" : authToken ?? ""]
+        
+        let route = baseURL + "get"
+        RestApiManager.sharedInstance.makeHTTPPostRequest(path: route, body: getParams as [String : AnyObject], onCompletion: { json, err in onCompletion(json as JSON)
+        })
+    }
 }

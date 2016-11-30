@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1104C965CDFFBAB9778DAE67 /* Pods_semnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2C7A590F9ACC52F33110809 /* Pods_semnet.framework */; };
+		20269A64AE9726268FCDB992 /* Pods_semnetUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD3086E1825016E97D05049 /* Pods_semnetUITests.framework */; };
 		6335B5421DEB597B007A62F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5411DEB597B007A62F0 /* AppDelegate.swift */; };
 		6335B5471DEB597B007A62F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6335B5451DEB597B007A62F0 /* Main.storyboard */; };
 		6335B5491DEB597B007A62F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6335B5481DEB597B007A62F0 /* Assets.xcassets */; };
@@ -19,6 +21,10 @@
 		6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5771DECB630007A62F0 /* RestAPIManager.swift */; };
 		6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */; };
 		6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57D1DECCE15007A62F0 /* UserManager.swift */; };
+		6335B5821DEF5554007A62F0 /* ProfileCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5811DEF5554007A62F0 /* ProfileCVC.swift */; };
+		6335B5841DEF558E007A62F0 /* ProfileHeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5831DEF558E007A62F0 /* ProfileHeaderVC.swift */; };
+		6335B5861DEF57AF007A62F0 /* ProfileCVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5851DEF57AF007A62F0 /* ProfileCVCCell.swift */; };
+		6645A555E2C5A6A3FD147073 /* Pods_semnetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10C2EB42297069EB628DCB12 /* Pods-semnetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnetTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-semnetTests/Pods-semnetTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1B7623B648E751F626983D75 /* Pods-semnetUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnetUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-semnetUITests/Pods-semnetUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		21A898099A58CD398543B8C5 /* Pods-semnetUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnetUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-semnetUITests/Pods-semnetUITests.release.xcconfig"; sourceTree = "<group>"; };
+		25969BC72521DA097CFF168E /* Pods-semnetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnetTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-semnetTests/Pods-semnetTests.release.xcconfig"; sourceTree = "<group>"; };
+		2FD3086E1825016E97D05049 /* Pods_semnetUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnetUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C1C6F8CD0EF779FC129DB2 /* Pods-semnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-semnet/Pods-semnet.debug.xcconfig"; sourceTree = "<group>"; };
 		6335B53E1DEB597B007A62F0 /* semnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semnet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6335B5411DEB597B007A62F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6335B5461DEB597B007A62F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -57,6 +69,13 @@
 		6335B5771DECB630007A62F0 /* RestAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManager.swift; sourceTree = "<group>"; };
 		6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		6335B57D1DECCE15007A62F0 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		6335B5811DEF5554007A62F0 /* ProfileCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCVC.swift; sourceTree = "<group>"; };
+		6335B5831DEF558E007A62F0 /* ProfileHeaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderVC.swift; sourceTree = "<group>"; };
+		6335B5851DEF57AF007A62F0 /* ProfileCVCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCVCCell.swift; sourceTree = "<group>"; };
+		6335B5871DEF704A007A62F0 /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Alamofire; path = Pods/Alamofire; sourceTree = "<group>"; };
+		E2C7A590F9ACC52F33110809 /* Pods_semnet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnet.release.xcconfig"; path = "Pods/Target Support Files/Pods-semnet/Pods-semnet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1104C965CDFFBAB9778DAE67 /* Pods_semnet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6645A555E2C5A6A3FD147073 /* Pods_semnetTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,12 +99,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20269A64AE9726268FCDB992 /* Pods_semnetUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53C3445814A1A11142EC0E58 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42C1C6F8CD0EF779FC129DB2 /* Pods-semnet.debug.xcconfig */,
+				F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */,
+				10C2EB42297069EB628DCB12 /* Pods-semnetTests.debug.xcconfig */,
+				25969BC72521DA097CFF168E /* Pods-semnetTests.release.xcconfig */,
+				1B7623B648E751F626983D75 /* Pods-semnetUITests.debug.xcconfig */,
+				21A898099A58CD398543B8C5 /* Pods-semnetUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6335B5351DEB597B007A62F0 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +126,8 @@
 				6335B5551DEB597C007A62F0 /* semnetTests */,
 				6335B5601DEB597C007A62F0 /* semnetUITests */,
 				6335B53F1DEB597B007A62F0 /* Products */,
+				53C3445814A1A11142EC0E58 /* Pods */,
+				C9FE8BCA67ADBBBFFB16AD91 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +155,9 @@
 				6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */,
 				6335B54D1DEB597B007A62F0 /* Info.plist */,
 				6335B5751DEB6368007A62F0 /* pp.jpg.gif */,
+				6335B5851DEF57AF007A62F0 /* ProfileCVCCell.swift */,
+				6335B5811DEF5554007A62F0 /* ProfileCVC.swift */,
+				6335B5831DEF558E007A62F0 /* ProfileHeaderVC.swift */,
 			);
 			path = semnet;
 			sourceTree = "<group>";
@@ -140,6 +180,17 @@
 			path = semnetUITests;
 			sourceTree = "<group>";
 		};
+		C9FE8BCA67ADBBBFFB16AD91 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6335B5871DEF704A007A62F0 /* Alamofire */,
+				E2C7A590F9ACC52F33110809 /* Pods_semnet.framework */,
+				EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */,
+				2FD3086E1825016E97D05049 /* Pods_semnetUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +198,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6335B5661DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnet" */;
 			buildPhases = (
+				11017C0AFAFEF8C093AC39B1 /* [CP] Check Pods Manifest.lock */,
 				6335B53A1DEB597B007A62F0 /* Sources */,
 				6335B53B1DEB597B007A62F0 /* Frameworks */,
 				6335B53C1DEB597B007A62F0 /* Resources */,
+				FF0FF516D9258988449F3746 /* [CP] Embed Pods Frameworks */,
+				863446EA71198F121754385B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,9 +218,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6335B5691DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetTests" */;
 			buildPhases = (
+				AD5BF8942FE9570501313303 /* [CP] Check Pods Manifest.lock */,
 				6335B54E1DEB597C007A62F0 /* Sources */,
 				6335B54F1DEB597C007A62F0 /* Frameworks */,
 				6335B5501DEB597C007A62F0 /* Resources */,
+				C5E488E08B4433CFD9756A01 /* [CP] Embed Pods Frameworks */,
+				1FDD2BCAE57760277BBFB7D6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,9 +239,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6335B56C1DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetUITests" */;
 			buildPhases = (
+				D60E9418748CB91118F5AD4D /* [CP] Check Pods Manifest.lock */,
 				6335B5591DEB597C007A62F0 /* Sources */,
 				6335B55A1DEB597C007A62F0 /* Frameworks */,
 				6335B55B1DEB597C007A62F0 /* Resources */,
+				83AC60B7C1F013DE05447E29 /* [CP] Embed Pods Frameworks */,
+				BE49271D4803220FBEA4ED31 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,6 +330,144 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11017C0AFAFEF8C093AC39B1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		1FDD2BCAE57760277BBFB7D6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-semnetTests/Pods-semnetTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83AC60B7C1F013DE05447E29 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-semnetUITests/Pods-semnetUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		863446EA71198F121754385B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-semnet/Pods-semnet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD5BF8942FE9570501313303 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BE49271D4803220FBEA4ED31 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-semnetUITests/Pods-semnetUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5E488E08B4433CFD9756A01 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-semnetTests/Pods-semnetTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D60E9418748CB91118F5AD4D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FF0FF516D9258988449F3746 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-semnet/Pods-semnet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6335B53A1DEB597B007A62F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -278,7 +476,10 @@
 				6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */,
 				6335B5701DEB59E5007A62F0 /* SignInVC.swift in Sources */,
 				6335B5721DEB5EDE007A62F0 /* SignUpVC.swift in Sources */,
+				6335B5841DEF558E007A62F0 /* ProfileHeaderVC.swift in Sources */,
+				6335B5861DEF57AF007A62F0 /* ProfileCVCCell.swift in Sources */,
 				6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */,
+				6335B5821DEF5554007A62F0 /* ProfileCVC.swift in Sources */,
 				6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */,
 				6335B5421DEB597B007A62F0 /* AppDelegate.swift in Sources */,
 			);
@@ -428,6 +629,7 @@
 		};
 		6335B5671DEB597C007A62F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42C1C6F8CD0EF779FC129DB2 /* Pods-semnet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = semnet/Info.plist;
@@ -440,6 +642,7 @@
 		};
 		6335B5681DEB597C007A62F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = semnet/Info.plist;
@@ -452,6 +655,7 @@
 		};
 		6335B56A1DEB597C007A62F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10C2EB42297069EB628DCB12 /* Pods-semnetTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -466,6 +670,7 @@
 		};
 		6335B56B1DEB597C007A62F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25969BC72521DA097CFF168E /* Pods-semnetTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -480,6 +685,7 @@
 		};
 		6335B56D1DEB597C007A62F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B7623B648E751F626983D75 /* Pods-semnetUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = semnetUITests/Info.plist;
@@ -493,6 +699,7 @@
 		};
 		6335B56E1DEB597C007A62F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21A898099A58CD398543B8C5 /* Pods-semnetUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = semnetUITests/Info.plist;
@@ -523,6 +730,7 @@
 				6335B5681DEB597C007A62F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6335B5691DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetTests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +739,7 @@
 				6335B56B1DEB597C007A62F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6335B56C1DEB597C007A62F0 /* Build configuration list for PBXNativeTarget "semnetUITests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +748,7 @@
 				6335B56E1DEB597C007A62F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
