@@ -73,36 +73,13 @@ class SignInVC: UIViewController {
                 
                 let authToken = json["token"] as! String?
                 let userId = json["id"] as! String?
+                let username = self.usernameTxtField.text!
                 
-                UserDefaults.standard.set(authToken, forKey: "authToken")
-                UserDefaults.standard.set(userId, forKey: "userId")
-                
-                UserDefaults.standard.synchronize()
+                UserManager.sharedInstance.saveUserInfo(authToken: authToken!, userId: userId!, username: username)
                 
                 let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.login()
         }
-        
-        
-        /*UserManager.sharedInstance.login(user: self.usernameTxtField.text!, password: self.passwordTxtField.text!, onCompletion: { json in
-            print(json)
-            let code = json["errorCode"]
-                
-            if(code != "SNET_0"){
-                self.presentAlert(alertMessage: "Username and password does not match")
-                return
-            }
-            let authToken = String(describing: json["token"])
-            let userId = String(describing: json["id"])
-
-            UserDefaults.standard.set(authToken, forKey: "authToken")
-            UserDefaults.standard.set(userId, forKey: "userId")
-            
-            UserDefaults.standard.synchronize()
-            
-            let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.login()
-        })*/
     }
     
     func presentAlert(alertMessage : String){

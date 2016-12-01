@@ -9,11 +9,16 @@
 import UIKit
 
 let userBaseURL = "http://107.170.24.239:9000/v1/user/"
+let friendBaseURL = "http://107.170.24.239:9000/v1/friend/"
+
 let loginEndpoint: String = userBaseURL + "/login"
 let userCreateEndpoint: String = userBaseURL + "/create"
 let userGetEndpoint: String = userBaseURL + "/get"
 let userImageUploadEndpoint: String = userBaseURL + "/upload"
 let userImageDownloadEndpoint: String = userBaseURL + "/download"
+
+let friendListEndpoint: String = friendBaseURL + "/listFriends"
+
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;

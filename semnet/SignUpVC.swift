@@ -138,17 +138,15 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     return
                 }
                 
-                UserDefaults.standard.set(json["id"] as! String?, forKey: "userId")
-                UserDefaults.standard.set(json["token"] as! String?, forKey: "authToken")
-                UserDefaults.standard.synchronize()
-                
+                UserManager.sharedInstance.saveUserInfo(authToken: (json["token"] as! String?)!, userId: (json["id"] as! String?)!, username: self.usernameTxtField.text!)
+
                 completionHandler(UIBackgroundFetchResult.newData)
         }
     }
     
     func uploadUserImage(){
-        let authToken = UserDefaults.standard.string(forKey: "authToken")
-        let userId = UserDefaults.standard.string(forKey: "userId")
+        let authToken = UserManager.sharedInstance.getToken()
+        let userId = UserManager.sharedInstance.getUserId()
         
         if avatarImg.image == nil {
             let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -161,8 +159,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(imageData!, withName: "file", fileName: "imageFileName.jpg", mimeType: "image/jpeg")
-                multipartFormData.append((authToken?.data(using: String.Encoding.utf8)!)!, withName :"authToken")
-                multipartFormData.append((userId?.data(using: String.Encoding.utf8)!)!, withName :"userId")
+                multipartFormData.append((authToken.data(using: String.Encoding.utf8)!), withName :"authToken")
+                multipartFormData.append((userId.data(using: String.Encoding.utf8)!), withName :"userId")
         },
             to: userImageUploadEndpoint,
             encodingCompletion: { encodingResult in

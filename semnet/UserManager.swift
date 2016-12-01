@@ -11,32 +11,31 @@ import Foundation
 class UserManager: NSObject {
     static let sharedInstance = UserManager()
 
-    let baseURL = "http://107.170.24.239:9000/v1/user/"
-    
-    func login(user: String, password: String, onCompletion: @escaping (JSON) -> Void) {
-        let loginParams : [String: Any] = ["username" : user, "password" : password]
+    func saveUserInfo(authToken:String, userId:String, username:String){
+        UserDefaults.standard.set(authToken, forKey: "authToken")
+        UserDefaults.standard.set(userId, forKey: "userId")
+        UserDefaults.standard.set(username, forKey: "username")
         
-        let route = baseURL + "login"
-        RestApiManager.sharedInstance.makeHTTPPostRequest(path: route, body: loginParams as [String : AnyObject], onCompletion: { json, err in onCompletion(json as JSON)
-        })
+        UserDefaults.standard.synchronize()
     }
     
-    func create(user: String, password: String, firstname: String, lastname: String, onCompletion: @escaping (JSON) -> Void) {
-        let createParams : [String: Any] = ["username" : user, "password" : password, "firstname" : firstname, "lastname" : lastname]
+    func clearUserInfo(){
+        UserDefaults.standard.set(nil, forKey: "authToken")
+        UserDefaults.standard.set(nil, forKey: "userId")
+        UserDefaults.standard.set(nil, forKey: "username")
         
-        let route = baseURL + "create"
-        RestApiManager.sharedInstance.makeHTTPPostRequest(path: route, body: createParams as [String : AnyObject], onCompletion: { json, err in onCompletion(json as JSON)
-        })
+        UserDefaults.standard.synchronize()
     }
     
-    func get(userId: String, onCompletion: @escaping (JSON) -> Void) {
-        
-        let authToken : String? = UserDefaults.standard.string(forKey: "authToken")
-        
-        let getParams : [String: Any] = ["id" : userId, "authToken" : authToken ?? ""]
-        
-        let route = baseURL + "get"
-        RestApiManager.sharedInstance.makeHTTPPostRequest(path: route, body: getParams as [String : AnyObject], onCompletion: { json, err in onCompletion(json as JSON)
-        })
+    func getToken() -> String{
+        return UserDefaults.standard.string(forKey: "authToken")!
+    }
+    
+    func getUsername() -> String{
+        return UserDefaults.standard.string(forKey: "username")!
+    }
+    
+    func getUserId() -> String{
+        return UserDefaults.standard.string(forKey: "userId")!
     }
 }

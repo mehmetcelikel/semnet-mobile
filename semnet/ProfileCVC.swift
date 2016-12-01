@@ -14,6 +14,9 @@ class ProfileCVC: UICollectionViewController {
     var userId:String!
     var firstname:String!
     var lastname:String!
+    var username:String!
+    var friendCount = 0
+    
     var profileImage:UIImage!
     
     override func viewDidLoad() {
@@ -41,22 +44,20 @@ class ProfileCVC: UICollectionViewController {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath as IndexPath) as! ProfileHeaderVC
         
-        let currenctUserId : String? = UserDefaults.standard.string(forKey: "userId")
+        let currenctUserId : String? = UserManager.sharedInstance.getUserId()
         if userId == nil {
            userId = currenctUserId
         }
-        let authToken = UserDefaults.standard.string(forKey: "authToken")
         
-        let parameters: Parameters = [
-            "authToken": authToken!,
-            "id": userId!
-        ]
-        
-        loadUserDetail(parameters: parameters, completionHandler:{(UIBackgroundFetchResult) -> Void in
+        loadUserDetail(completionHandler:{(UIBackgroundFetchResult) -> Void in
             header.nameLabel.text = self.firstname! + " " + self.lastname!
         })
         
-        downloadProfileImage(userId: userId, token: authToken!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+        loadFriendlist(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            header.friendsLabel.text = String(self.friendCount)
+        })
+
+        downloadProfileImage(completionHandler:{(UIBackgroundFetchResult) -> Void in
             header.profileImage.image = self.profileImage
         })
         
@@ -72,7 +73,15 @@ class ProfileCVC: UICollectionViewController {
         return header
     }
     
-    func loadUserDetail(parameters: Parameters, completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
+    func loadUserDetail(completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let parameters: Parameters = [
+            "authToken": authToken,
+            "id": userId!
+        ]
+        
         Alamofire.request(userGetEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
                 guard let json = response.result.value as? [String: Any] else {
@@ -90,15 +99,59 @@ class ProfileCVC: UICollectionViewController {
                 
                 self.firstname = json["firstname"] as! String?
                 self.lastname = json["lastname"] as! String?
-                
+                self.username = json["username"] as! String?
                 completionHandler(UIBackgroundFetchResult.newData)
         }
     }
     
-    func downloadProfileImage(userId:String, token:String, completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
+    func loadFriendlist(completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
+        
+        let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
-            "authToken": token,
+            "authToken": authToken
+        ]
+        
+        Alamofire.request(friendListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    return
+                }
+                print(json)
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    self.returnToLogin()
+                    return
+                }
+                
+                guard let friendList = json["userList"] as? NSArray else {
+                    return
+                }
+                
+                if friendList.count == 0 {
+                    return
+                }
+                self.friendCount = friendList.count
+                
+                for anItem in friendList as! [Dictionary<String, AnyObject>] {
+                    let personName = anItem["username"] as! String
+                    let personID = anItem["id"] as! Int
+                
+                    print(personName)
+                    print(personID)
+                }
+                completionHandler(UIBackgroundFetchResult.newData)
+        }
+    }
+    
+    func downloadProfileImage(completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let parameters: Parameters = [
+            "authToken": authToken,
             "userId": userId
         ]
         
@@ -169,9 +222,8 @@ class ProfileCVC: UICollectionViewController {
     }
 
     func returnToLogin() {
-        UserDefaults.standard.set(nil, forKey: "authToken")
-        UserDefaults.standard.set(nil, forKey: "userId")
-        UserDefaults.standard.synchronize()
+        UserManager.sharedInstance.clearUserInfo()
+        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
         self.present(vc, animated: true, completion: nil)
     }
