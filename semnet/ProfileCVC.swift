@@ -14,6 +14,7 @@ class ProfileCVC: UICollectionViewController {
     var userId:String!
     var firstname:String!
     var lastname:String!
+    var profileImage:UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,10 @@ class ProfileCVC: UICollectionViewController {
             header.nameLabel.text = self.firstname! + " " + self.lastname!
         })
         
+        downloadProfileImage(userId: userId, token: authToken!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+            header.profileImage.image = self.profileImage
+        })
+        
         if currenctUserId == userId {
             
             let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
@@ -89,6 +94,32 @@ class ProfileCVC: UICollectionViewController {
                 completionHandler(UIBackgroundFetchResult.newData)
         }
     }
+    
+    func downloadProfileImage(userId:String, token:String, completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
+        
+        let parameters: Parameters = [
+            "authToken": token,
+            "userId": userId
+        ]
+        
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                    .userDomainMask, true)[0]
+            let documentsURL = URL(fileURLWithPath: documentsPath, isDirectory: true)
+            let fileURL = documentsURL.appendingPathComponent("image.png")
+            return (fileURL, [.removePreviousFile, .createIntermediateDirectories]) }
+        
+            Alamofire.download(userImageDownloadEndpoint, parameters: parameters, to: destination)
+            .responseData { resp in
+                guard let data = resp.result.value else {
+                    return
+                }
+                self.profileImage = UIImage(data: data)
+                
+                completionHandler(UIBackgroundFetchResult.newData)
+        }
+    }
+    
     /*
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)

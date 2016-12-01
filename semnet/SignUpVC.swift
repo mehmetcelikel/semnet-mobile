@@ -113,7 +113,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             ]
         
         createUser(parameters: createParams, completionHandler:{(UIBackgroundFetchResult) -> Void in
-            self.returnToLogin()
+            self.uploadUserImage()
         })
     }
     
@@ -137,8 +137,48 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.presentAlert(alertMessage: "An error occured while creating user")
                     return
                 }
+                
+                UserDefaults.standard.set(json["id"] as! String?, forKey: "userId")
+                UserDefaults.standard.set(json["token"] as! String?, forKey: "authToken")
+                UserDefaults.standard.synchronize()
+                
                 completionHandler(UIBackgroundFetchResult.newData)
         }
+    }
+    
+    func uploadUserImage(){
+        let authToken = UserDefaults.standard.string(forKey: "authToken")
+        let userId = UserDefaults.standard.string(forKey: "userId")
+        
+        if avatarImg.image == nil {
+            let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.login()
+            return
+        }
+        
+        let imageData = UIImageJPEGRepresentation(avatarImg.image!, 0.5)
+        
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData!, withName: "file", fileName: "imageFileName.jpg", mimeType: "image/jpeg")
+                multipartFormData.append((authToken?.data(using: String.Encoding.utf8)!)!, withName :"authToken")
+                multipartFormData.append((userId?.data(using: String.Encoding.utf8)!)!, withName :"userId")
+        },
+            to: userImageUploadEndpoint,
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { (JSON) in
+                        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.login()
+                    }
+                    
+                case .failure:
+                    //Show Alert in UI
+                    self.presentAlert(alertMessage: "Error occured while uploading photo")
+                }
+        }
+        );
     }
     
     func presentAlert(alertMessage : String){
@@ -146,13 +186,5 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    func returnToLogin() {
-        UserDefaults.standard.set(nil, forKey: "authToken")
-        UserDefaults.standard.set(nil, forKey: "userId")
-        UserDefaults.standard.synchronize()
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.present(vc, animated: true, completion: nil)
     }
 }
