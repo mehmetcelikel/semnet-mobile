@@ -10,6 +10,7 @@ import UIKit
 
 let userBaseURL = "http://107.170.24.239:9000/v1/user/"
 let friendBaseURL = "http://107.170.24.239:9000/v1/friend/"
+let contentBaseURL = "http://107.170.24.239:9000/v1/content/"
 
 let loginEndpoint: String = userBaseURL + "/login"
 let userCreateEndpoint: String = userBaseURL + "/create"
@@ -19,6 +20,9 @@ let userImageDownloadEndpoint: String = userBaseURL + "/download"
 
 let friendListEndpoint: String = friendBaseURL + "/listFriends"
 
+let contentListEndpoint: String = contentBaseURL + "/list"
+let contentGetEndpoint: String = contentBaseURL + "/get"
+let contentDownloadEndpoint: String = contentBaseURL + "/download"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;

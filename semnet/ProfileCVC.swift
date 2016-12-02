@@ -11,11 +11,15 @@ import Alamofire
 
 class ProfileCVC: UICollectionViewController {
 
+    var refresher : UIRefreshControl!
+    
     var userId:String!
     var firstname:String!
     var lastname:String!
     var username:String!
     var friendCount = 0
+    var contentIdArr = [String]()
+    var contentImageArr = [UIImage]()
     
     var profileImage:UIImage!
     
@@ -26,16 +30,38 @@ class ProfileCVC: UICollectionViewController {
         collectionView?.backgroundColor = .white
         
         
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(ProfileCVC.refresh), for: UIControlEvents.valueChanged)
+        collectionView?.addSubview(refresher)
+        
         self.collectionView?.alwaysBounceVertical = true
         
     }
 
-
+    func refresh() {
+        loadContentlist()
+        refresher.endRefreshing()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return contentImageArr.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        return size
     }
 
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ProfileCVCCell
+        
+        cell.image.image = contentImageArr[indexPath.row]
+        
+        return cell
+    }
+    
     // header config
     override func collectionView(_ collectionView: UICollectionView,
                                   viewForSupplementaryElementOfKind kind: String,
@@ -61,6 +87,8 @@ class ProfileCVC: UICollectionViewController {
             header.profileImage.image = self.profileImage
         })
         
+        loadContentlist()
+        
         if currenctUserId == userId {
             
             let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
@@ -68,7 +96,21 @@ class ProfileCVC: UICollectionViewController {
             header.editButton.setTitleColor(UIColor.white, for: UIControlState.normal)
             header.editButton.backgroundColor = customColor
             header.editButton.setTitle("Edit", for: .normal)
+            
+            self.navigationItem.title = UserManager.sharedInstance.getUsername().uppercased();
         }
+        
+        // tap friends
+        let friendsTap = UITapGestureRecognizer(target: self, action: #selector(ProfileCVC.friendsTap))
+        friendsTap.numberOfTapsRequired = 1
+        header.friendsLabel.isUserInteractionEnabled = true
+        header.friendsLabel.addGestureRecognizer(friendsTap)
+        
+        // tap posts
+        let postsTap = UITapGestureRecognizer(target: self, action: #selector(ProfileCVC.postTap))
+        postsTap.numberOfTapsRequired = 1
+        header.postsLabel.isUserInteractionEnabled = true
+        header.postsLabel.addGestureRecognizer(postsTap)
         
         return header
     }
@@ -100,6 +142,9 @@ class ProfileCVC: UICollectionViewController {
                 self.firstname = json["firstname"] as! String?
                 self.lastname = json["lastname"] as! String?
                 self.username = json["username"] as! String?
+                
+                self.navigationItem.title = self.username.uppercased();
+                
                 completionHandler(UIBackgroundFetchResult.newData)
         }
     }
@@ -146,6 +191,48 @@ class ProfileCVC: UICollectionViewController {
         }
     }
     
+    func loadContentlist() {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let parameters: Parameters = [
+            "authToken": authToken,
+            "userId": userId,
+            "type": "SPECIFIED"
+        ]
+        
+        Alamofire.request(contentListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    return
+                }
+                print(json)
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    self.returnToLogin()
+                    return
+                }
+                
+                guard let contentList = json["contentList"] as? NSArray else {
+                    return
+                }
+                
+                if contentList.count == 0 {
+                    return
+                }
+                
+                for anItem in contentList as! [Dictionary<String, AnyObject>] {
+                    let contentId = anItem["id"] as! String
+                    self.contentIdArr.append(contentId)
+                    self.getContent(contentId: contentId, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                    })
+                }
+    
+        }
+    }
+    
     func downloadProfileImage(completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
         
         let authToken = UserManager.sharedInstance.getToken()
@@ -173,44 +260,47 @@ class ProfileCVC: UICollectionViewController {
         }
     }
     
-    /*
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+    func getContent(contentId:String, completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let parameters: Parameters = [
+            "authToken": authToken,
+            "contentId": contentId
+        ]
+        
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                    .userDomainMask, true)[0]
+            let documentsURL = URL(fileURLWithPath: documentsPath, isDirectory: true)
+            let fileURL = documentsURL.appendingPathComponent("content.jpg")
+            return (fileURL, [.removePreviousFile, .createIntermediateDirectories]) }
+        
+        Alamofire.download(contentDownloadEndpoint, parameters: parameters, to: destination)
+            .responseData { resp in
+                guard let data = resp.result.value else {
+                    return
+                }
+                self.contentImageArr.append(UIImage(data: data)!)
+                
+                completionHandler(UIBackgroundFetchResult.newData)
+        }
+    }
+
+    func postTap() {
+        if !contentImageArr.isEmpty {
+            let index = IndexPath(item: 0, section: 0)
+            self.collectionView?.scrollToItem(at: index, at: UICollectionViewScrollPosition.top, animated: true)
+        }
+    }
     
-    
-        return cell
-    }*/
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
+    func friendsTap() {
+        userToListFriend = username!
+        
+        let followers = self.storyboard?.instantiateViewController(withIdentifier: "FriendsTVC") as! FriendsTVC
+        
+        self.navigationController?.pushViewController(followers, animated: true)
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
     
     func presentAlert(alertMessage : String){
         OperationQueue.main.addOperation {

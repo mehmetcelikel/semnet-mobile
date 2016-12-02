@@ -10,7 +10,7 @@ import Foundation
 
 class UserManager: NSObject {
     static let sharedInstance = UserManager()
-
+    
     func saveUserInfo(authToken:String, userId:String, username:String){
         UserDefaults.standard.set(authToken, forKey: "authToken")
         UserDefaults.standard.set(userId, forKey: "userId")
