@@ -19,7 +19,7 @@ class ProfileCVC: UICollectionViewController {
     var user: SemNetUser!
     
     var friendArray = [SemNetUser]()
-    var contentIdArr = [String]()
+    var contentArr = [Content]()
     var contentImageArr = [UIImage]()
     
     override func viewDidLoad() {
@@ -39,11 +39,18 @@ class ProfileCVC: UICollectionViewController {
         }else{
             userId = profileUserId.last
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileCVC.reload), name: NSNotification.Name(rawValue: "reload"), object: nil)
     }
 
     func refresh() {
-        loadContentlist()
+        loadContentList()
         refresher.endRefreshing()
+    }
+    
+    // reloading func after received notification
+    func reload(_ notification:Notification) {
+        collectionView?.reloadData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -73,6 +80,8 @@ class ProfileCVC: UICollectionViewController {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath as IndexPath) as! ProfileHeaderVC
         
+        header.parentVC = self
+        
         UserManager.sharedInstance.getUser(userId: userId) { (response) in
             if(response.0){
                 self.user = response.1
@@ -101,7 +110,7 @@ class ProfileCVC: UICollectionViewController {
             }
         }
         
-        loadContentlist()
+        loadContentList();
         
         let currenctUserId : String? = UserManager.sharedInstance.getUserId()
         if currenctUserId == userId {
@@ -113,6 +122,26 @@ class ProfileCVC: UICollectionViewController {
             header.editButton.setTitle("Edit", for: .normal)
             
             self.navigationItem.title = UserManager.sharedInstance.getUsername().uppercased();
+        }else{
+            var found=false;
+            for object in UserManager.sharedInstance.myFriendArray {
+                if(userId == object.id) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            if(found == false){
+                header.friend = false
+                header.editButton.setTitle("Add Friend", for: UIControlState())
+                header.editButton.setTitleColor(UIColor.black, for: UIControlState())
+                header.editButton.backgroundColor = UIColor.gray
+            }else{
+                header.friend = true
+                header.editButton.setTitle("Remove Friend", for: UIControlState())
+                header.editButton.setTitleColor(UIColor.black, for: UIControlState())
+                header.editButton.backgroundColor = UIColor.green
+            }
         }
         
         // tap friends
@@ -127,56 +156,25 @@ class ProfileCVC: UICollectionViewController {
         header.postsLabel.isUserInteractionEnabled = true
         header.postsLabel.addGestureRecognizer(postsTap)
         
+        
         return header
     }
-
     
-    func loadContentlist() {
-        
-        let authToken = UserManager.sharedInstance.getToken()
-        
-        let parameters: Parameters = [
-            "authToken": authToken,
-            "userId": userId,
-            "type": "SPECIFIED"
-        ]
-        
-        self.contentImageArr.removeAll(keepingCapacity: false)
-        
-        Alamofire.request(contentListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    return
-                }
-                print(json)
+    func loadContentList(){
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                self.contentArr = response.1
                 
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    self.returnToLogin()
-                    return
-                }
-                
-                guard let contentList = json["contentList"] as? NSArray else {
-                    return
-                }
-                
-                if contentList.count == 0 {
-                    return
-                }
-                
-                for anItem in contentList as! [Dictionary<String, AnyObject>] {
-                    let contentId = anItem["id"] as! String
-                    self.contentIdArr.append(contentId)
-                    
-                    ContentManager.sharedInstance.downloadContent(contentId: contentId){ (response) in
-                        if(response.0){
-                            self.contentImageArr.append(response.1)
-                        }else{
-                            self.returnToLogin()
-                        }
+                ContentManager.sharedInstance.fetchContents(contentArr: self.contentArr){ (response) in
+                    if(response.0){
+                        self.contentImageArr = response.1
+                    }else{
+                        self.returnToLogin()
                     }
                 }
+            }else{
+                self.returnToLogin()
+            }
         }
     }
 

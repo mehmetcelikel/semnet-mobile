@@ -32,13 +32,12 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
 
         let authToken = UserManager.sharedInstance.getToken()
         
-        loadUserlist(token: authToken) { (response) in
+        UserManager.sharedInstance.loadUserlist(token: authToken) { (response) in
             if(response.0){
                 self.userArray = response.1
                 self.tableView.reloadData()
             }
         }
-        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,13 +52,18 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! FriendsTVCell
-        
         cell.addRemoveButton.isHidden = true
-        
         let object = userArray[indexPath.row]
-        
         cell.usernameLabel.text = object.username
-        cell.userId = object.id
+        
+        UserManager.sharedInstance.downloadImage(userId: object.id){ (response) in
+            
+            cell.userId = object.id
+            
+            if(response.0){
+                cell.friendImage.image=response.1
+            }
+        }
         
         return cell
     }
@@ -96,7 +100,7 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
         searchBar.text = ""
     
         let authToken = UserManager.sharedInstance.getToken()
-        loadUserlist(token: authToken) { (response) in
+        UserManager.sharedInstance.loadUserlist(token: authToken) { (response) in
             if(response.0){
                 self.userArray = response.1
                 self.tableView.reloadData()
@@ -107,8 +111,7 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
     // search updated
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        let authToken = UserManager.sharedInstance.getToken()
-        searchUsers(token: authToken, queryString: self.searchBar.text!) { (response) in
+        UserManager.sharedInstance.searchUsers(queryString: self.searchBar.text!) { (response) in
             if(response.0){
                 self.userArray = response.1
                 self.tableView.reloadData()
@@ -117,96 +120,4 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
         
         return true
     }
-    
-    func loadUserlist(token: String, callback: @escaping (Bool,Array<SemNetUser>) -> ()) {
-        
-        let parameters: Parameters = [
-            "authToken": token
-        ]
-        
-        Alamofire.request(userListAllEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                var userArray = [SemNetUser]()
-                
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    callback(false, userArray)
-                    return
-                }
-                print(json)
-                
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    callback(false, userArray)
-                    return
-                }
-                
-                guard let userList = json["userList"] as? NSArray else {
-                    callback(true, userArray)
-                    return
-                }
-                
-                if userList.count == 0 {
-                    callback(true, userArray)
-                    return
-                }
-                
-                for anItem in userList as! [Dictionary<String, AnyObject>] {
-                    let personName = anItem["username"] as! String
-                    let personID = anItem["id"] as! String
-                    let firstname = anItem["firstname"] as! String
-                    let lastname = anItem["lastname"] as! String
-                    
-                    userArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname))
-                }
-                callback(true, userArray)
-        }
-    }
-    
-    func searchUsers(token: String, queryString: String, callback: @escaping (Bool,Array<SemNetUser>) -> ()) {
-        
-        let parameters: Parameters = [
-            "authToken": token,
-            "queryString": queryString
-        ]
-        
-        Alamofire.request(userSearchEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                var userArray = [SemNetUser]()
-                
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    callback(false, userArray)
-                    return
-                }
-                print(json)
-                
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    callback(false, userArray)
-                    return
-                }
-                
-                guard let userList = json["userList"] as? NSArray else {
-                    callback(true, userArray)
-                    return
-                }
-                
-                if userList.count == 0 {
-                    callback(true, userArray)
-                    return
-                }
-                
-                for anItem in userList as! [Dictionary<String, AnyObject>] {
-                    let personName = anItem["username"] as! String
-                    let personID = anItem["id"] as! String
-                    let firstname = anItem["firstname"] as! String
-                    let lastname = anItem["lastname"] as! String
-                    
-                    userArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname))
-                }
-                callback(true, userArray)
-        }
-    }
-
 }

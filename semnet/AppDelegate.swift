@@ -20,6 +20,7 @@ let userImageUploadEndpoint: String = userBaseURL + "/upload"
 let userImageDownloadEndpoint: String = userBaseURL + "/download"
 let userListAllEndpoint: String = userBaseURL + "/queryAllUsers"
 let userSearchEndpoint: String = userBaseURL + "/query"
+let userUpdateEndpoint: String = userBaseURL + "/update"
 
 let friendListEndpoint: String = friendBaseURL + "/listFriends"
 

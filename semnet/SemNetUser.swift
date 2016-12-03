@@ -9,15 +9,19 @@
 import Foundation
 
 struct SemNetUser {
-    let id: String
-    let username: String
-    let firstname: String
-    let lastname: String
+    var id: String!
+    var username: String!
+    var firstname: String!
+    var lastname: String!
+    var password: String!
     
     init(id: String, username: String, firstname: String, lastname: String) {
         self.id = id
         self.username = username
         self.firstname = firstname
         self.lastname = lastname
+    }
+    
+    init(){
     }
 }

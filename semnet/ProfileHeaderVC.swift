@@ -21,6 +21,19 @@ class ProfileHeaderVC: UICollectionReusableView {
     @IBOutlet weak var postsTitle: UILabel!
     @IBOutlet weak var friendsTitle: UILabel!
     
+    var parentVC: ProfileCVC!
+    var friend:Bool!
     
+    @IBAction func editButtonClick(_ sender: Any) {
+        
+        let userId = UserManager.sharedInstance.getUserId()
+        
+        if parentVC.userId == userId {
+            let storyboard = UIStoryboard(name: "Main", bundle:nil)
+            let home = storyboard.instantiateViewController(withIdentifier: "EditProfileVC") as! NavigationVC
+            parentVC.present(home, animated: true, completion: nil)
+            
+        } 
+    }
     
 }

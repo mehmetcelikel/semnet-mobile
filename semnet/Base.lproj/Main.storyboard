@@ -193,6 +193,88 @@
             </objects>
             <point key="canvasLocation" x="911" y="43"/>
         </scene>
+        <!--Edit ProfileVC-->
+        <scene sceneID="olb-GY-XTm">
+            <objects>
+                <viewController id="LRd-67-8IR" customClass="EditProfileVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J5c-0b-Q5G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="b51-lS-Boc">
+                                <rect key="frame" x="0.0" y="0.0" width="380" height="670"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="l1z-zj-fru">
+                                        <rect key="frame" x="292" y="13" width="70" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Firstname" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="pJn-o7-T0H">
+                                        <rect key="frame" x="8" y="13" width="276" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lastname" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="95f-c0-xDc">
+                                        <rect key="frame" x="8" y="51" width="276" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="cjh-Yc-gcf">
+                                        <rect key="frame" x="8" y="89" width="354" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="jrq-qB-ogC">
+                                        <rect key="frame" x="8" y="127" width="354" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Gender" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="QUY-e3-EHP">
+                                        <rect key="frame" x="8" y="165" width="354" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="KAo-LB-Uvs">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="V54-28-w96">
+                            <connections>
+                                <action selector="cancelButtonClick:" destination="LRd-67-8IR" id="w3V-Tq-kTA"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Update" id="4pJ-t5-BkP">
+                            <connections>
+                                <action selector="updateButtonClick:" destination="LRd-67-8IR" id="DPt-SE-W4k"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="cjh-Yc-gcf" id="jPQ-Bc-zjU"/>
+                        <outlet property="firstnameLabel" destination="pJn-o7-T0H" id="Pd9-AZ-7S4"/>
+                        <outlet property="genderLabel" destination="QUY-e3-EHP" id="Sri-Yx-8cD"/>
+                        <outlet property="lastnameLabel" destination="95f-c0-xDc" id="qC2-eh-Req"/>
+                        <outlet property="phoneLabel" destination="jrq-qB-ogC" id="a0x-2A-9Yu"/>
+                        <outlet property="profileImage" destination="l1z-zj-fru" id="JIj-1M-rOB"/>
+                        <outlet property="scrollview" destination="b51-lS-Boc" id="rMd-ya-A5x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xsk-Ta-fOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2545.5" y="-753.5"/>
+        </scene>
         <!--ProfileCVC-->
         <scene sceneID="I06-lr-0Tv">
             <objects>
@@ -278,6 +360,9 @@
                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </state>
+                                    <connections>
+                                        <action selector="editButtonClick:" destination="Lof-Pb-fAb" eventType="touchUpInside" id="vaH-yB-xC0"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <connections>
@@ -448,6 +533,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fG8-Es-pnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="911" y="931"/>
+        </scene>
+        <!--NavigationVC-->
+        <scene sceneID="XmU-Sg-zXR">
+            <objects>
+                <navigationController storyboardIdentifier="EditProfileVC" automaticallyAdjustsScrollViewInsets="NO" id="hbD-DY-zdB" customClass="NavigationVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xEX-NP-kh7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="LRd-67-8IR" kind="relationship" relationship="rootViewController" id="coy-LZ-HGT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="agy-mh-oK8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1958.5" y="-753.5"/>
         </scene>
     </scenes>
     <resources>

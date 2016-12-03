@@ -105,16 +105,23 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return
         }
 
-         let createParams : [String: Any] =
-            ["username" : usernameTxtField.text!,
-             "password" : passwordTxtField.text!,
-             "firstname" : firstnameTxtField.text!,
-             "lastname" : lastnameTxtField.text!
-            ]
+        let id = UserManager.sharedInstance.getUserId()
         
-        createUser(parameters: createParams, completionHandler:{(UIBackgroundFetchResult) -> Void in
-            self.uploadUserImage()
-        })
+        var user = SemNetUser(id: id, username: usernameTxtField.text!, firstname: firstnameTxtField.text!, lastname: lastnameTxtField.text!)
+        user.password = passwordTxtField.text!
+        
+        UserManager.sharedInstance.createUser(user: user){ (response) in
+            if(response){
+                
+                UserManager.sharedInstance.uploadUserImage(image: self.avatarImg.image){ (response) in
+                    if(response){
+                        
+                        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.login()
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func cancelBtn_click(_ sender: Any) {
@@ -122,62 +129,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.dismiss(animated: true, completion: nil)
     }
     
-    func createUser(parameters: Parameters, completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
-        Alamofire.request(userCreateEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    self.presentAlert(alertMessage: "An error occured while creating user")
-                    return
-                }
-                print(json)
-                
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    self.presentAlert(alertMessage: "An error occured while creating user")
-                    return
-                }
-                
-                UserManager.sharedInstance.saveUserInfo(authToken: (json["token"] as! String?)!, userId: (json["id"] as! String?)!, username: self.usernameTxtField.text!)
-
-                completionHandler(UIBackgroundFetchResult.newData)
-        }
-    }
     
-    func uploadUserImage(){
-        let authToken = UserManager.sharedInstance.getToken()
-        let userId = UserManager.sharedInstance.getUserId()
-        
-        if avatarImg.image == nil {
-            let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.login()
-            return
-        }
-        
-        let imageData = UIImageJPEGRepresentation(avatarImg.image!, 0.5)
-        
-        Alamofire.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(imageData!, withName: "file", fileName: "imageFileName.jpg", mimeType: "image/jpeg")
-                multipartFormData.append((authToken.data(using: String.Encoding.utf8)!), withName :"authToken")
-                multipartFormData.append((userId.data(using: String.Encoding.utf8)!), withName :"userId")
-        },
-            to: userImageUploadEndpoint,
-            encodingCompletion: { encodingResult in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    upload.responseJSON { (JSON) in
-                        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.login()
-                    }
-                    
-                case .failure:
-                    //Show Alert in UI
-                    self.presentAlert(alertMessage: "Error occured while uploading photo")
-                }
-        }
-        );
-    }
     
     func presentAlert(alertMessage : String){
         let alert = UIAlertController(title: "Warning", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
