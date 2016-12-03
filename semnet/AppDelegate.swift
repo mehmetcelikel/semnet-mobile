@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 let userBaseURL = "http://107.170.24.239:9000/v1/user/"
 let friendBaseURL = "http://107.170.24.239:9000/v1/friend/"
@@ -17,6 +18,8 @@ let userCreateEndpoint: String = userBaseURL + "/create"
 let userGetEndpoint: String = userBaseURL + "/get"
 let userImageUploadEndpoint: String = userBaseURL + "/upload"
 let userImageDownloadEndpoint: String = userBaseURL + "/download"
+let userListAllEndpoint: String = userBaseURL + "/queryAllUsers"
+let userSearchEndpoint: String = userBaseURL + "/query"
 
 let friendListEndpoint: String = friendBaseURL + "/listFriends"
 
@@ -73,12 +76,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // if logged in
         if authToken != nil {
             
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let myTabBar = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-            window?.rootViewController = myTabBar
+            UserManager.sharedInstance.loadFriendlist(token: authToken!) { (response) in
+                    if(response.0){
+                        UserManager.sharedInstance.myFriendArray = response.1
+                        
+                        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let myTabBar = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+                        self.window?.rootViewController = myTabBar
+                    }
+                }
+            }
         }
         
     }
+    
 
-}
+
+
 

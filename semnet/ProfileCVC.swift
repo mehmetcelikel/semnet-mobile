@@ -9,19 +9,18 @@
 import UIKit
 import Alamofire
 
+var profileUserId = [String]()
+
 class ProfileCVC: UICollectionViewController {
 
     var refresher : UIRefreshControl!
     
     var userId:String!
-    var firstname:String!
-    var lastname:String!
-    var username:String!
-    var friendCount = 0
+    var user: SemNetUser!
+    
+    var friendArray = [SemNetUser]()
     var contentIdArr = [String]()
     var contentImageArr = [UIImage]()
-    
-    var profileImage:UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +28,17 @@ class ProfileCVC: UICollectionViewController {
         collectionView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         collectionView?.backgroundColor = .white
         
-        
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(ProfileCVC.refresh), for: UIControlEvents.valueChanged)
         collectionView?.addSubview(refresher)
         
         self.collectionView?.alwaysBounceVertical = true
         
+        if profileUserId.last == nil {
+            userId = UserManager.sharedInstance.getUserId()
+        }else{
+            userId = profileUserId.last
+        }
     }
 
     func refresh() {
@@ -70,25 +73,37 @@ class ProfileCVC: UICollectionViewController {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath as IndexPath) as! ProfileHeaderVC
         
-        let currenctUserId : String? = UserManager.sharedInstance.getUserId()
-        if userId == nil {
-           userId = currenctUserId
+        UserManager.sharedInstance.getUser(userId: userId) { (response) in
+            if(response.0){
+                self.user = response.1
+                self.navigationItem.title = self.user.username.uppercased();
+                header.nameLabel.text = self.user.firstname + " " + response.1.lastname
+            }else{
+                self.returnToLogin()
+            }
         }
+        let token = UserManager.sharedInstance.getToken()
         
-        loadUserDetail(completionHandler:{(UIBackgroundFetchResult) -> Void in
-            header.nameLabel.text = self.firstname! + " " + self.lastname!
-        })
-        
-        loadFriendlist(completionHandler:{(UIBackgroundFetchResult) -> Void in
-            header.friendsLabel.text = String(self.friendCount)
-        })
+        UserManager.sharedInstance.loadFriendlist(token: token) { (response) in
+            if(response.0){
+                self.friendArray = response.1
+                header.friendsLabel.text = String(self.friendArray.count)
+            }else{
+                self.returnToLogin()
+            }
+        }
 
-        downloadProfileImage(completionHandler:{(UIBackgroundFetchResult) -> Void in
-            header.profileImage.image = self.profileImage
-        })
+        UserManager.sharedInstance.downloadImage(userId: userId){ (response) in
+            if(response.0){
+                header.profileImage.image = response.1
+            }else{
+                self.returnToLogin()
+            }
+        }
         
         loadContentlist()
         
+        let currenctUserId : String? = UserManager.sharedInstance.getUserId()
         if currenctUserId == userId {
             
             let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
@@ -114,82 +129,7 @@ class ProfileCVC: UICollectionViewController {
         
         return header
     }
-    
-    func loadUserDetail(completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
-        
-        let authToken = UserManager.sharedInstance.getToken()
-        
-        let parameters: Parameters = [
-            "authToken": authToken,
-            "id": userId!
-        ]
-        
-        Alamofire.request(userGetEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    self.returnToLogin()
-                    return
-                }
-                print(json)
-                
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    self.returnToLogin()
-                    return
-                }
-                
-                self.firstname = json["firstname"] as! String?
-                self.lastname = json["lastname"] as! String?
-                self.username = json["username"] as! String?
-                
-                self.navigationItem.title = self.username.uppercased();
-                
-                completionHandler(UIBackgroundFetchResult.newData)
-        }
-    }
-    
-    func loadFriendlist(completionHandler: ((UIBackgroundFetchResult)     -> Void)!) {
-        
-        let authToken = UserManager.sharedInstance.getToken()
-        
-        let parameters: Parameters = [
-            "authToken": authToken
-        ]
-        
-        Alamofire.request(friendListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    return
-                }
-                print(json)
-                
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    self.returnToLogin()
-                    return
-                }
-                
-                guard let friendList = json["userList"] as? NSArray else {
-                    return
-                }
-                
-                if friendList.count == 0 {
-                    return
-                }
-                self.friendCount = friendList.count
-                
-                for anItem in friendList as! [Dictionary<String, AnyObject>] {
-                    let personName = anItem["username"] as! String
-                    let personID = anItem["id"] as! Int
-                
-                    print(personName)
-                    print(personID)
-                }
-                completionHandler(UIBackgroundFetchResult.newData)
-        }
-    }
+
     
     func loadContentlist() {
         
@@ -200,6 +140,8 @@ class ProfileCVC: UICollectionViewController {
             "userId": userId,
             "type": "SPECIFIED"
         ]
+        
+        self.contentImageArr.removeAll(keepingCapacity: false)
         
         Alamofire.request(contentListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
@@ -226,64 +168,15 @@ class ProfileCVC: UICollectionViewController {
                 for anItem in contentList as! [Dictionary<String, AnyObject>] {
                     let contentId = anItem["id"] as! String
                     self.contentIdArr.append(contentId)
-                    self.getContent(contentId: contentId, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                    })
+                    
+                    ContentManager.sharedInstance.downloadContent(contentId: contentId){ (response) in
+                        if(response.0){
+                            self.contentImageArr.append(response.1)
+                        }else{
+                            self.returnToLogin()
+                        }
+                    }
                 }
-    
-        }
-    }
-    
-    func downloadProfileImage(completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
-        
-        let authToken = UserManager.sharedInstance.getToken()
-        
-        let parameters: Parameters = [
-            "authToken": authToken,
-            "userId": userId
-        ]
-        
-        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                    .userDomainMask, true)[0]
-            let documentsURL = URL(fileURLWithPath: documentsPath, isDirectory: true)
-            let fileURL = documentsURL.appendingPathComponent("image.png")
-            return (fileURL, [.removePreviousFile, .createIntermediateDirectories]) }
-        
-            Alamofire.download(userImageDownloadEndpoint, parameters: parameters, to: destination)
-            .responseData { resp in
-                guard let data = resp.result.value else {
-                    return
-                }
-                self.profileImage = UIImage(data: data)
-                
-                completionHandler(UIBackgroundFetchResult.newData)
-        }
-    }
-    
-    func getContent(contentId:String, completionHandler: ((UIBackgroundFetchResult)     -> Void)!){
-        
-        let authToken = UserManager.sharedInstance.getToken()
-        
-        let parameters: Parameters = [
-            "authToken": authToken,
-            "contentId": contentId
-        ]
-        
-        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                    .userDomainMask, true)[0]
-            let documentsURL = URL(fileURLWithPath: documentsPath, isDirectory: true)
-            let fileURL = documentsURL.appendingPathComponent("content.jpg")
-            return (fileURL, [.removePreviousFile, .createIntermediateDirectories]) }
-        
-        Alamofire.download(contentDownloadEndpoint, parameters: parameters, to: destination)
-            .responseData { resp in
-                guard let data = resp.result.value else {
-                    return
-                }
-                self.contentImageArr.append(UIImage(data: data)!)
-                
-                completionHandler(UIBackgroundFetchResult.newData)
         }
     }
 
@@ -295,7 +188,8 @@ class ProfileCVC: UICollectionViewController {
     }
     
     func friendsTap() {
-        userToListFriend = username!
+        userToListFriend = user.id
+        friendArrayToBelListed = friendArray
         
         let followers = self.storyboard?.instantiateViewController(withIdentifier: "FriendsTVC") as! FriendsTVC
         
