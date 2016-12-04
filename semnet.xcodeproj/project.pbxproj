@@ -47,6 +47,7 @@
 		6383084E1DF4588000067E17 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383084D1DF4588000067E17 /* TabBarVC.swift */; };
 		638308501DF45B7F00067E17 /* PhotoLibManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383084F1DF45B7F00067E17 /* PhotoLibManager.swift */; };
 		638308521DF4623E00067E17 /* PhotoLibCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308511DF4623E00067E17 /* PhotoLibCell.swift */; };
+		638308541DF47F8500067E17 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308531DF47F8500067E17 /* PostVC.swift */; };
 		6645A555E2C5A6A3FD147073 /* Pods_semnetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		6383084D1DF4588000067E17 /* TabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		6383084F1DF45B7F00067E17 /* PhotoLibManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibManager.swift; sourceTree = "<group>"; };
 		638308511DF4623E00067E17 /* PhotoLibCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibCell.swift; sourceTree = "<group>"; };
+		638308531DF47F8500067E17 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		E2C7A590F9ACC52F33110809 /* Pods_semnet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnet.release.xcconfig"; path = "Pods/Target Support Files/Pods-semnet/Pods-semnet.release.xcconfig"; sourceTree = "<group>"; };
@@ -208,9 +210,10 @@
 				638308371DF3203F00067E17 /* NavigationVC.swift */,
 				6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */,
 				6383083F1DF362EF00067E17 /* EditProfileVC.swift */,
-				638308491DF4553E00067E17 /* PhotoLibVC.swift */,
 				6383084D1DF4588000067E17 /* TabBarVC.swift */,
+				638308491DF4553E00067E17 /* PhotoLibVC.swift */,
 				638308511DF4623E00067E17 /* PhotoLibCell.swift */,
+				638308531DF47F8500067E17 /* PostVC.swift */,
 			);
 			path = semnet;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				TargetAttributes = {
 					6335B53D1DEB597B007A62F0 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = AGBLUEDS86;
 						ProvisioningStyle = Automatic;
 					};
 					6335B5511DEB597C007A62F0 = {
@@ -578,6 +582,7 @@
 				638308401DF362EF00067E17 /* EditProfileVC.swift in Sources */,
 				638308361DF31F0000067E17 /* SearchTVC.swift in Sources */,
 				638308501DF45B7F00067E17 /* PhotoLibManager.swift in Sources */,
+				638308541DF47F8500067E17 /* PostVC.swift in Sources */,
 				6335B5701DEB59E5007A62F0 /* SignInVC.swift in Sources */,
 				6335B5721DEB5EDE007A62F0 /* SignUpVC.swift in Sources */,
 				6335B5841DEF558E007A62F0 /* ProfileHeaderVC.swift in Sources */,
@@ -740,6 +745,7 @@
 			baseConfigurationReference = 42C1C6F8CD0EF779FC129DB2 /* Pods-semnet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AGBLUEDS86;
 				INFOPLIST_FILE = semnet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnet;
@@ -753,6 +759,7 @@
 			baseConfigurationReference = F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AGBLUEDS86;
 				INFOPLIST_FILE = semnet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.boun.semnet;

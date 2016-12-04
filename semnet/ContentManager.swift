@@ -12,12 +12,77 @@ import Alamofire
 class ContentManager: NSObject {
     static let sharedInstance = ContentManager()
     
+    func createContent(description: String, callback: @escaping (Bool, String) -> ())  {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let createParams : [String: Any] =
+            ["authToken" : authToken!,
+             "description" : description
+        ]
+        
+        Alamofire.request(contentCreateEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                var contentId = "" as? String
+                
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    callback(false, contentId!)
+                    return
+                }
+                print(json)
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    callback(false, contentId!)
+                    return
+                }
+                contentId = json["id"] as! String?
+                
+                callback(true, contentId!)
+        }
+    }
+    
+    func uploadContent(image: UIImage!, contentId: String, callback: @escaping (Bool) -> ()){
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        if image == nil {
+            callback(true)
+            return
+        }
+        
+        let imageData = UIImageJPEGRepresentation(image!, 0.4)
+        
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData!, withName: "file", fileName: "imageFileName.jpg", mimeType: "image/jpeg")
+                multipartFormData.append((authToken!.data(using: String.Encoding.utf8)!), withName :"authToken")
+                multipartFormData.append((contentId.data(using: String.Encoding.utf8)!), withName :"contentId")
+        },
+            to: contentUploadEndpoint,
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { (JSON) in
+                        callback(true)
+                    }
+                    
+                case .failure:
+                    //Show Alert in UI
+                    callback(false)
+                }
+        }
+        );
+    }
+    
     func loadContentlist(userId: String, callback: @escaping (Bool,Array<Content>) -> ()) {
         
         let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
-            "authToken": authToken,
+            "authToken": authToken!,
             "userId": userId,
             "type": "SPECIFIED"
         ]
@@ -57,26 +122,12 @@ class ContentManager: NSObject {
         }
     }
     
-    func fetchContentsOfFriends(contentArr: [Content], callback: @escaping (Bool,Array<UIImage>) -> ()){
-        
-        var contentImageArr = [UIImage]()
-        
-        for object in FriendManager.sharedInstance.myFriendArray {
-            downloadContent(contentId: object.id){ (response) in
-                if(response.0){
-                    contentImageArr.append(response.1)
-                }
-            }
-        }
-        callback(true, contentImageArr)
-    }
-    
     func downloadContent(contentId: String, callback: @escaping (Bool,UIImage) -> ()){
         
         let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
-            "authToken": authToken,
+            "authToken": authToken!,
             "contentId": contentId
         ]
         
@@ -96,7 +147,7 @@ class ContentManager: NSObject {
                 if let image = UIImage(data: data) {
                     callback(true, image)
                 }else{
-                    callback(true, UIImage(named: "pp.jpg.gif")!)
+                    callback(true, UIImage())
                 }
         }
     }

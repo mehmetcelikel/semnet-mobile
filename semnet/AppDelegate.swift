@@ -28,7 +28,9 @@ let friendRemoveEndpoint: String = friendBaseURL + "/removeFriend"
 
 let contentListEndpoint: String = contentBaseURL + "/list"
 let contentGetEndpoint: String = contentBaseURL + "/get"
-let contentDownloadEndpoint: String = contentBaseURL + "/download"
+let contentCreateEndpoint: String = contentBaseURL + "/create"
+let contentDownloadEndpoint: String = contentBaseURL + "/downloadContent"
+let contentUploadEndpoint: String = contentBaseURL + "/upload"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;
@@ -80,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if authToken != nil {
             let userId = UserManager.sharedInstance.getUserId()
             
-            FriendManager.sharedInstance.loadFriendlist(userId: userId) { (response) in
+            FriendManager.sharedInstance.loadFriendlist(userId: userId!) { (response) in
                     if(response.0){
                         FriendManager.sharedInstance.myFriendArray = response.1
                         

@@ -476,7 +476,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4W8-ep-uUg" id="yZu-ae-EYq">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pp.jpg.gif" id="2FW-cs-RvV">
@@ -514,7 +514,52 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztZ-IG-2UK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1497.5" y="930.5"/>
+            <point key="canvasLocation" x="2084.5" y="930.5"/>
+        </scene>
+        <!--PostVC-->
+        <scene sceneID="BFg-pK-iPI">
+            <objects>
+                <viewController storyboardIdentifier="PostVC" id="iEf-Pe-2VK" customClass="PostVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EKQ-8H-rGf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="bre-vm-qIJ">
+                                <rect key="frame" x="0.0" y="70" width="380" height="304"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="PDV-xk-WV4">
+                                <rect key="frame" x="3" y="382" width="375" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rji-T7-9hD">
+                                <rect key="frame" x="0.0" y="554" width="375" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.8696557586" green="0.3994907459" blue="0.98349558250000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="POST">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="0.8696557586" green="0.3994907459" blue="0.98349558250000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="postButtonClick:" destination="iEf-Pe-2VK" eventType="touchUpInside" id="WQc-fM-2oq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BeB-L7-by7"/>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="PDV-xk-WV4" id="DYd-o9-9eH"/>
+                        <outlet property="imageView" destination="bre-vm-qIJ" id="QGA-yV-3gI"/>
+                        <outlet property="postButton" destination="rji-T7-9hD" id="5Lb-Xd-Xyd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9iE-jC-kYo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="819.5" y="957.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="QjP-76-feN">
@@ -533,7 +578,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fG8-Es-pnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="931"/>
+            <point key="canvasLocation" x="1497.5" y="930.5"/>
         </scene>
         <!--Photo LibVC-->
         <scene sceneID="4j6-tq-lsz">
@@ -642,6 +687,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTc-5w-ac9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="911" y="-754"/>
+        </scene>
+        <!--NavigationVC-->
+        <scene sceneID="ENb-ms-b6I">
+            <objects>
+                <navigationController storyboardIdentifier="PostVCNav" automaticallyAdjustsScrollViewInsets="NO" id="T4T-fI-wTR" customClass="NavigationVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cp3-2x-so3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="iEf-Pe-2VK" kind="relationship" relationship="rootViewController" id="xKp-RN-bHy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IhN-uy-0qm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="232.5" y="957.5"/>
         </scene>
     </scenes>
     <resources>

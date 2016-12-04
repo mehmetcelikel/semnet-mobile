@@ -20,11 +20,13 @@ class ProfileCVC: UICollectionViewController {
     
     var friendArray = [SemNetUser]()
     var contentArr = [Content]()
-    var contentImageArr = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
+        
         collectionView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         collectionView?.backgroundColor = .white
         
@@ -40,11 +42,29 @@ class ProfileCVC: UICollectionViewController {
             userId = profileUserId.last
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ProfileCVC.reload), name: NSNotification.Name(rawValue: "reload"), object: nil)
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                self.contentArr = response.1
+                self.collectionView?.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileCVC.reload(_:)), name: NSNotification.Name(rawValue: "reload"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileCVC.uploaded(_:)), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
     }
 
     func refresh() {
-        loadContentList()
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                self.contentArr = response.1
+                self.collectionView?.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
         refresher.endRefreshing()
     }
     
@@ -53,12 +73,25 @@ class ProfileCVC: UICollectionViewController {
         collectionView?.reloadData()
     }
     
+    // reloading func after received notification
+    func uploaded(_ notification:Notification) {
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                self.contentArr = response.1
+                self.collectionView?.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+        collectionView?.reloadData()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contentImageArr.count
+        return contentArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        let size = CGSize(width: self.view.frame.size.width / 4, height: self.view.frame.size.width / 4)
         return size
     }
 
@@ -67,7 +100,14 @@ class ProfileCVC: UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ProfileCVCCell
         
-        cell.image.image = contentImageArr[indexPath.row]
+        ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+            if(response.0){
+                print("content has been downloaded")
+                cell.image.image = response.1
+            }else{
+                print("error occured")
+            }
+        }
         
         return cell
     }
@@ -81,12 +121,13 @@ class ProfileCVC: UICollectionViewController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath as IndexPath) as! ProfileHeaderVC
         
         header.parentVC = self
+        header.postsLabel.text = String(self.contentArr.count)
         
         UserManager.sharedInstance.getUser(userId: userId) { (response) in
             if(response.0){
                 self.user = response.1
+                header.nameLabel.text = self.user.firstname + " " + self.user.lastname
                 self.navigationItem.title = self.user.username.uppercased();
-                header.nameLabel.text = self.user.firstname + " " + response.1.lastname
             }else{
                 self.returnToLogin()
             }
@@ -108,9 +149,7 @@ class ProfileCVC: UICollectionViewController {
                 self.returnToLogin()
             }
         }
-        
-        loadContentList();
-        
+
         let currenctUserId : String? = UserManager.sharedInstance.getUserId()
         if currenctUserId == userId {
             
@@ -164,27 +203,9 @@ class ProfileCVC: UICollectionViewController {
         
         return header
     }
-    
-    func loadContentList(){
-        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
-            if(response.0){
-                self.contentArr = response.1
-                
-                ContentManager.sharedInstance.fetchContentsOfFriends(contentArr: self.contentArr){ (response) in
-                    if(response.0){
-                        self.contentImageArr = response.1
-                    }else{
-                        self.returnToLogin()
-                    }
-                }
-            }else{
-                self.returnToLogin()
-            }
-        }
-    }
 
     func postTap() {
-        if !contentImageArr.isEmpty {
+        if !contentArr.isEmpty {
             let index = IndexPath(item: 0, section: 0)
             self.collectionView?.scrollToItem(at: index, at: UICollectionViewScrollPosition.top, animated: true)
         }

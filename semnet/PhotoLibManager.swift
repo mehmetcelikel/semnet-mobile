@@ -1,11 +1,3 @@
-//
-//  PhotoLibManager.swift
-//  semnet
-//
-//  Created by ceyda on 04/12/16.
-//  Copyright © 2016 celikel. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Photos
@@ -20,18 +12,13 @@ class PhotoLibManager: NSObject {
         
         let fetchOptions = PHFetchOptions()
         
-        
         let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .moment, subtype: .any, options: fetchOptions)
         
-        assetCollection = collection.firstObject// camera roll's data
+        assetCollection = collection.firstObject
         
-        
-        
-        //- albumdeki fotolar
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "modificationDate",
-                                                    ascending: false)]//en yenisi en tepede gozuksun
-        
+                                                    ascending: false)]
         
         photosAsset = PHAsset.fetchAssets(in: assetCollection, options: options)
         let imageManager = PHCachingImageManager()

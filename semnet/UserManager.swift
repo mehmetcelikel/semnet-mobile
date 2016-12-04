@@ -28,16 +28,16 @@ class UserManager: NSObject {
         UserDefaults.standard.synchronize()
     }
     
-    func getToken() -> String{
-        return UserDefaults.standard.string(forKey: "authToken")!
+    func getToken() -> String!{
+        return UserDefaults.standard.string(forKey: "authToken")
     }
     
-    func getUsername() -> String{
-        return UserDefaults.standard.string(forKey: "username")!
+    func getUsername() -> String!{
+        return UserDefaults.standard.string(forKey: "username")
     }
     
-    func getUserId() -> String{
-        return UserDefaults.standard.string(forKey: "userId")!
+    func getUserId() -> String!{
+        return UserDefaults.standard.string(forKey: "userId")
     }
     
     
@@ -46,7 +46,7 @@ class UserManager: NSObject {
         let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
-            "authToken": authToken,
+            "authToken": authToken!,
             "id": userId
         ]
         
@@ -123,8 +123,8 @@ class UserManager: NSObject {
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(imageData!, withName: "file", fileName: "imageFileName.jpg", mimeType: "image/jpeg")
-                multipartFormData.append((authToken.data(using: String.Encoding.utf8)!), withName :"authToken")
-                multipartFormData.append((userId.data(using: String.Encoding.utf8)!), withName :"userId")
+                multipartFormData.append((authToken!.data(using: String.Encoding.utf8)!), withName :"authToken")
+                multipartFormData.append((userId!.data(using: String.Encoding.utf8)!), withName :"userId")
         },
             to: userImageUploadEndpoint,
             encodingCompletion: { encodingResult in
@@ -147,7 +147,7 @@ class UserManager: NSObject {
         let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
-            "authToken": authToken,
+            "authToken": authToken!,
             "id": user.id!,
             "firstname": user.firstname,
             "lastname": user.lastname
@@ -269,7 +269,7 @@ class UserManager: NSObject {
         let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
-            "authToken": authToken,
+            "authToken": authToken!,
             "userId": userId
         ]
         

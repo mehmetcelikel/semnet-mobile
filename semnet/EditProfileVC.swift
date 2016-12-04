@@ -55,14 +55,14 @@ class EditProfileVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         
         let userId = UserManager.sharedInstance.getUserId()
         
-        UserManager.sharedInstance.getUser(userId: userId) { (response) in
+        UserManager.sharedInstance.getUser(userId: userId!) { (response) in
             if(response.0){
                 self.firstnameLabel.text = response.1.firstname
                 self.lastnameLabel.text = response.1.lastname
             }
         }
         
-        UserManager.sharedInstance.downloadImage(userId: userId){ (response) in
+        UserManager.sharedInstance.downloadImage(userId: userId!){ (response) in
             if(response.0){
                 self.profileImage.image = response.1
             }
@@ -87,7 +87,7 @@ class EditProfileVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         let userId = UserManager.sharedInstance.getUserId()
         let username = UserManager.sharedInstance.getUsername()
         
-        let user = SemNetUser(id: userId, username: username, firstname: firstnameLabel.text!, lastname: lastnameLabel.text!)
+        let user = SemNetUser(id: userId!, username: username!, firstname: firstnameLabel.text!, lastname: lastnameLabel.text!)
         
         UserManager.sharedInstance.updateUser(user: user){ (response) in
             if(response){
@@ -107,8 +107,6 @@ class EditProfileVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     func hideKeyboard() {
         self.view.endEditing(true)
     }
-    
-    
     
     func keyboardWillShow(_ notification: Notification) {
         

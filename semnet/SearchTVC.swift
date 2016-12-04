@@ -32,7 +32,7 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
 
         let authToken = UserManager.sharedInstance.getToken()
         
-        UserManager.sharedInstance.loadUserlist(token: authToken) { (response) in
+        UserManager.sharedInstance.loadUserlist(token: authToken!) { (response) in
             if(response.0){
                 self.userArray = response.1
                 self.tableView.reloadData()
@@ -100,7 +100,7 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
         searchBar.text = ""
     
         let authToken = UserManager.sharedInstance.getToken()
-        UserManager.sharedInstance.loadUserlist(token: authToken) { (response) in
+        UserManager.sharedInstance.loadUserlist(token: authToken!) { (response) in
             if(response.0){
                 self.userArray = response.1
                 self.tableView.reloadData()

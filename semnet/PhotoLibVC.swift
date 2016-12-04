@@ -189,36 +189,11 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     func choose_click(_ sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "Main", bundle:nil)
+        let home = storyboard.instantiateViewController(withIdentifier: "PostVC") as! PostVC
+        home.image = imageView.image
         
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Question", message: nil, preferredStyle: .actionSheet)
-        
-        //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            //Do some stuff
-        }
-        actionSheetController.addAction(cancelAction)
-        //Create and add first option action
-        let whatAction: UIAlertAction = UIAlertAction(title: "What is this?", style: .default) { action -> Void in
-            
-        }
-        actionSheetController.addAction(whatAction)
-        //Create and add a second option action
-        let whereAction: UIAlertAction = UIAlertAction(title: "Where is this place?", style: .default) { action -> Void in
-            
-        }
-        actionSheetController.addAction(whereAction)
-        
-        let whoAction: UIAlertAction = UIAlertAction(title: "Who is this?", style: .default) { action -> Void in
-            
-        }
-        actionSheetController.addAction(whoAction)
-        
-        // need to provide a popover
-        actionSheetController.popoverPresentationController?.sourceView = sender as AnyObject as? UIView;
-        
-        //Present the AlertController
-        self.present(actionSheetController, animated: true, completion: nil)
+        self.present(home, animated: true, completion: nil)
     }
     
     func close_click(_ sender: AnyObject) {
