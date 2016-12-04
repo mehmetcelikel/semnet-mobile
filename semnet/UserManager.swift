@@ -12,8 +12,6 @@ import Alamofire
 class UserManager: NSObject {
     static let sharedInstance = UserManager()
     
-    var myFriendArray = [SemNetUser]()
-    
     func saveUserInfo(authToken:String, userId:String, username:String){
         UserDefaults.standard.set(authToken, forKey: "authToken")
         UserDefaults.standard.set(userId, forKey: "userId")
@@ -172,51 +170,6 @@ class UserManager: NSObject {
                 }
                 
                 callback(true)
-        }
-    }
-    
-    func loadFriendlist(token: String, callback: @escaping (Bool,Array<SemNetUser>) -> ()) {
-        
-        let parameters: Parameters = [
-            "authToken": token
-        ]
-        
-        Alamofire.request(friendListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                var friendArray = [SemNetUser]()
-                
-                guard let json = response.result.value as? [String: Any] else {
-                    print("Error: \(response.result.error)")
-                    callback(false, friendArray)
-                    return
-                }
-                print(json)
-                
-                let errorCode = json["errorCode"] as! String?
-                if errorCode != "SNET_0" {
-                    callback(false, friendArray)
-                    return
-                }
-                
-                guard let friendList = json["userList"] as? NSArray else {
-                    callback(true, friendArray)
-                    return
-                }
-                
-                if friendList.count == 0 {
-                    callback(true, friendArray)
-                    return
-                }
-                
-                for anItem in friendList as! [Dictionary<String, AnyObject>] {
-                    let personName = anItem["username"] as! String
-                    let personID = anItem["id"] as! String
-                    let firstname = anItem["firstname"] as! String
-                    let lastname = anItem["lastname"] as! String
-                    
-                    friendArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname))
-                }
-                callback(true, friendArray)
         }
     }
     

@@ -57,11 +57,11 @@ class ContentManager: NSObject {
         }
     }
     
-    func fetchContents(contentArr: [Content], callback: @escaping (Bool,Array<UIImage>) -> ()){
+    func fetchContentsOfFriends(contentArr: [Content], callback: @escaping (Bool,Array<UIImage>) -> ()){
         
         var contentImageArr = [UIImage]()
         
-        for object in UserManager.sharedInstance.myFriendArray {
+        for object in FriendManager.sharedInstance.myFriendArray {
             downloadContent(contentId: object.id){ (response) in
                 if(response.0){
                     contentImageArr.append(response.1)

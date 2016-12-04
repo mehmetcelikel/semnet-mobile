@@ -33,7 +33,26 @@ class ProfileHeaderVC: UICollectionReusableView {
             let home = storyboard.instantiateViewController(withIdentifier: "EditProfileVC") as! NavigationVC
             parentVC.present(home, animated: true, completion: nil)
             
-        } 
+        } else {
+            
+            if(friend == true) {
+                
+                FriendManager.sharedInstance.removeFriend(userId: parentVC.userId){ (response) in
+                    if(response){
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                    }
+                }
+                friend = false
+            }else{
+                
+                FriendManager.sharedInstance.addFriend(userId: parentVC.userId){ (response) in
+                    if(response){
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                    }
+                }
+                friend = true
+            }
+        }
     }
     
 }

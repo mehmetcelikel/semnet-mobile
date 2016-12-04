@@ -23,6 +23,8 @@ let userSearchEndpoint: String = userBaseURL + "/query"
 let userUpdateEndpoint: String = userBaseURL + "/update"
 
 let friendListEndpoint: String = friendBaseURL + "/listFriends"
+let friendAddEndpoint: String = friendBaseURL + "/addFriend"
+let friendRemoveEndpoint: String = friendBaseURL + "/removeFriend"
 
 let contentListEndpoint: String = contentBaseURL + "/list"
 let contentGetEndpoint: String = contentBaseURL + "/get"
@@ -72,14 +74,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func login() {
         
         // remember user's login
-        let authToken : String? = UserDefaults.standard.string(forKey: "authToken")
+        let authToken : String? = UserManager.sharedInstance.getToken()
         
         // if logged in
         if authToken != nil {
+            let userId = UserManager.sharedInstance.getUserId()
             
-            UserManager.sharedInstance.loadFriendlist(token: authToken!) { (response) in
+            FriendManager.sharedInstance.loadFriendlist(userId: userId) { (response) in
                     if(response.0){
-                        UserManager.sharedInstance.myFriendArray = response.1
+                        FriendManager.sharedInstance.myFriendArray = response.1
                         
                         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                         let myTabBar = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController

@@ -91,9 +91,8 @@ class ProfileCVC: UICollectionViewController {
                 self.returnToLogin()
             }
         }
-        let token = UserManager.sharedInstance.getToken()
         
-        UserManager.sharedInstance.loadFriendlist(token: token) { (response) in
+        FriendManager.sharedInstance.loadFriendlist(userId: userId) { (response) in
             if(response.0){
                 self.friendArray = response.1
                 header.friendsLabel.text = String(self.friendArray.count)
@@ -115,32 +114,38 @@ class ProfileCVC: UICollectionViewController {
         let currenctUserId : String? = UserManager.sharedInstance.getUserId()
         if currenctUserId == userId {
             
-            let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
-            
-            header.editButton.setTitleColor(UIColor.white, for: UIControlState.normal)
-            header.editButton.backgroundColor = customColor
+            header.editButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+            header.editButton.backgroundColor = UIColor.white
             header.editButton.setTitle("Edit", for: .normal)
+            header.editButton.layer.borderWidth = 1.0
+            header.editButton.layer.borderColor = UIColor.lightGray.cgColor
+            header.editButton.layer.cornerRadius = 4
+            header.editButton.layer.masksToBounds = true
             
             self.navigationItem.title = UserManager.sharedInstance.getUsername().uppercased();
         }else{
-            var found=false;
-            for object in UserManager.sharedInstance.myFriendArray {
-                if(userId == object.id) {
-                    found = true;
-                    break;
-                }
-            }
+            let found = FriendManager.sharedInstance.isMyFriend(userId: userId)
             
             if(found == false){
+                let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
+                
                 header.friend = false
                 header.editButton.setTitle("Add Friend", for: UIControlState())
-                header.editButton.setTitleColor(UIColor.black, for: UIControlState())
-                header.editButton.backgroundColor = UIColor.gray
+                header.editButton.setTitleColor(UIColor.white, for: UIControlState())
+                header.editButton.backgroundColor = customColor
+                header.editButton.layer.borderWidth = 1.0
+                header.editButton.layer.borderColor = UIColor.lightGray.cgColor
+                header.editButton.layer.cornerRadius = 8
+                header.editButton.layer.masksToBounds = true
             }else{
                 header.friend = true
                 header.editButton.setTitle("Remove Friend", for: UIControlState())
                 header.editButton.setTitleColor(UIColor.black, for: UIControlState())
-                header.editButton.backgroundColor = UIColor.green
+                header.editButton.backgroundColor = UIColor.white
+                header.editButton.layer.borderWidth = 1.0
+                header.editButton.layer.borderColor = UIColor.lightGray.cgColor
+                header.editButton.layer.cornerRadius = 8
+                header.editButton.layer.masksToBounds = true
             }
         }
         
@@ -165,7 +170,7 @@ class ProfileCVC: UICollectionViewController {
             if(response.0){
                 self.contentArr = response.1
                 
-                ContentManager.sharedInstance.fetchContents(contentArr: self.contentArr){ (response) in
+                ContentManager.sharedInstance.fetchContentsOfFriends(contentArr: self.contentArr){ (response) in
                     if(response.0){
                         self.contentImageArr = response.1
                     }else{

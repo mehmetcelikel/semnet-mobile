@@ -39,6 +39,7 @@
 		6383083C1DF33CB800067E17 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383083B1DF33CB800067E17 /* ContentManager.swift */; };
 		6383083E1DF3520700067E17 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383083D1DF3520700067E17 /* Content.swift */; };
 		638308401DF362EF00067E17 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383083F1DF362EF00067E17 /* EditProfileVC.swift */; };
+		638308421DF4385200067E17 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308411DF4385200067E17 /* FriendManager.swift */; };
 		6645A555E2C5A6A3FD147073 /* Pods_semnetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		6383083B1DF33CB800067E17 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		6383083D1DF3520700067E17 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		6383083F1DF362EF00067E17 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		638308411DF4385200067E17 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		E2C7A590F9ACC52F33110809 /* Pods_semnet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnet.release.xcconfig"; path = "Pods/Target Support Files/Pods-semnet/Pods-semnet.release.xcconfig"; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				6383083B1DF33CB800067E17 /* ContentManager.swift */,
 				638308271DF3013700067E17 /* SemNetUser.swift */,
 				6383083D1DF3520700067E17 /* Content.swift */,
+				638308411DF4385200067E17 /* FriendManager.swift */,
 			);
 			name = manager;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				6335B5861DEF57AF007A62F0 /* ProfileCVCCell.swift in Sources */,
 				6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */,
 				6335B5821DEF5554007A62F0 /* ProfileCVC.swift in Sources */,
+				638308421DF4385200067E17 /* FriendManager.swift in Sources */,
 				6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */,
 				6335B5421DEB597B007A62F0 /* AppDelegate.swift in Sources */,
 				638308281DF3013700067E17 /* SemNetUser.swift in Sources */,

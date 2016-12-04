@@ -14,6 +14,7 @@ class FriendsTVCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var addRemoveButton: UIButton!
     var userId:String!
+    var friend:Bool!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,23 +33,42 @@ class FriendsTVCell: UITableViewCell {
 
     
     @IBAction func addRemoveButtonAction(_ sender: Any) {
-        let title = addRemoveButton.title(for: UIControlState())
-        
-        // to follow
-        if title == "Add Friend" {
+               // to follow
+        if self.friend == false {
             
+            let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
             
-            self.addRemoveButton.setTitle("Add Friend", for: UIControlState())
-            self.addRemoveButton.setTitleColor(UIColor.red, for: UIControlState())
-            self.addRemoveButton.backgroundColor = UIColor.gray
+            FriendManager.sharedInstance.addFriend(userId: self.userId){ (response) in
+                if(response){
+                    self.friend = true
+                    
+                    self.addRemoveButton.setTitle("Remove", for: UIControlState())
+                    self.addRemoveButton.setTitleColor(UIColor.white, for: UIControlState())
+                    self.addRemoveButton.backgroundColor = customColor
+                    self.addRemoveButton.layer.cornerRadius = 8
+                    self.addRemoveButton.layer.masksToBounds = true
+                    
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                }
+            }
             
         } else {
             
-            self.addRemoveButton.setTitle("Remove Friend", for: UIControlState())
-            self.addRemoveButton.setTitleColor(UIColor.black, for: UIControlState())
-            self.addRemoveButton.backgroundColor = UIColor.green
-
-            
+            FriendManager.sharedInstance.removeFriend(userId: self.userId){ (response) in
+                if(response){
+                    self.friend = false
+                    
+                    self.addRemoveButton.setTitle("Add", for: UIControlState())
+                    self.addRemoveButton.setTitleColor(UIColor.black, for: UIControlState())
+                    self.addRemoveButton.backgroundColor = UIColor.white
+                    self.addRemoveButton.layer.borderWidth = 1.0
+                    self.addRemoveButton.layer.borderColor = UIColor.lightGray.cgColor
+                    self.addRemoveButton.layer.cornerRadius = 8
+                    self.addRemoveButton.layer.masksToBounds = true
+                    
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                }
+            }
         }
     }
 }

@@ -59,28 +59,38 @@ class FriendsTVC: UITableViewController {
         let followUser = friendArrayToBelListed[indexPath.row]
         
         cell.usernameLabel.text = followUser.username
-        cell.friendImage.image = nil
+        cell.userId = followUser.id
         
-        var found:Bool!;
-        for object in UserManager.sharedInstance.myFriendArray {
-            if(followUser.id == object.id) {
-                found = true;
-                break;
+        UserManager.sharedInstance.downloadImage(userId: cell.userId){ (response) in
+            if(response.0){
+                cell.friendImage.image = response.1
             }
         }
+        
+        let found = FriendManager.sharedInstance.isMyFriend(userId: followUser.id)
+        
+        cell.friend = found
         
         if cell.userId == UserManager.sharedInstance.getUserId() {
             cell.addRemoveButton.isHidden = true
         }
         
-        if found == true {
-            cell.addRemoveButton.setTitleColor(UIColor.black, for: UIControlState())
-            cell.addRemoveButton.backgroundColor = UIColor.lightGray
-            cell.addRemoveButton.setTitle("Remove Friend", for: UIControlState())
+        if cell.friend == true {
+            let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
+            
+            cell.addRemoveButton.setTitle("Remove", for: UIControlState())
+            cell.addRemoveButton.setTitleColor(UIColor.white, for: UIControlState())
+            cell.addRemoveButton.backgroundColor = customColor
+            cell.addRemoveButton.layer.cornerRadius = 8
+            cell.addRemoveButton.layer.masksToBounds = true
         } else {
-            cell.addRemoveButton.setTitleColor(UIColor.red, for: UIControlState())
-            cell.addRemoveButton.backgroundColor = UIColor.gray
-            cell.addRemoveButton.setTitle("Add Friend", for: UIControlState())
+            cell.addRemoveButton.setTitle("Add", for: UIControlState())
+            cell.addRemoveButton.setTitleColor(UIColor.black, for: UIControlState())
+            cell.addRemoveButton.backgroundColor = UIColor.white
+            cell.addRemoveButton.layer.borderWidth = 1.0
+            cell.addRemoveButton.layer.borderColor = UIColor.lightGray.cgColor
+            cell.addRemoveButton.layer.cornerRadius = 8
+            cell.addRemoveButton.layer.masksToBounds = true
         }
         
         return cell
