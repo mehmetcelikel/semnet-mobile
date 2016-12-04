@@ -77,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20.5" y="42.5"/>
+            <point key="canvasLocation" x="-554" y="43"/>
         </scene>
         <!--Sign UpVC-->
         <scene sceneID="lVe-df-veN">
@@ -173,12 +173,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IXN-8l-ymx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="461.5" y="42.5"/>
+            <point key="canvasLocation" x="-113" y="43"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="aHI-uV-P0Y">
             <objects>
-                <tabBarController storyboardIdentifier="tabBar" id="rfK-wG-mcM" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" id="rfK-wG-mcM" customClass="TabBarVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="eds-Ck-3Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -187,11 +187,12 @@
                     <connections>
                         <segue destination="YtX-r3-VCm" kind="relationship" relationship="viewControllers" id="AZa-hm-qYS"/>
                         <segue destination="yFc-sc-o05" kind="relationship" relationship="viewControllers" id="1uU-na-bgd"/>
+                        <segue destination="wcp-CV-Rix" kind="relationship" relationship="viewControllers" id="Bd7-rK-Lwm"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="APz-XO-yRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="43"/>
+            <point key="canvasLocation" x="399" y="42"/>
         </scene>
         <!--Edit ProfileVC-->
         <scene sceneID="olb-GY-XTm">
@@ -273,7 +274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xsk-Ta-fOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2545.5" y="-753.5"/>
+            <point key="canvasLocation" x="2633" y="-755"/>
         </scene>
         <!--ProfileCVC-->
         <scene sceneID="I06-lr-0Tv">
@@ -447,7 +448,7 @@
         <scene sceneID="STT-Z8-yDF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YtX-r3-VCm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" selectedImage="home.png" id="g06-sL-q5T"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="home.png" selectedImage="home.png" id="g06-sL-q5T"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="anJ-kl-2ko">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -519,7 +520,7 @@
         <scene sceneID="QjP-76-feN">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yFc-sc-o05" customClass="NavigationVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" selectedImage="users.png" id="Aks-2O-NJ2"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="users.png" selectedImage="users.png" id="Aks-2O-NJ2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hSP-7H-LHw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -533,6 +534,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fG8-Es-pnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="911" y="931"/>
+        </scene>
+        <!--Photo LibVC-->
+        <scene sceneID="4j6-tq-lsz">
+            <objects>
+                <viewController id="fdN-oG-INo" customClass="PhotoLibVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kEn-Ns-SXo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="VWD-A6-G3G">
+                                <rect key="frame" x="0.0" y="62" width="375" height="247"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="4tj-3H-A7C">
+                                <rect key="frame" x="0.0" y="317" width="375" height="299"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tWh-fN-LeN">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="sqO-9v-8xO" customClass="PhotoLibCell" customModule="semnet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="ko7-ul-IWa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="imageView" destination="ko7-ul-IWa" id="Eoa-EX-ckb"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" id="UIl-H8-pFg">
+                                <rect key="frame" x="0.0" y="616" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Item" id="l0H-I4-H2b"/>
+                                </items>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" id="LDp-Rd-9ga">
+                                <rect key="frame" x="0.0" y="62" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Item" id="DoZ-Az-Lsa"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="SNq-xL-2tq"/>
+                    <connections>
+                        <outlet property="collectionView" destination="4tj-3H-A7C" id="YqQ-Ex-tVM"/>
+                        <outlet property="footerToolbar" destination="UIl-H8-pFg" id="mEa-hw-6wR"/>
+                        <outlet property="headerToolbar" destination="LDp-Rd-9ga" id="mjG-iA-9hD"/>
+                        <outlet property="imageView" destination="VWD-A6-G3G" id="NZq-Sb-0Q1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="96W-rM-tNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1385.5" y="-754.5"/>
         </scene>
         <!--NavigationVC-->
         <scene sceneID="XmU-Sg-zXR">
@@ -550,10 +622,30 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agy-mh-oK8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958.5" y="-753.5"/>
+            <point key="canvasLocation" x="1973" y="-754"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="zl0-VU-bbz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wcp-CV-Rix" customClass="NavigationVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="camera.png" id="hy2-YJ-LoL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mW0-ko-H5O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fdN-oG-INo" kind="relationship" relationship="rootViewController" id="6Tp-zu-ABr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WTc-5w-ac9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="911" y="-754"/>
         </scene>
     </scenes>
     <resources>
+        <image name="camera.png" width="23" height="18"/>
         <image name="home.png" width="25" height="25"/>
         <image name="pp.jpg.gif" width="96" height="96"/>
         <image name="users.png" width="25" height="25"/>
