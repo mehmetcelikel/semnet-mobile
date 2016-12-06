@@ -48,6 +48,13 @@
 		638308501DF45B7F00067E17 /* PhotoLibManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383084F1DF45B7F00067E17 /* PhotoLibManager.swift */; };
 		638308521DF4623E00067E17 /* PhotoLibCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308511DF4623E00067E17 /* PhotoLibCell.swift */; };
 		638308541DF47F8500067E17 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308531DF47F8500067E17 /* PostVC.swift */; };
+		638308641DF7486000067E17 /* AppHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308631DF7486000067E17 /* AppHomeVC.swift */; };
+		638308661DF7487D00067E17 /* AppHomeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308651DF7487D00067E17 /* AppHomeTVCell.swift */; };
+		6383086A1DF74FAA00067E17 /* feed.png in Resources */ = {isa = PBXBuildFile; fileRef = 638308671DF74FAA00067E17 /* feed.png */; };
+		6383086B1DF74FAA00067E17 /* feed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 638308681DF74FAA00067E17 /* feed@2x.png */; };
+		6383086C1DF74FAA00067E17 /* feed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 638308691DF74FAA00067E17 /* feed@3x.png */; };
+		6383086E1DF754F600067E17 /* NewProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383086D1DF754F600067E17 /* NewProfileVC.swift */; };
+		638308701DF7551500067E17 /* NewProfileTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6383086F1DF7551500067E17 /* NewProfileTVCell.swift */; };
 		6645A555E2C5A6A3FD147073 /* Pods_semnetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +128,13 @@
 		6383084F1DF45B7F00067E17 /* PhotoLibManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibManager.swift; sourceTree = "<group>"; };
 		638308511DF4623E00067E17 /* PhotoLibCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibCell.swift; sourceTree = "<group>"; };
 		638308531DF47F8500067E17 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
+		638308631DF7486000067E17 /* AppHomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppHomeVC.swift; sourceTree = "<group>"; };
+		638308651DF7487D00067E17 /* AppHomeTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppHomeTVCell.swift; sourceTree = "<group>"; };
+		638308671DF74FAA00067E17 /* feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feed.png; sourceTree = "<group>"; };
+		638308681DF74FAA00067E17 /* feed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feed@2x.png"; sourceTree = "<group>"; };
+		638308691DF74FAA00067E17 /* feed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feed@3x.png"; sourceTree = "<group>"; };
+		6383086D1DF754F600067E17 /* NewProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProfileVC.swift; sourceTree = "<group>"; };
+		6383086F1DF7551500067E17 /* NewProfileTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProfileTVCell.swift; sourceTree = "<group>"; };
 		E2C7A590F9ACC52F33110809 /* Pods_semnet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3B96ED5D3BC747641926CD /* Pods_semnetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_semnetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F78765BB3B5B0C797B159AD7 /* Pods-semnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semnet.release.xcconfig"; path = "Pods/Target Support Files/Pods-semnet/Pods-semnet.release.xcconfig"; sourceTree = "<group>"; };
@@ -214,6 +228,10 @@
 				638308491DF4553E00067E17 /* PhotoLibVC.swift */,
 				638308511DF4623E00067E17 /* PhotoLibCell.swift */,
 				638308531DF47F8500067E17 /* PostVC.swift */,
+				638308631DF7486000067E17 /* AppHomeVC.swift */,
+				638308651DF7487D00067E17 /* AppHomeTVCell.swift */,
+				6383086D1DF754F600067E17 /* NewProfileVC.swift */,
+				6383086F1DF7551500067E17 /* NewProfileTVCell.swift */,
 			);
 			path = semnet;
 			sourceTree = "<group>";
@@ -253,6 +271,9 @@
 		6383083A1DF33BFD00067E17 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				638308671DF74FAA00067E17 /* feed.png */,
+				638308681DF74FAA00067E17 /* feed@2x.png */,
+				638308691DF74FAA00067E17 /* feed@3x.png */,
 				638308431DF4541F00067E17 /* camera.png */,
 				638308441DF4541F00067E17 /* camera@2x.png */,
 				638308451DF4541F00067E17 /* camera@3x.png */,
@@ -403,10 +424,13 @@
 				6383082E1DF31C4B00067E17 /* home@3x.png in Resources */,
 				638308331DF31D2A00067E17 /* users@2x.png in Resources */,
 				6383082C1DF31C4B00067E17 /* home.png in Resources */,
+				6383086C1DF74FAA00067E17 /* feed@3x.png in Resources */,
 				6335B5761DEB6368007A62F0 /* pp.jpg.gif in Resources */,
 				6335B5491DEB597B007A62F0 /* Assets.xcassets in Resources */,
 				638308321DF31D2A00067E17 /* users.png in Resources */,
 				638308471DF4541F00067E17 /* camera@2x.png in Resources */,
+				6383086A1DF74FAA00067E17 /* feed.png in Resources */,
+				6383086B1DF74FAA00067E17 /* feed@2x.png in Resources */,
 				6383082D1DF31C4B00067E17 /* home@2x.png in Resources */,
 				638308461DF4541F00067E17 /* camera.png in Resources */,
 				6335B5471DEB597B007A62F0 /* Main.storyboard in Resources */,
@@ -577,7 +601,9 @@
 				6383084E1DF4588000067E17 /* TabBarVC.swift in Sources */,
 				6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */,
 				6383083E1DF3520700067E17 /* Content.swift in Sources */,
+				638308641DF7486000067E17 /* AppHomeVC.swift in Sources */,
 				638308241DF2145B00067E17 /* FriendsTVCell.swift in Sources */,
+				6383086E1DF754F600067E17 /* NewProfileVC.swift in Sources */,
 				638308521DF4623E00067E17 /* PhotoLibCell.swift in Sources */,
 				638308401DF362EF00067E17 /* EditProfileVC.swift in Sources */,
 				638308361DF31F0000067E17 /* SearchTVC.swift in Sources */,
@@ -586,9 +612,11 @@
 				6335B5701DEB59E5007A62F0 /* SignInVC.swift in Sources */,
 				6335B5721DEB5EDE007A62F0 /* SignUpVC.swift in Sources */,
 				6335B5841DEF558E007A62F0 /* ProfileHeaderVC.swift in Sources */,
+				638308701DF7551500067E17 /* NewProfileTVCell.swift in Sources */,
 				6335B5861DEF57AF007A62F0 /* ProfileCVCCell.swift in Sources */,
 				6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */,
 				6383084A1DF4553E00067E17 /* PhotoLibVC.swift in Sources */,
+				638308661DF7487D00067E17 /* AppHomeTVCell.swift in Sources */,
 				6335B5821DEF5554007A62F0 /* ProfileCVC.swift in Sources */,
 				638308421DF4385200067E17 /* FriendManager.swift in Sources */,
 				6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */,
