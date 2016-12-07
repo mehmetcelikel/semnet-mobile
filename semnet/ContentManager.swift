@@ -31,7 +31,6 @@ class ContentManager: NSObject {
                     callback(false, contentId!)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -93,7 +92,6 @@ class ContentManager: NSObject {
                     print("Error: \(response.result.error)")
                     return
                 }
-                print(json)
                 
                 var contentArr = [Content]()
                 

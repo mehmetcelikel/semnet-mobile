@@ -60,7 +60,6 @@ class UserManager: NSObject {
                     callback(false, u)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -94,7 +93,6 @@ class UserManager: NSObject {
                     callback(false)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -161,7 +159,6 @@ class UserManager: NSObject {
                     callback(false)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -189,7 +186,6 @@ class UserManager: NSObject {
                     callback(false, userArray)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -234,7 +230,6 @@ class UserManager: NSObject {
                     callback(false, userArray)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {

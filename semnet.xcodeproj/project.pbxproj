@@ -21,9 +21,8 @@
 		6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5771DECB630007A62F0 /* RestAPIManager.swift */; };
 		6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */; };
 		6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57D1DECCE15007A62F0 /* UserManager.swift */; };
-		6335B5821DEF5554007A62F0 /* ProfileCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5811DEF5554007A62F0 /* ProfileCVC.swift */; };
-		6335B5841DEF558E007A62F0 /* ProfileHeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5831DEF558E007A62F0 /* ProfileHeaderVC.swift */; };
-		6335B5861DEF57AF007A62F0 /* ProfileCVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5851DEF57AF007A62F0 /* ProfileCVCCell.swift */; };
+		63673F7B1DF8B6C000D330D9 /* NewPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63673F7A1DF8B6C000D330D9 /* NewPostVC.swift */; };
+		63673F7D1DF8C28A00D330D9 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 63673F7C1DF8C28A00D330D9 /* finger.png */; };
 		638308221DF2142C00067E17 /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308211DF2142C00067E17 /* FriendsTVC.swift */; };
 		638308241DF2145B00067E17 /* FriendsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308231DF2145B00067E17 /* FriendsTVCell.swift */; };
 		638308261DF2214C00067E17 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 638308251DF2214C00067E17 /* back.png */; };
@@ -100,10 +99,9 @@
 		6335B5771DECB630007A62F0 /* RestAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManager.swift; sourceTree = "<group>"; };
 		6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		6335B57D1DECCE15007A62F0 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		6335B5811DEF5554007A62F0 /* ProfileCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCVC.swift; sourceTree = "<group>"; };
-		6335B5831DEF558E007A62F0 /* ProfileHeaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderVC.swift; sourceTree = "<group>"; };
-		6335B5851DEF57AF007A62F0 /* ProfileCVCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCVCCell.swift; sourceTree = "<group>"; };
 		6335B5871DEF704A007A62F0 /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Alamofire; path = Pods/Alamofire; sourceTree = "<group>"; };
+		63673F7A1DF8B6C000D330D9 /* NewPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostVC.swift; sourceTree = "<group>"; };
+		63673F7C1DF8C28A00D330D9 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
 		638308211DF2142C00067E17 /* FriendsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		638308231DF2145B00067E17 /* FriendsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVCell.swift; sourceTree = "<group>"; };
 		638308251DF2214C00067E17 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -215,9 +213,6 @@
 				6335B5711DEB5EDE007A62F0 /* SignUpVC.swift */,
 				6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */,
 				6335B54D1DEB597B007A62F0 /* Info.plist */,
-				6335B5851DEF57AF007A62F0 /* ProfileCVCCell.swift */,
-				6335B5811DEF5554007A62F0 /* ProfileCVC.swift */,
-				6335B5831DEF558E007A62F0 /* ProfileHeaderVC.swift */,
 				638308211DF2142C00067E17 /* FriendsTVC.swift */,
 				638308231DF2145B00067E17 /* FriendsTVCell.swift */,
 				638308351DF31F0000067E17 /* SearchTVC.swift */,
@@ -232,6 +227,7 @@
 				638308651DF7487D00067E17 /* AppHomeTVCell.swift */,
 				6383086D1DF754F600067E17 /* NewProfileVC.swift */,
 				6383086F1DF7551500067E17 /* NewProfileTVCell.swift */,
+				63673F7A1DF8B6C000D330D9 /* NewPostVC.swift */,
 			);
 			path = semnet;
 			sourceTree = "<group>";
@@ -271,6 +267,7 @@
 		6383083A1DF33BFD00067E17 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				63673F7C1DF8C28A00D330D9 /* finger.png */,
 				638308671DF74FAA00067E17 /* feed.png */,
 				638308681DF74FAA00067E17 /* feed@2x.png */,
 				638308691DF74FAA00067E17 /* feed@3x.png */,
@@ -421,6 +418,7 @@
 				638308261DF2214C00067E17 /* back.png in Resources */,
 				638308481DF4541F00067E17 /* camera@3x.png in Resources */,
 				638308341DF31D2A00067E17 /* users@3x.png in Resources */,
+				63673F7D1DF8C28A00D330D9 /* finger.png in Resources */,
 				6383082E1DF31C4B00067E17 /* home@3x.png in Resources */,
 				638308331DF31D2A00067E17 /* users@2x.png in Resources */,
 				6383082C1DF31C4B00067E17 /* home.png in Resources */,
@@ -598,6 +596,7 @@
 			files = (
 				638308381DF3203F00067E17 /* NavigationVC.swift in Sources */,
 				6383083C1DF33CB800067E17 /* ContentManager.swift in Sources */,
+				63673F7B1DF8B6C000D330D9 /* NewPostVC.swift in Sources */,
 				6383084E1DF4588000067E17 /* TabBarVC.swift in Sources */,
 				6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */,
 				6383083E1DF3520700067E17 /* Content.swift in Sources */,
@@ -611,13 +610,10 @@
 				638308541DF47F8500067E17 /* PostVC.swift in Sources */,
 				6335B5701DEB59E5007A62F0 /* SignInVC.swift in Sources */,
 				6335B5721DEB5EDE007A62F0 /* SignUpVC.swift in Sources */,
-				6335B5841DEF558E007A62F0 /* ProfileHeaderVC.swift in Sources */,
 				638308701DF7551500067E17 /* NewProfileTVCell.swift in Sources */,
-				6335B5861DEF57AF007A62F0 /* ProfileCVCCell.swift in Sources */,
 				6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */,
 				6383084A1DF4553E00067E17 /* PhotoLibVC.swift in Sources */,
 				638308661DF7487D00067E17 /* AppHomeTVCell.swift in Sources */,
-				6335B5821DEF5554007A62F0 /* ProfileCVC.swift in Sources */,
 				638308421DF4385200067E17 /* FriendManager.swift in Sources */,
 				6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */,
 				6335B5421DEB597B007A62F0 /* AppDelegate.swift in Sources */,

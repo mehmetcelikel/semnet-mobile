@@ -74,7 +74,7 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! FriendsTVCell
         
         profileUserId.append(cell.userId)
-        let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! ProfileCVC
+        let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
         self.navigationController?.pushViewController(guest, animated: true)
     }
     

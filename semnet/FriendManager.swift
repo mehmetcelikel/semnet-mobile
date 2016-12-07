@@ -41,7 +41,6 @@ class FriendManager: NSObject {
                     callback(false, friendArray)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -88,7 +87,6 @@ class FriendManager: NSObject {
                     callback(false)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
@@ -121,7 +119,6 @@ class FriendManager: NSObject {
                     callback(false)
                     return
                 }
-                print(json)
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {

@@ -8,18 +8,49 @@
 
 import UIKit
 
-class NewProfileVC: UIViewController {
+var profileUserId = [String]()
 
-    var dataSource:[(upper:String,lower:String)] = [("Subscription Groups","Subscription groups consist of varying subscription levels and durations. All auto-renewable subscriptions are required to be part of a subscription group. Customers can move between subscription durations within a group, but cannot be subscribed to more than one subscription product within a group."),
-                                                    ("Duration","The length of time between auto-renewals. The duration can be 7 days, 1 month, 2 months, 3 months, 6 months, or 1 year."),
-                                                    ("Subscription Levels","You can assign every in-app purchase within a subscription group to a subscription level. Subscription levels are given a default rank, but you can reorder them by dragging and dropping each in-app purchase into the appropriate rank. Your subscription levels should be listed in descending order, starting with the one that offers the highest level of service. You can add more than one subscription to each level if the service provided is determined to be equal. Customers can move between subscription levels."),
-                                                    ("Upgrade","When a customer switches from a subscription in a lower level to a subscription in a higher level. This change goes into effect immediately."),
-                                                    ("Marketing Incentive Duration","The length of an auto-renewable subscription extension if customers choose to opt-in to share contact information. This property is only available to Magazines & Newspapers developers who have implemented Newsstand Kit.\n\nUsers’ contact information is available in the Sales and Trends module of iTunes Connect.\n\nNote: The opt-in incentive is not available for macOS.")]
+class NewProfileVC: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var refresher : UIRefreshControl!
+    var activityIndicator: UIActivityIndicatorView!
+    
+    var userId:String!
+    var user: SemNetUser!
+    
+    var friendArray = [SemNetUser]()
+    var contentArr = [Content]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.tableView?.alwaysBounceVertical = true
+        
+        if profileUserId.last == nil {
+            userId = UserManager.sharedInstance.getUserId()
+        }else{
+            userId = profileUserId.last
+        }
+        
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(NewProfileVC.refresh), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refresher)
+        
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                print("contentList has been loaded")
+                self.contentArr = response.1
+                self.tableView.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewProfileVC.reload(_:)), name: NSNotification.Name(rawValue: "reload"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewProfileVC.uploaded(_:)), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,22 +67,39 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return contentArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewProfileTVCell
         
-        cell.usernameLbl.text = dataSource[indexPath.item].upper
-        cell.descriptionLbl.text = dataSource[indexPath.item].lower
+        cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
+        cell.descriptionLbl.text = contentArr[indexPath.item].description
         
-        cell.contentImage.image = UIImage(named: "pp.jpg.gif")
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 100, y: 100, width: 20, height: 20))
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.center = cell.contentImage.center
+        cell.addSubview(activityIndicator)
         
-        if ( indexPath.row != 1){
-            cell.contentHeightConstraint.constant = 0
-            
+        activityIndicator.startAnimating()
+        
+        ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+            if(response.0){
+                print("content has been downloaded")
+                cell.contentImage.image = response.1
+                cell.usernameLbl.text = "@" + self.user.username
+                
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.removeFromSuperview()
+            }else{
+                self.returnToLogin()
+            }
         }
+        
+        /*if ( indexPath.row != 1){
+            cell.contentHeightConstraint.constant = 0
+        }*/
         
         return cell
     }
@@ -70,6 +118,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     }
      
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let vw = UIView()
      
         vw.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 100)
@@ -77,10 +126,19 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         vw.layer.borderWidth = 1.0
         vw.layer.borderColor = UIColor.lightGray.cgColor
      
-        let profileImage = UIImageView(image: UIImage(named: "pp.jpg.gif"))
+        let profileImage = UIImageView()
         profileImage.frame = CGRect(x: 10, y: 10, width: 80, height: 80)
         profileImage.layer.cornerRadius = 4
         profileImage.layer.masksToBounds = true
+        
+        UserManager.sharedInstance.downloadImage(userId: userId){ (response) in
+            if(response.0){
+                print("profile image has been loaded")
+                profileImage.image = response.1
+            }else{
+                self.returnToLogin()
+            }
+        }
         
         vw.addSubview(profileImage)
         
@@ -88,7 +146,6 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         
         fullname.textColor = UIColor.black
         fullname.font = UIFont(name: fullname.font.fontName, size: 12)
-        fullname.text = "Fullname"
         fullname.textAlignment = NSTextAlignment.left
         fullname.contentMode = UIViewContentMode.scaleAspectFit
         
@@ -97,10 +154,20 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         let username = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: fullname.frame.maxY, width: screenWidth/2, height: 20))
         
         username.textColor = UIColor.black
-        username.font = UIFont(name: username.font.fontName, size: 8)
-        username.text = "@Username"
+        username.font = UIFont(name: username.font.fontName, size: 9)
         username.textAlignment = NSTextAlignment.left
         username.contentMode = UIViewContentMode.scaleAspectFit
+        
+        UserManager.sharedInstance.getUser(userId: userId) { (response) in
+            if(response.0){
+                print("getUser query has just run")
+                self.user = response.1
+                fullname.text = self.user.firstname + " " + self.user.lastname
+                username.text = "@" + self.user.username
+            }else{
+                self.returnToLogin()
+            }
+        }
         
         vw.addSubview(username)
         
@@ -110,7 +177,8 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         posts.font = UIFont(name: username.font.fontName, size: 10)
         posts.textAlignment = NSTextAlignment.left
         posts.contentMode = UIViewContentMode.scaleAspectFit
-        posts.attributedText = formatText(boldText: "12", normalText: " Posts")
+        posts.attributedText = self.formatText(boldText: String(self.contentArr.count), normalText: " Posts")
+        
         vw.addSubview(posts)
         
         let friends = UILabel(frame: CGRect(x: posts.frame.maxX + 10, y: profileImage.frame.maxY-20, width: 50, height: 20))
@@ -119,25 +187,64 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         friends.font = UIFont(name: username.font.fontName, size: 10)
         friends.textAlignment = NSTextAlignment.left
         friends.contentMode = UIViewContentMode.scaleAspectFit
-        friends.attributedText = formatText(boldText: "5", normalText: " Friends")
+        
+        FriendManager.sharedInstance.loadFriendlist(userId: userId) { (response) in
+            if(response.0){
+                print("friendList query has just run")
+                self.friendArray = response.1
+                friends.attributedText = self.formatText(boldText: String(self.friendArray.count), normalText: " Friends")
+            }else{
+                self.returnToLogin()
+            }
+        }
         
         vw.addSubview(friends)
         
         let editButton = UIButton(frame: CGRect(x: screenWidth-70, y: 10, width: 60, height: 20))
-        editButton.setTitle("Edit", for: .normal)
-        editButton.titleLabel?.font = UIFont(name: username.font.fontName, size: 12)
-        editButton.tintColor = UIColor.purple
-        editButton.setTitleColor(UIColor.black, for: .normal)
-        editButton.addTarget(self, action: #selector(editAction), for: .touchUpInside)
-        
-        editButton.backgroundColor = UIColor.white
         editButton.layer.borderWidth = 1.0
         editButton.layer.borderColor = UIColor.lightGray.cgColor
         editButton.layer.cornerRadius = 4
         editButton.layer.masksToBounds = true
+        editButton.titleLabel?.font = UIFont(name: username.font.fontName, size: 12)
+        editButton.addTarget(self, action: #selector(editAction), for: .touchUpInside)
         
-        
+        let currenctUserId : String? = UserManager.sharedInstance.getUserId()
+        if currenctUserId == userId {
+            
+            editButton.setTitle("Edit", for: .normal)
+            editButton.tintColor = UIColor.purple
+            editButton.setTitleColor(UIColor.black, for: .normal)
+            editButton.backgroundColor = UIColor.white
+            
+        }else{
+            let found = FriendManager.sharedInstance.isMyFriend(userId: userId)
+            
+            if(found == false){
+                let customColor = UIColor(red: 72.0 / 255.0, green: 61.0 / 255.0, blue: 139.0 / 255.0, alpha: 0.5)
+                
+                editButton.setTitle("Add", for: UIControlState())
+                editButton.setTitleColor(UIColor.white, for: UIControlState())
+                editButton.backgroundColor = customColor
+                
+            }else{
+                editButton.setTitle("Remove", for: UIControlState())
+                editButton.setTitleColor(UIColor.black, for: UIControlState())
+                editButton.backgroundColor = UIColor.white
+            }
+        }
         vw.addSubview(editButton)
+        
+        // tap friends
+        let friendsTap = UITapGestureRecognizer(target: self, action: #selector(self.friendsTap))
+        friendsTap.numberOfTapsRequired = 1
+        friends.isUserInteractionEnabled = true
+        friends.addGestureRecognizer(friendsTap)
+        
+        // tap posts
+        let postsTap = UITapGestureRecognizer(target: self, action: #selector(self.postTap))
+        postsTap.numberOfTapsRequired = 1
+        posts.isUserInteractionEnabled = true
+        posts.addGestureRecognizer(postsTap)
         
         return vw
     }
@@ -153,6 +260,84 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     }
     
     func editAction(sender: UIButton!) {
-        print("Button tapped")
+        
+        let currentUserId = UserManager.sharedInstance.getUserId()
+        
+        if currentUserId == userId {
+            let storyboard = UIStoryboard(name: "Main", bundle:nil)
+            let home = storyboard.instantiateViewController(withIdentifier: "EditProfileVC") as! NavigationVC
+            self.present(home, animated: true, completion: nil)
+            
+        } else {
+            let friend = FriendManager.sharedInstance.isMyFriend(userId: userId)
+            if(friend == true) {
+                
+                FriendManager.sharedInstance.removeFriend(userId: userId){ (response) in
+                    if(response){
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                    }
+                }
+                
+            }else{
+                
+                FriendManager.sharedInstance.addFriend(userId: userId){ (response) in
+                    if(response){
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func postTap() {
+        if !contentArr.isEmpty {
+            let index = IndexPath(item: 0, section: 0)
+            self.tableView.scrollToRow(at: index, at: UITableViewScrollPosition.top, animated: true)
+        }
+    }
+    
+    func friendsTap() {
+        userToListFriend = user.id
+        friendArrayToBelListed = friendArray
+        
+        let followers = self.storyboard?.instantiateViewController(withIdentifier: "FriendsTVC") as! FriendsTVC
+        
+        self.navigationController?.pushViewController(followers, animated: true)
+    }
+    
+    func refresh() {
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                self.contentArr = response.1
+                self.tableView?.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+        refresher.endRefreshing()
+    }
+    
+    // reloading func after received notification
+    func reload(_ notification:Notification) {
+        tableView?.reloadData()
+    }
+    
+    // reloading func after received notification
+    func uploaded(_ notification:Notification) {
+        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+            if(response.0){
+                self.contentArr = response.1
+                self.tableView.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+    }
+    
+    func returnToLogin() {
+        UserManager.sharedInstance.clearUserInfo()
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        self.present(vc, animated: true, completion: nil)
     }
 }
