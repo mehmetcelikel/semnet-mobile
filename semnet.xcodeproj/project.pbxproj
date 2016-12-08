@@ -21,7 +21,7 @@
 		6335B5781DECB630007A62F0 /* RestAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B5771DECB630007A62F0 /* RestAPIManager.swift */; };
 		6335B57C1DECB9E7007A62F0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */; };
 		6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57D1DECCE15007A62F0 /* UserManager.swift */; };
-		63673F7B1DF8B6C000D330D9 /* NewPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63673F7A1DF8B6C000D330D9 /* NewPostVC.swift */; };
+		633D66C01DFA023C00A335BA /* NewPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D66BF1DFA023C00A335BA /* NewPostVC.swift */; };
 		63673F7D1DF8C28A00D330D9 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 63673F7C1DF8C28A00D330D9 /* finger.png */; };
 		638308221DF2142C00067E17 /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308211DF2142C00067E17 /* FriendsTVC.swift */; };
 		638308241DF2145B00067E17 /* FriendsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308231DF2145B00067E17 /* FriendsTVCell.swift */; };
@@ -100,7 +100,7 @@
 		6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		6335B57D1DECCE15007A62F0 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		6335B5871DEF704A007A62F0 /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Alamofire; path = Pods/Alamofire; sourceTree = "<group>"; };
-		63673F7A1DF8B6C000D330D9 /* NewPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostVC.swift; sourceTree = "<group>"; };
+		633D66BF1DFA023C00A335BA /* NewPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostVC.swift; sourceTree = "<group>"; };
 		63673F7C1DF8C28A00D330D9 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
 		638308211DF2142C00067E17 /* FriendsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		638308231DF2145B00067E17 /* FriendsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVCell.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 				638308651DF7487D00067E17 /* AppHomeTVCell.swift */,
 				6383086D1DF754F600067E17 /* NewProfileVC.swift */,
 				6383086F1DF7551500067E17 /* NewProfileTVCell.swift */,
-				63673F7A1DF8B6C000D330D9 /* NewPostVC.swift */,
+				633D66BF1DFA023C00A335BA /* NewPostVC.swift */,
 			);
 			path = semnet;
 			sourceTree = "<group>";
@@ -596,7 +596,7 @@
 			files = (
 				638308381DF3203F00067E17 /* NavigationVC.swift in Sources */,
 				6383083C1DF33CB800067E17 /* ContentManager.swift in Sources */,
-				63673F7B1DF8B6C000D330D9 /* NewPostVC.swift in Sources */,
+				633D66C01DFA023C00A335BA /* NewPostVC.swift in Sources */,
 				6383084E1DF4588000067E17 /* TabBarVC.swift in Sources */,
 				6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */,
 				6383083E1DF3520700067E17 /* Content.swift in Sources */,
