@@ -43,7 +43,7 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         closeBtn.tintColor = UIColor.white
         
         
-        let useBtn = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(PhotoLibVC.choose_click(_:)))
+        let useBtn = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(PhotoLibVC.choose_click(_:)))
         useBtn.width = screenWidth / 8
         useBtn.tintColor = UIColor.white
         
@@ -189,11 +189,40 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     func choose_click(_ sender: AnyObject) {
-        let storyboard = UIStoryboard(name: "Main", bundle:nil)
-        let home = storyboard.instantiateViewController(withIdentifier: "PostVC") as! PostVC
-        home.image = imageView.image
         
-        self.present(home, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle:nil)
+        let home = storyboard.instantiateViewController(withIdentifier: "NewPostVC") as! NewPostVC
+        
+        //Create the AlertController
+        let actionSheetController: UIAlertController = UIAlertController(title: "Selection", message: nil, preferredStyle: .actionSheet)
+        
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+            //Do some stuff
+        }
+        actionSheetController.addAction(cancelAction)
+        //Create and add first option action
+        let whatAction: UIAlertAction = UIAlertAction(title: "Choose Photo?", style: .default) { action -> Void in
+            
+            home.image = self.imageView.image
+            self.present(home, animated: true, completion: nil)
+        }
+        actionSheetController.addAction(whatAction)
+        //Create and add a second option action
+        let whereAction: UIAlertAction = UIAlertAction(title: "Continue without a photo?", style: .default) { action -> Void in
+            
+            home.image = nil
+            self.present(home, animated: true, completion: nil)
+        }
+        actionSheetController.addAction(whereAction)
+        
+        
+        // need to provide a popover
+        actionSheetController.popoverPresentationController?.sourceView = sender as AnyObject as? UIView;
+        
+        //Present the AlertController
+        self.present(actionSheetController, animated: true, completion: nil)
+    
     }
     
     func close_click(_ sender: AnyObject) {

@@ -10,13 +10,19 @@ import UIKit
 
 class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
 
-
+    var image:UIImage!
+    
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var tagTextView: UITextView!
     @IBOutlet weak var postButton: UIButton!
     
+    @IBOutlet weak var autoCompleteTableView: UITableView!
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
     var placeholderLabelTag : UILabel!
-    var tagTableView: UITableView!
+    
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     var autocompleteCountries = [String]()
     let countries = NSLocale.isoCountryCodes.map { (code:String) -> String in
@@ -43,24 +49,43 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         placeholderLabelTag.textColor = UIColor(white: 0, alpha: 0.3)
         placeholderLabelTag.isHidden = !tagTextView.text.isEmpty
         
-        tagTableView = UITableView()
-        tagTableView!.delegate = self
-        tagTableView!.dataSource = self
-        tagTableView!.isScrollEnabled = true
-        tagTableView!.isHidden = true
-        tagTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        autoCompleteTableView.delegate = self
+        autoCompleteTableView.dataSource = self
+        autoCompleteTableView.isHidden=true
+        autoCompleteTableView.layer.borderWidth = 1.0
+        autoCompleteTableView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        self.view.addSubview(autoCompleteTableView)
+        
+        if(self.image == nil){
+            imageViewHeightConstraint.constant = 0
+        }else{
+            imageView.image = image
+        }
+        
+        // tap to hide keyboard
+        let hideTap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        hideTap.numberOfTapsRequired = 1
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(hideTap)
     }
 
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabelTag.isHidden = !textView.text.isEmpty
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 15
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let autoCompleteRowIdentifier = "cell"
         var cell = tableView.dequeueReusableCell(withIdentifier: autoCompleteRowIdentifier) as UITableViewCell!
         
-        if let tempo1 = cell {
+        if cell != nil {
             let index = indexPath.row as Int
+            cell!.textLabel!.font = UIFont.italicSystemFont(ofSize: 10)
             cell!.textLabel!.text = autocompleteCountries[index]
         }
             
@@ -73,27 +98,26 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell : UITableViewCell = tableView.cellForRow(at: indexPath as IndexPath)!
-        contentTextView.text = selectedCell.textLabel!.text
-        tagTableView.isHidden = true
+        tagTextView.text = selectedCell.textLabel!.text
+        autoCompleteTableView.isHidden = true
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return autocompleteCountries.count
     }
     
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        print("text field has changed")
-        tagTableView!.isHidden = false
+        autoCompleteTableView!.isHidden = false
         
         let substring = (tagTextView.text as NSString).replacingCharacters(in: range, with: text)
-        print(substring)
         searchAutocompleteEntriesWithSubstring(substring: substring)
         return true
     }
     
     func searchAutocompleteEntriesWithSubstring(substring: String) {
         autocompleteCountries.removeAll(keepingCapacity: false)
-        print(substring)
         
         for curString in countries {
             //print(curString)
@@ -103,7 +127,33 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                 autocompleteCountries.append(curString)
             }
         }
+        if(autocompleteCountries.count == 0){
+            autoCompleteTableView.isHidden = true
+        }
+        autoCompleteTableView!.reloadData()
+    }
+    
+    @IBAction func postButtonClick(_ sender: Any) {
         
-        tagTableView!.reloadData()
+        self.view.endEditing(true)
+        
+        ContentManager.sharedInstance.createContent(description: contentTextView.text!){ (response) in
+            if(response.0){
+                print("Content has been created")
+                ContentManager.sharedInstance.uploadContent(image: self.imageView.image, contentId: response.1){ (response) in
+                    if(response){
+                        print("Content has been uploaded")
+                        
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "uploaded"), object: nil)
+                        
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func hideKeyboard() {
+        self.view.endEditing(true)
     }
 }
