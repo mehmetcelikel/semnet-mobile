@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import DLRadioButton
 
 class PhotoLibCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var imageView: UIImageView!
 }

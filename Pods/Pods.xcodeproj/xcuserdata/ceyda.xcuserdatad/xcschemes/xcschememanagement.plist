@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DLRadioButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-semnet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,11 +32,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3FCA1D8548637810F1331096FBB7CC57</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5CA8E33D3657778DDB6B207CD8FD7CA1</key>
 		<dict>
 			<key>primary</key>
@@ -43,6 +43,16 @@
 			<true/>
 		</dict>
 		<key>D9C64E30D7C0F7C82D11588B7CB9AF6A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E530D269B9F932AE6689562CDB30CC51</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F6A77E2753C279F67F70C5C21D6FAE15</key>
 		<dict>
 			<key>primary</key>
 			<true/>

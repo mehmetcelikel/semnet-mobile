@@ -8,9 +8,12 @@
 
 import UIKit
 import Photos
+import DLRadioButton
 
 class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    @IBOutlet weak var checkedButton: DLRadioButton!
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -27,6 +30,8 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = true
+        
+        self.checkedButton.isHidden = true
         
         self.picker.delegate = self
         self.collectionView.dataSource = self
@@ -90,6 +95,10 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         self.images = photoResult.images
         self.photosAsset = photoResult.asset
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(imageTapped(img:)))
+        self.imageView.isUserInteractionEnabled = true
+        self.imageView.addGestureRecognizer(tapGestureRecognizer)
+        
         self.collectionView!.reloadData()
     }
 
@@ -104,7 +113,7 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     //Set preview image when user clicks into a cell
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        getFromLibAndSetToPreviewImage(indexPath.item)
+        getFromLibAndSetToPreviewImage(indexPath.item, click: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,12 +125,12 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         
         //Set first photo in library to preview image
         if indexPath.item == 0 {
-            getFromLibAndSetToPreviewImage(indexPath.item)
+            getFromLibAndSetToPreviewImage(indexPath.item, click: false)
         }
         return cell
     }
     
-    func getFromLibAndSetToPreviewImage(_ index:Int){
+    func getFromLibAndSetToPreviewImage(_ index:Int, click:Bool){
         let imageSize = self.imageView.frame.size;
         
         let asset: PHAsset = self.photosAsset[index]
@@ -131,6 +140,9 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 self.imageView.image = image
             }
         })
+        if(click){
+            self.checkedButton.isHidden = !self.checkedButton.isHidden
+        }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -193,36 +205,16 @@ class PhotoLibVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         let storyboard = UIStoryboard(name: "Main", bundle:nil)
         let home = storyboard.instantiateViewController(withIdentifier: "NewPostVC") as! NewPostVC
         
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Selection", message: nil, preferredStyle: .actionSheet)
-        
-        //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            //Do some stuff
+        if(!self.checkedButton.isHidden){
+            home.image = self.imageView.image    
         }
-        actionSheetController.addAction(cancelAction)
-        //Create and add first option action
-        let whatAction: UIAlertAction = UIAlertAction(title: "Choose Photo?", style: .default) { action -> Void in
-            
-            home.image = self.imageView.image
-            self.present(home, animated: true, completion: nil)
-        }
-        actionSheetController.addAction(whatAction)
-        //Create and add a second option action
-        let whereAction: UIAlertAction = UIAlertAction(title: "Continue without a photo?", style: .default) { action -> Void in
-            
-            home.image = nil
-            self.present(home, animated: true, completion: nil)
-        }
-        actionSheetController.addAction(whereAction)
         
-        
-        // need to provide a popover
-        actionSheetController.popoverPresentationController?.sourceView = sender as AnyObject as? UIView;
-        
-        //Present the AlertController
-        self.present(actionSheetController, animated: true, completion: nil)
+        self.present(home, animated: true, completion: nil)
     
+    }
+    
+    func imageTapped(img: AnyObject){
+        self.checkedButton.isHidden = !self.checkedButton.isHidden
     }
     
     func close_click(_ sender: AnyObject) {

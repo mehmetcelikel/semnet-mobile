@@ -6,6 +6,7 @@ target 'semnet' do
   use_frameworks!
 
   pod 'Alamofire', '~> 4.0'
+  pod 'DLRadioButton', '~> 1.4'
 
   # Pods for semnet
 

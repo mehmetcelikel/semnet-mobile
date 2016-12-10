@@ -68,6 +68,10 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         hideTap.numberOfTapsRequired = 1
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
+        
+        let backSwipe = UISwipeGestureRecognizer(target: self, action: #selector(back(_:)))
+        backSwipe.direction = UISwipeGestureRecognizerDirection.down
+        self.view.addGestureRecognizer(backSwipe)
     }
 
     func textViewDidChange(_ textView: UITextView) {
@@ -155,5 +159,9 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     func hideKeyboard() {
         self.view.endEditing(true)
+    }
+    
+    func back(_ gesture: UIGestureRecognizer){
+        self.dismiss(animated: true, completion: nil)
     }
 }

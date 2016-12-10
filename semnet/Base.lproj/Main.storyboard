@@ -723,11 +723,29 @@
                                     <barButtonItem title="Item" id="DoZ-Az-Lsa"/>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAN-24-J2Z" customClass="DLRadioButton">
+                                <rect key="frame" x="164" y="170" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="icon" value="checked.png"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="iconSelected" value="checked.png"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="SNq-xL-2tq"/>
                     <connections>
+                        <outlet property="checkedButton" destination="pAN-24-J2Z" id="bcp-bm-cBt"/>
                         <outlet property="collectionView" destination="4tj-3H-A7C" id="YqQ-Ex-tVM"/>
                         <outlet property="footerToolbar" destination="UIl-H8-pFg" id="mEa-hw-6wR"/>
                         <outlet property="headerToolbar" destination="LDp-Rd-9ga" id="mjG-iA-9hD"/>
@@ -952,6 +970,7 @@
     </scenes>
     <resources>
         <image name="camera.png" width="23" height="18"/>
+        <image name="checked.png" width="512" height="512"/>
         <image name="feed.png" width="25" height="25"/>
         <image name="home.png" width="25" height="25"/>
         <image name="pp.jpg.gif" width="96" height="96"/>
