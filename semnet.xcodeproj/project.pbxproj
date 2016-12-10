@@ -23,6 +23,9 @@
 		6335B57E1DECCE15007A62F0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B57D1DECCE15007A62F0 /* UserManager.swift */; };
 		633D66C01DFA023C00A335BA /* NewPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D66BF1DFA023C00A335BA /* NewPostVC.swift */; };
 		633D66C21DFC7D6900A335BA /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66C11DFC7D6900A335BA /* checked.png */; };
+		633D66C61DFC87A000A335BA /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66C31DFC87A000A335BA /* comment.png */; };
+		633D66C71DFC87A000A335BA /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66C41DFC87A000A335BA /* like.png */; };
+		633D66C81DFC87A000A335BA /* unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66C51DFC87A000A335BA /* unlike.png */; };
 		63673F7D1DF8C28A00D330D9 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 63673F7C1DF8C28A00D330D9 /* finger.png */; };
 		638308221DF2142C00067E17 /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308211DF2142C00067E17 /* FriendsTVC.swift */; };
 		638308241DF2145B00067E17 /* FriendsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308231DF2145B00067E17 /* FriendsTVCell.swift */; };
@@ -103,6 +106,9 @@
 		6335B5871DEF704A007A62F0 /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Alamofire; path = Pods/Alamofire; sourceTree = "<group>"; };
 		633D66BF1DFA023C00A335BA /* NewPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostVC.swift; sourceTree = "<group>"; };
 		633D66C11DFC7D6900A335BA /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
+		633D66C31DFC87A000A335BA /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment.png; sourceTree = "<group>"; };
+		633D66C41DFC87A000A335BA /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
+		633D66C51DFC87A000A335BA /* unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlike.png; sourceTree = "<group>"; };
 		63673F7C1DF8C28A00D330D9 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
 		638308211DF2142C00067E17 /* FriendsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		638308231DF2145B00067E17 /* FriendsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVCell.swift; sourceTree = "<group>"; };
@@ -219,9 +225,9 @@
 				638308231DF2145B00067E17 /* FriendsTVCell.swift */,
 				638308351DF31F0000067E17 /* SearchTVC.swift */,
 				638308371DF3203F00067E17 /* NavigationVC.swift */,
+				6383084D1DF4588000067E17 /* TabBarVC.swift */,
 				6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */,
 				6383083F1DF362EF00067E17 /* EditProfileVC.swift */,
-				6383084D1DF4588000067E17 /* TabBarVC.swift */,
 				638308491DF4553E00067E17 /* PhotoLibVC.swift */,
 				638308511DF4623E00067E17 /* PhotoLibCell.swift */,
 				638308531DF47F8500067E17 /* PostVC.swift */,
@@ -269,6 +275,9 @@
 		6383083A1DF33BFD00067E17 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				633D66C31DFC87A000A335BA /* comment.png */,
+				633D66C41DFC87A000A335BA /* like.png */,
+				633D66C51DFC87A000A335BA /* unlike.png */,
 				633D66C11DFC7D6900A335BA /* checked.png */,
 				63673F7C1DF8C28A00D330D9 /* finger.png */,
 				638308671DF74FAA00067E17 /* feed.png */,
@@ -428,14 +437,17 @@
 				6383082C1DF31C4B00067E17 /* home.png in Resources */,
 				6383086C1DF74FAA00067E17 /* feed@3x.png in Resources */,
 				6335B5761DEB6368007A62F0 /* pp.jpg.gif in Resources */,
+				633D66C71DFC87A000A335BA /* like.png in Resources */,
 				6335B5491DEB597B007A62F0 /* Assets.xcassets in Resources */,
 				638308321DF31D2A00067E17 /* users.png in Resources */,
 				638308471DF4541F00067E17 /* camera@2x.png in Resources */,
 				6383086A1DF74FAA00067E17 /* feed.png in Resources */,
 				6383086B1DF74FAA00067E17 /* feed@2x.png in Resources */,
 				6383082D1DF31C4B00067E17 /* home@2x.png in Resources */,
+				633D66C61DFC87A000A335BA /* comment.png in Resources */,
 				638308461DF4541F00067E17 /* camera.png in Resources */,
 				6335B5471DEB597B007A62F0 /* Main.storyboard in Resources */,
+				633D66C81DFC87A000A335BA /* unlike.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

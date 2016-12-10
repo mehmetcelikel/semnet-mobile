@@ -38,7 +38,7 @@ class NewProfileVC: UIViewController {
         refresher.addTarget(self, action: #selector(NewProfileVC.refresh), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
         
-        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
             if(response.0){
                 print("contentList has been loaded")
                 self.contentArr = response.1
@@ -306,7 +306,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     }
     
     func refresh() {
-        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
             if(response.0){
                 self.contentArr = response.1
                 self.tableView?.reloadData()
@@ -324,7 +324,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     
     // reloading func after received notification
     func uploaded(_ notification:Notification) {
-        ContentManager.sharedInstance.loadContentlist(userId: userId){ (response) in
+        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
             if(response.0){
                 self.contentArr = response.1
                 self.tableView.reloadData()

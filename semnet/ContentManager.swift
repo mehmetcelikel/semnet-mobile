@@ -76,14 +76,14 @@ class ContentManager: NSObject {
         );
     }
     
-    func loadContentlist(userId: String, callback: @escaping (Bool,Array<Content>) -> ()) {
+    func loadContentlist(userId: String, type: String, callback: @escaping (Bool,Array<Content>) -> ()) {
         
         let authToken = UserManager.sharedInstance.getToken()
         
         let parameters: Parameters = [
             "authToken": authToken!,
             "userId": userId,
-            "type": "SPECIFIED"
+            "type": type
         ]
         
         Alamofire.request(contentListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
@@ -147,6 +147,39 @@ class ContentManager: NSObject {
                 }else{
                     callback(true, UIImage())
                 }
+        }
+    }
+    
+    func likeContent(contentId: String, like: Bool, callback: @escaping (Bool) -> ())  {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let createParams : [String: Any] =
+            ["authToken" : authToken!,
+             "id" : contentId
+        ]
+        
+        var url = contentUnlikeEndpoint
+        if(like){
+            url = contentLikeEndpoint
+        }
+        
+        Alamofire.request(url, method: .post, parameters: createParams, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    callback(false)
+                    return
+                }
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    callback(false)
+                    return
+                }
+                
+                callback(true)
         }
     }
 }

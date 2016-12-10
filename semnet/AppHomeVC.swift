@@ -10,23 +10,54 @@ import UIKit
 
 class AppHomeVC: UIViewController {
 
-    var dataSource:[(upper:String,lower:String)] = [("Subscription Groups","Subscription groups consist of varying subscription levels and durations. All auto-renewable subscriptions are required to be part of a subscription group. Customers can move between subscription durations within a group, but cannot be subscribed to more than one subscription product within a group."),
-                                                    ("Duration","The length of time between auto-renewals. The duration can be 7 days, 1 month, 2 months, 3 months, 6 months, or 1 year."),
-                                                    ("Subscription Levels","You can assign every in-app purchase within a subscription group to a subscription level. Subscription levels are given a default rank, but you can reorder them by dragging and dropping each in-app purchase into the appropriate rank. Your subscription levels should be listed in descending order, starting with the one that offers the highest level of service. You can add more than one subscription to each level if the service provided is determined to be equal. Customers can move between subscription levels."),
-                                                    ("Upgrade","When a customer switches from a subscription in a lower level to a subscription in a higher level. This change goes into effect immediately."),
-                                                    ("Marketing Incentive Duration","The length of an auto-renewable subscription extension if customers choose to opt-in to share contact information. This property is only available to Magazines & Newspapers developers who have implemented Newsstand Kit.\n\nUsers’ contact information is available in the Sales and Trends module of iTunes Connect.\n\nNote: The opt-in incentive is not available for macOS.")]
+    @IBOutlet weak var tableView: UITableView!
+    
+    var contentArr = [Content]()
+    
+    var activityIndicator: UIActivityIndicatorView!
+    var refresher : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(loadData), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refresher)
+        
+        loadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(uploaded(_:)), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func returnToLogin() {
+        UserManager.sharedInstance.clearUserInfo()
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        self.present(vc, animated: true, completion: nil)
+    }
 
+    func uploaded(_ notification:Notification) {
+        loadData()
+    }
+    
+    func loadData() {
+        let userId = UserManager.sharedInstance.getUserId()
+        
+        ContentManager.sharedInstance.loadContentlist(userId: userId!, type: "SPECIFIED"){ (response) in
+            if(response.0){
+                self.contentArr = response.1
+                self.tableView?.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+        refresher.endRefreshing()
+    }
 }
 
 extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
@@ -36,22 +67,36 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return contentArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppHomeTVCell
         
-        cell.usernameLbl.text = dataSource[indexPath.item].upper
-        cell.descriptionLbl.text = dataSource[indexPath.item].lower
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 100, y: 100, width: 20, height: 20))
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.center = cell.contentImage.center
+        cell.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
+        
+        cell.usernameLbl.text = contentArr[indexPath.item].id
+        cell.descriptionLbl.text = contentArr[indexPath.item].description
         cell.profileImage.image = UIImage(named: "pp.jpg.gif")
+        cell.contentId = contentArr[indexPath.item].id
         
-        cell.contentImage.image = UIImage(named: "pp.jpg.gif")
-        
-        if ( indexPath.row != 1){
-            cell.contentImageHeightConstraint.constant = 0
-            
+        ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+            if(response.0){
+                print("content has been downloaded")
+                cell.contentImage.image = response.1
+                cell.usernameLbl.text = "@username"
+                
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.removeFromSuperview()
+            }else{
+                self.returnToLogin()
+            }
         }
         
         return cell
@@ -65,18 +110,5 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         return UITableViewAutomaticDimension
     }
     
-    /*
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let vw = UIView()
-        
-        vw.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        vw.backgroundColor = UIColor.red
-        
-        return vw
-    }*/
     
 }

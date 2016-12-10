@@ -10,14 +10,20 @@ import UIKit
 
 class AppHomeTVCell: UITableViewCell {
 
-    @IBOutlet weak var contentImageHeightConstraint: NSLayoutConstraint!
+    var liked = false
+    var contentId:String!
     
+    @IBOutlet weak var contentImageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var contentImage: UIImageView!
     @IBOutlet weak var descriptionLbl: UILabel!
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     
+    @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeCount: UILabel!
+    @IBOutlet weak var commentButton: UIButton!
     
     
     override func awakeFromNib() {
@@ -31,4 +37,35 @@ class AppHomeTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func commentButtonAction(_ sender: Any) {
+    }
+    
+    @IBAction func likeButtonAction(_ sender: Any) {
+        
+        self.likeButton.isEnabled = false
+        
+        ContentManager.sharedInstance.likeContent(contentId: contentId, like: liked) { (response) in
+            if(response){
+                
+                self.setLikeButtonBackground()
+                // send notification if  liked to refresh TableView
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "liked"), object: nil)
+            }
+        }
+    }
+    
+    func setLikeButtonBackground(){
+        
+        var imageName = "unlike.png"
+        if(!liked){
+            imageName = "like.png"
+        }
+        self.likeButton.setTitle("like", for: UIControlState())
+        self.likeButton.setBackgroundImage(UIImage(named: imageName), for: UIControlState())
+        self.likeButton.setImage(UIImage(named: imageName), for: UIControlState())
+        
+        self.liked = !self.liked
+        
+        self.likeButton.isEnabled = true
+    }
 }

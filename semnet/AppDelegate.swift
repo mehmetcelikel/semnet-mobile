@@ -31,6 +31,8 @@ let contentGetEndpoint: String = contentBaseURL + "/get"
 let contentCreateEndpoint: String = contentBaseURL + "/create"
 let contentDownloadEndpoint: String = contentBaseURL + "/downloadContent"
 let contentUploadEndpoint: String = contentBaseURL + "/upload"
+let contentLikeEndpoint: String = contentBaseURL + "/like"
+let contentUnlikeEndpoint: String = contentBaseURL + "/unlike"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;
