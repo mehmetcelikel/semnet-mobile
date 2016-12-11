@@ -16,14 +16,16 @@ struct Content {
     let date: String
     let likeCount: Int
     let hasImage: Bool
+    var likers = [String]()
     
-    init(id: String, description: String, ownerId: String, ownerName: String, date: Int, hasImage: Bool, likeCount: Int) {
+    init(id: String, description: String, ownerId: String, ownerName: String, date: Int, hasImage: Bool, likeCount: Int, likers: [String]) {
         self.id = id
         self.description = description
         self.ownerId = ownerId
         self.ownerName = ownerName
         self.hasImage = hasImage
         self.likeCount = likeCount
+        self.likers = likers
         
         let millis: UnixTime = date
         

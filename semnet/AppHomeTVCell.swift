@@ -10,7 +10,7 @@ import UIKit
 
 class AppHomeTVCell: UITableViewCell {
 
-    var liked = false
+    var liked:Bool!
     var contentId:String!
     
     @IBOutlet weak var contentImageHeightConstraint: NSLayoutConstraint!
@@ -44,27 +44,28 @@ class AppHomeTVCell: UITableViewCell {
         
         self.likeButton.isEnabled = false
         
-        ContentManager.sharedInstance.likeContent(contentId: contentId, like: liked) { (response) in
-            if(response){
+        ContentManager.sharedInstance.likeContent(contentId: contentId, like: !liked) { (response) in
+            if(response.0){
+                self.likeCount.text = "\(response.1)"
+                self.setLikeButtonBackground(likeAction: !self.liked)
                 
-                self.setLikeButtonBackground()
+                self.liked = !self.liked
+                
                 // send notification if  liked to refresh TableView
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "liked"), object: nil)
             }
         }
     }
     
-    func setLikeButtonBackground(){
+    func setLikeButtonBackground(likeAction: Bool){
         
         var imageName = "unlike.png"
-        if(!liked){
+        if(likeAction){
             imageName = "like.png"
         }
         self.likeButton.setTitle("like", for: UIControlState())
         self.likeButton.setBackgroundImage(UIImage(named: imageName), for: UIControlState())
         self.likeButton.setImage(UIImage(named: imageName), for: UIControlState())
-        
-        self.liked = !self.liked
         
         self.likeButton.isEnabled = true
     }

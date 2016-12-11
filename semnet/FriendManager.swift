@@ -44,6 +44,7 @@ class FriendManager: NSObject {
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
+                    print(json)
                     callback(false, friendArray)
                     return
                 }
@@ -72,7 +73,7 @@ class FriendManager: NSObject {
     
     func addFriend(userId: String, callback: @escaping (Bool) -> ()) {
         
-        let authToken = UserManager.sharedInstance.getToken()
+        let authToken = UserManager.sharedInstance.getToken() as String
         
         let parameters: Parameters = [
             "authToken": authToken,
@@ -90,6 +91,7 @@ class FriendManager: NSObject {
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
+                    print(json)
                     callback(false)
                     return
                 }
@@ -104,7 +106,7 @@ class FriendManager: NSObject {
     
     func removeFriend(userId: String, callback: @escaping (Bool) -> ()) {
         
-        let authToken = UserManager.sharedInstance.getToken()
+        let authToken = UserManager.sharedInstance.getToken() as String
         
         let parameters: Parameters = [
             "authToken": authToken,
@@ -122,6 +124,7 @@ class FriendManager: NSObject {
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
+                    print(json)
                     callback(false)
                     return
                 }

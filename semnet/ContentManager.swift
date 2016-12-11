@@ -12,6 +12,19 @@ import Alamofire
 class ContentManager: NSObject {
     static let sharedInstance = ContentManager()
     
+    func didILike(content: Content) -> Bool{
+        let userId = UserManager.sharedInstance.getUserId()
+        
+        var found=false;
+        for object in content.likers {
+            if(userId == object) {
+                found = true;
+                break;
+            }
+        }
+        return found
+    }
+    
     func createContent(description: String, hasImage: Bool, callback: @escaping (Bool, String) -> ())  {
         
         let authToken = UserManager.sharedInstance.getToken()
@@ -25,22 +38,23 @@ class ContentManager: NSObject {
         Alamofire.request(contentCreateEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
             .responseJSON { response in
                 
-                var contentId = "" as? String
+                var contentId = ""
                 
                 guard let json = response.result.value as? [String: Any] else {
                     print("Error: \(response.result.error)")
-                    callback(false, contentId!)
+                    callback(false, contentId)
                     return
                 }
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
-                    callback(false, contentId!)
+                    print(json)
+                    callback(false, contentId)
                     return
                 }
-                contentId = json["id"] as! String?
+                contentId = (json["id"] as! String?)!
                 
-                callback(true, contentId!)
+                callback(true, contentId)
         }
     }
     
@@ -93,13 +107,12 @@ class ContentManager: NSObject {
                     print("Error: \(response.result.error)")
                     return
                 }
-                
                 print(json)
-                
                 var contentArr = [Content]()
                 
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
+                    print(json)
                     callback(false, contentArr)
                     return
                 }
@@ -122,8 +135,22 @@ class ContentManager: NSObject {
                     let date = anItem["creationDate"] as! Int
                     let hasImage = anItem["hasImage"] as! Bool
                     let likeCount = anItem["likeCount"] as! Int
-
-                    contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, date: date, hasImage: hasImage, likeCount: likeCount))
+                    
+                    var likers = [String]()
+                    
+                    guard let likerList = anItem["likerList"] as? [Dictionary<String, AnyObject>] else {
+                        contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, date: date, hasImage: hasImage, likeCount: likeCount, likers: likers))
+                        
+                        continue
+                    }
+                    
+                    for likerItem in likerList  {
+                        let likerId = likerItem["id"] as! String
+                        likers.append(likerId)
+                    }
+                    
+                    contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, date: date, hasImage: hasImage, likeCount: likeCount, likers: likers))
+                    
                 }
                 callback(true, contentArr)
         }
@@ -159,7 +186,7 @@ class ContentManager: NSObject {
         }
     }
     
-    func likeContent(contentId: String, like: Bool, callback: @escaping (Bool) -> ())  {
+    func likeContent(contentId: String, like: Bool, callback: @escaping (Bool,Int) -> ())  {
         
         let authToken = UserManager.sharedInstance.getToken()
         
@@ -178,17 +205,19 @@ class ContentManager: NSObject {
                 
                 guard let json = response.result.value as? [String: Any] else {
                     print("Error: \(response.result.error)")
-                    callback(false)
+                    callback(false,0)
                     return
                 }
-                
+                print(json)
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
-                    callback(false)
+                    print(json)
+                    callback(false,0)
                     return
                 }
+                let likeCount = json["likeCount"] as! Int
                 
-                callback(true)
+                callback(true,likeCount)
         }
     }
 }

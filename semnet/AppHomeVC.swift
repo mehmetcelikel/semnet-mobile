@@ -26,6 +26,8 @@ class AppHomeVC: UIViewController {
         loadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(uploaded(_:)), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(uploaded(_:)), name: NSNotification.Name(rawValue: "friendAction"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,6 +82,9 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         cell.dateLbl.text = contentArr[indexPath.item].date
         cell.contentId = contentArr[indexPath.item].id
         cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
+        cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
+        
+        cell.setLikeButtonBackground(likeAction: cell.liked)
         
         if(contentArr[indexPath.item].hasImage){
             

@@ -27,6 +27,7 @@
 		633D66C71DFC87A000A335BA /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66C41DFC87A000A335BA /* like.png */; };
 		633D66C81DFC87A000A335BA /* unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66C51DFC87A000A335BA /* unlike.png */; };
 		633D66CA1DFCA35600A335BA /* UnitTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D66C91DFCA35600A335BA /* UnitTime.swift */; };
+		633D66CC1DFDA16400A335BA /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 633D66CB1DFDA16400A335BA /* logout.png */; };
 		63673F7D1DF8C28A00D330D9 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 63673F7C1DF8C28A00D330D9 /* finger.png */; };
 		638308221DF2142C00067E17 /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308211DF2142C00067E17 /* FriendsTVC.swift */; };
 		638308241DF2145B00067E17 /* FriendsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638308231DF2145B00067E17 /* FriendsTVCell.swift */; };
@@ -110,6 +111,7 @@
 		633D66C41DFC87A000A335BA /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		633D66C51DFC87A000A335BA /* unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlike.png; sourceTree = "<group>"; };
 		633D66C91DFCA35600A335BA /* UnitTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTime.swift; sourceTree = "<group>"; };
+		633D66CB1DFDA16400A335BA /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		63673F7C1DF8C28A00D330D9 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
 		638308211DF2142C00067E17 /* FriendsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		638308231DF2145B00067E17 /* FriendsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTVCell.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		6383083A1DF33BFD00067E17 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				633D66CB1DFDA16400A335BA /* logout.png */,
 				633D66C31DFC87A000A335BA /* comment.png */,
 				633D66C41DFC87A000A335BA /* like.png */,
 				633D66C51DFC87A000A335BA /* unlike.png */,
@@ -427,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6335B54C1DEB597B007A62F0 /* LaunchScreen.storyboard in Resources */,
+				633D66CC1DFDA16400A335BA /* logout.png in Resources */,
 				638308261DF2214C00067E17 /* back.png in Resources */,
 				638308481DF4541F00067E17 /* camera@3x.png in Resources */,
 				638308341DF31D2A00067E17 /* users@3x.png in Resources */,

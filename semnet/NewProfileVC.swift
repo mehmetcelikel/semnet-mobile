@@ -25,6 +25,9 @@ class NewProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let signOut = UIBarButtonItem(image: UIImage(named: "logout.png"), style: .plain, target: self, action: #selector(signOut(_:)))
+        self.navigationItem.rightBarButtonItem = signOut
+        
         self.tableView?.alwaysBounceVertical = true
         
         if profileUserId.last == nil {
@@ -41,7 +44,7 @@ class NewProfileVC: UIViewController {
         
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(NewProfileVC.reload(_:)), name: NSNotification.Name(rawValue: "reload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewProfileVC.reload(_:)), name: NSNotification.Name(rawValue: "friendAction"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewProfileVC.uploaded(_:)), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
     }
@@ -61,6 +64,9 @@ class NewProfileVC: UIViewController {
                 self.returnToLogin()
             }
         }
+    }
+    func signOut(_ sender : UITabBarItem) {
+        returnToLogin()
     }
 }
 
@@ -280,7 +286,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
                 
                 FriendManager.sharedInstance.removeFriend(userId: userId){ (response) in
                     if(response){
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "friendAction"), object: nil)
                     }
                 }
                 
@@ -288,7 +294,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
                 
                 FriendManager.sharedInstance.addFriend(userId: userId){ (response) in
                     if(response){
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "friendAction"), object: nil)
                     }
                 }
             }
