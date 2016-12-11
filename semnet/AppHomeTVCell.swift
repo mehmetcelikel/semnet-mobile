@@ -11,7 +11,8 @@ import UIKit
 class AppHomeTVCell: UITableViewCell {
 
     var liked:Bool!
-    var contentId:String!
+    var content:Content!
+    var parentVC:UIViewController!
     
     @IBOutlet weak var contentImageHeightConstraint: NSLayoutConstraint!
     
@@ -38,13 +39,19 @@ class AppHomeTVCell: UITableViewCell {
     }
 
     @IBAction func commentButtonAction(_ sender: Any) {
+        
+        commentContentArr.append(content)
+        
+        let comment = parentVC.storyboard?.instantiateViewController(withIdentifier: "CommentVC") as? CommentVC
+        parentVC.navigationController?.pushViewController(comment!, animated: true)
+        
     }
     
     @IBAction func likeButtonAction(_ sender: Any) {
         
         self.likeButton.isEnabled = false
         
-        ContentManager.sharedInstance.likeContent(contentId: contentId, like: !liked) { (response) in
+        ContentManager.sharedInstance.likeContent(contentId: content.id, like: !liked) { (response) in
             if(response.0){
                 self.likeCount.text = "\(response.1)"
                 self.setLikeButtonBackground(likeAction: !self.liked)

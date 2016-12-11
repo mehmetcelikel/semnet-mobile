@@ -38,6 +38,8 @@ class NewProfileVC: UIViewController {
         
         loadData()
         
+        tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(NewProfileVC.refresh), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
@@ -84,9 +86,15 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewProfileTVCell
         
+        cell.parentVC = self
         cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
         cell.descriptionLbl.text = contentArr[indexPath.item].description
         cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
+        cell.content = contentArr[indexPath.item]
+        cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
+        cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
+        
+        cell.setLikeButtonBackground(likeAction: cell.liked)
         
         if(contentArr[indexPath.row].hasImage){
             

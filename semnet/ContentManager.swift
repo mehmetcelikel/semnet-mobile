@@ -156,6 +156,55 @@ class ContentManager: NSObject {
         }
     }
     
+    func loadCommentlist(contentId: String, callback: @escaping (Bool,Array<Comment>) -> ()) {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let parameters: Parameters = [
+            "authToken": authToken!,
+            "id": contentId
+        ]
+        
+        Alamofire.request(commentListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    return
+                }
+                print(json)
+                var commentArr = [Comment]()
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    print(json)
+                    callback(false, commentArr)
+                    return
+                }
+                
+                guard let commentList = json["commentList"] as? NSArray else {
+                    callback(true, commentArr)
+                    return
+                }
+                
+                if commentList.count == 0 {
+                    callback(true, commentArr)
+                    return
+                }
+                
+                for anItem in commentList as! [Dictionary<String, AnyObject>] {
+                    let contentId = anItem["id"] as! String
+                    let description = anItem["description"] as! String
+                    let ownerId = anItem["ownerId"] as! String
+                    let ownerName = anItem["ownerUsername"] as! String
+                    let date = anItem["creationDate"] as! Int
+                    
+                    commentArr.append(Comment(id: contentId, comment: description, ownerId: ownerId, ownerName: ownerName, date: date))
+                    
+                }
+                callback(true, commentArr)
+        }
+    }
+    
     func downloadContent(contentId: String, callback: @escaping (Bool,UIImage) -> ()){
         
         let authToken = UserManager.sharedInstance.getToken()
@@ -218,6 +267,66 @@ class ContentManager: NSObject {
                 let likeCount = json["likeCount"] as! Int
                 
                 callback(true,likeCount)
+        }
+    }
+    
+    func createComment(contentId: String, comment: String, callback: @escaping (Bool,String) -> ())  {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let createParams : [String: Any] =
+            ["authToken" : authToken!,
+             "contentId" : contentId,
+             "description" : comment
+        ]
+        
+        Alamofire.request(commentAddEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    callback(false,"")
+                    return
+                }
+                print(json)
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    print(json)
+                    callback(false,"")
+                    return
+                }
+                let commentId = json["id"] as! String
+                
+                callback(true, commentId)
+        }
+    }
+    
+    func deleteComment(contentId: String, commentId: String, callback: @escaping (Bool) -> ())  {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        let createParams : [String: Any] =
+            ["authToken" : authToken!,
+             "contentId" : contentId,
+             "commentId" : commentId
+        ]
+        
+        Alamofire.request(commentDeleteEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    callback(false)
+                    return
+                }
+                print(json)
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    print(json)
+                    callback(false)
+                    return
+                }
+                callback(true)
         }
     }
 }

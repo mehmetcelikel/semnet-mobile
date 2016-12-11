@@ -19,6 +19,8 @@ class AppHomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(loadData), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
@@ -75,12 +77,13 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppHomeTVCell
         
+        cell.parentVC = self
         cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
-        
+    
         cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
         cell.descriptionLbl.text = contentArr[indexPath.item].description
         cell.dateLbl.text = contentArr[indexPath.item].date
-        cell.contentId = contentArr[indexPath.item].id
+        cell.content = contentArr[indexPath.item]
         cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
         cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
         

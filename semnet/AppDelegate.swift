@@ -33,6 +33,9 @@ let contentDownloadEndpoint: String = contentBaseURL + "/downloadContent"
 let contentUploadEndpoint: String = contentBaseURL + "/upload"
 let contentLikeEndpoint: String = contentBaseURL + "/like"
 let contentUnlikeEndpoint: String = contentBaseURL + "/unlike"
+let commentListEndpoint: String = contentBaseURL + "/listComments"
+let commentAddEndpoint: String = contentBaseURL + "/addComment"
+let commentDeleteEndpoint: String = contentBaseURL + "/removeComment"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;
