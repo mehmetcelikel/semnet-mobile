@@ -141,17 +141,26 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         
         self.view.endEditing(true)
         
-        ContentManager.sharedInstance.createContent(description: contentTextView.text!){ (response) in
+        let hasImage = self.image != nil
+        ContentManager.sharedInstance.createContent(description: contentTextView.text!, hasImage: hasImage){ (response) in
             if(response.0){
                 print("Content has been created")
-                ContentManager.sharedInstance.uploadContent(image: self.imageView.image, contentId: response.1){ (response) in
-                    if(response){
-                        print("Content has been uploaded")
-                        
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "uploaded"), object: nil)
-                        
-                        self.dismiss(animated: true, completion: nil)
+                
+                if(hasImage){
+                    
+                    ContentManager.sharedInstance.uploadContent(image: self.imageView.image, contentId: response.1){ (response) in
+                        if(response){
+                            print("Content has been uploaded")
+                            
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "uploaded"), object: nil)
+                            
+                            self.dismiss(animated: true, completion: nil)
+                        }
                     }
+                }else{
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "uploaded"), object: nil)
+                    
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
         }

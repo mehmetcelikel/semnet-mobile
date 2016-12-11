@@ -55,11 +55,10 @@ class SearchTVC: UITableViewController, UISearchBarDelegate {
         cell.addRemoveButton.isHidden = true
         let object = userArray[indexPath.row]
         cell.usernameLabel.text = object.username
+         cell.userId = object.id
         
         UserManager.sharedInstance.downloadImage(userId: object.id){ (response) in
-            
-            cell.userId = object.id
-            
+
             if(response.0){
                 cell.friendImage.image=response.1
             }

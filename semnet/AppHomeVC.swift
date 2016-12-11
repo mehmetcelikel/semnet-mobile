@@ -14,7 +14,6 @@ class AppHomeVC: UIViewController {
     
     var contentArr = [Content]()
     
-    var activityIndicator: UIActivityIndicatorView!
     var refresher : UIRefreshControl!
     
     override func viewDidLoad() {
@@ -48,7 +47,7 @@ class AppHomeVC: UIViewController {
     func loadData() {
         let userId = UserManager.sharedInstance.getUserId()
         
-        ContentManager.sharedInstance.loadContentlist(userId: userId!, type: "SPECIFIED"){ (response) in
+        ContentManager.sharedInstance.loadContentlist(userId: userId!, type: "FRIEND"){ (response) in
             if(response.0){
                 self.contentArr = response.1
                 self.tableView?.reloadData()
@@ -74,26 +73,39 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppHomeTVCell
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 100, y: 100, width: 20, height: 20))
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        activityIndicator.center = cell.contentImage.center
-        cell.addSubview(activityIndicator)
+        cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
         
-        activityIndicator.startAnimating()
-        
-        cell.usernameLbl.text = contentArr[indexPath.item].id
+        cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
         cell.descriptionLbl.text = contentArr[indexPath.item].description
-        cell.profileImage.image = UIImage(named: "pp.jpg.gif")
+        cell.dateLbl.text = contentArr[indexPath.item].date
         cell.contentId = contentArr[indexPath.item].id
+        cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
         
-        ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+        if(contentArr[indexPath.item].hasImage){
+            
+            let activityIndicator = createActivityIndicator(point: cell.contentImage.center)
+            cell.addSubview(activityIndicator)
+            
+            activityIndicator.startAnimating()
+            
+            ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+                if(response.0){
+                    print("content has been downloaded")
+                    cell.contentImage.image = response.1
+                }else{
+                    self.returnToLogin()
+                }
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
+            }
+        }else{
+            cell.contentImageHeightConstraint.constant = 0
+        }
+        
+        UserManager.sharedInstance.downloadImage(userId: contentArr[indexPath.item].ownerId){ (response) in
             if(response.0){
-                print("content has been downloaded")
-                cell.contentImage.image = response.1
-                cell.usernameLbl.text = "@username"
-                
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.removeFromSuperview()
+                print("profile image has been loaded")
+                cell.profileImage.image = response.1
             }else{
                 self.returnToLogin()
             }

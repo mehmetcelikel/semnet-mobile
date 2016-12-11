@@ -12,13 +12,14 @@ import Alamofire
 class ContentManager: NSObject {
     static let sharedInstance = ContentManager()
     
-    func createContent(description: String, callback: @escaping (Bool, String) -> ())  {
+    func createContent(description: String, hasImage: Bool, callback: @escaping (Bool, String) -> ())  {
         
         let authToken = UserManager.sharedInstance.getToken()
         
         let createParams : [String: Any] =
             ["authToken" : authToken!,
-             "description" : description
+             "description" : description,
+             "hasImage": hasImage
         ]
         
         Alamofire.request(contentCreateEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
@@ -93,6 +94,8 @@ class ContentManager: NSObject {
                     return
                 }
                 
+                print(json)
+                
                 var contentArr = [Content]()
                 
                 let errorCode = json["errorCode"] as! String?
@@ -114,7 +117,13 @@ class ContentManager: NSObject {
                 for anItem in contentList as! [Dictionary<String, AnyObject>] {
                     let contentId = anItem["id"] as! String
                     let description = anItem["description"] as! String
-                    contentArr.append(Content(id: contentId, description: description))
+                    let ownerId = anItem["ownerId"] as! String
+                    let ownerName = anItem["ownerUsername"] as! String
+                    let date = anItem["creationDate"] as! Int
+                    let hasImage = anItem["hasImage"] as! Bool
+                    let likeCount = anItem["likeCount"] as! Int
+
+                    contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, date: date, hasImage: hasImage, likeCount: likeCount))
                 }
                 callback(true, contentArr)
         }

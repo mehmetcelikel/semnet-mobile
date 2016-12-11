@@ -15,7 +15,6 @@ class NewProfileVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var refresher : UIRefreshControl!
-    var activityIndicator: UIActivityIndicatorView!
     
     var userId:String!
     var user: SemNetUser!
@@ -34,19 +33,13 @@ class NewProfileVC: UIViewController {
             userId = profileUserId.last
         }
         
+        loadData()
+        
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(NewProfileVC.refresh), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
         
-        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
-            if(response.0){
-                print("contentList has been loaded")
-                self.contentArr = response.1
-                self.tableView.reloadData()
-            }else{
-                self.returnToLogin()
-            }
-        }
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewProfileVC.reload(_:)), name: NSNotification.Name(rawValue: "reload"), object: nil)
         
@@ -58,6 +51,17 @@ class NewProfileVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func loadData(){
+        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
+            if(response.0){
+                print("contentList has been loaded")
+                self.contentArr = response.1
+                self.tableView.reloadData()
+            }else{
+                self.returnToLogin()
+            }
+        }
+    }
 }
 
 extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
@@ -76,30 +80,29 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         
         cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
         cell.descriptionLbl.text = contentArr[indexPath.item].description
+        cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 100, y: 100, width: 20, height: 20))
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        activityIndicator.center = cell.contentImage.center
-        cell.addSubview(activityIndicator)
-        
-        activityIndicator.startAnimating()
-        
-        ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
-            if(response.0){
-                print("content has been downloaded")
-                cell.contentImage.image = response.1
-                cell.usernameLbl.text = "@" + self.user.username
-                
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.removeFromSuperview()
-            }else{
-                self.returnToLogin()
+        if(contentArr[indexPath.row].hasImage){
+            
+            let activityIndicator = createActivityIndicator(point: cell.contentImage.center)
+            cell.addSubview(activityIndicator)
+            
+            activityIndicator.startAnimating()
+            
+            ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+                if(response.0){
+                    print("content has been downloaded")
+                    cell.contentImage.image = response.1
+                    
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                }else{
+                    self.returnToLogin()
+                }
             }
-        }
-        
-        /*if ( indexPath.row != 1){
+        }else{
             cell.contentHeightConstraint.constant = 0
-        }*/
+        }
         
         return cell
     }
@@ -158,18 +161,21 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         username.textAlignment = NSTextAlignment.left
         username.contentMode = UIViewContentMode.scaleAspectFit
         
+        
         UserManager.sharedInstance.getUser(userId: userId) { (response) in
             if(response.0){
                 print("getUser query has just run")
                 self.user = response.1
+                
                 fullname.text = self.user.firstname + " " + self.user.lastname
                 username.text = "@" + self.user.username
+                vw.addSubview(username)
+
             }else{
                 self.returnToLogin()
             }
         }
         
-        vw.addSubview(username)
         
         let posts = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: profileImage.frame.maxY-20, width: 50, height: 20))
         
@@ -306,14 +312,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     }
     
     func refresh() {
-        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
-            if(response.0){
-                self.contentArr = response.1
-                self.tableView?.reloadData()
-            }else{
-                self.returnToLogin()
-            }
-        }
+        loadData()
         refresher.endRefreshing()
     }
     
@@ -324,14 +323,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
     
     // reloading func after received notification
     func uploaded(_ notification:Notification) {
-        ContentManager.sharedInstance.loadContentlist(userId: userId, type: "SPECIFIED"){ (response) in
-            if(response.0){
-                self.contentArr = response.1
-                self.tableView.reloadData()
-            }else{
-                self.returnToLogin()
-            }
-        }
+        loadData()
     }
     
     func returnToLogin() {

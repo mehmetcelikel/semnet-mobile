@@ -11,9 +11,22 @@ import Foundation
 struct Content {
     let id: String
     let description: String
+    let ownerId: String
+    let ownerName: String
+    let date: String
+    let likeCount: Int
+    let hasImage: Bool
     
-    init(id: String, description: String) {
+    init(id: String, description: String, ownerId: String, ownerName: String, date: Int, hasImage: Bool, likeCount: Int) {
         self.id = id
         self.description = description
+        self.ownerId = ownerId
+        self.ownerName = ownerName
+        self.hasImage = hasImage
+        self.likeCount = likeCount
+        
+        let millis: UnixTime = date
+        
+        self.date = millis.toDay
     }
 }
