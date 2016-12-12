@@ -30,12 +30,24 @@ class AppHomeTVCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        // tap to profile
+        let usernameLabelTap = UITapGestureRecognizer(target: self, action: #selector(usernameTap))
+        usernameLabelTap.numberOfTapsRequired = 1
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(usernameLabelTap)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func usernameTap() {
+        profileUserId.append(content.ownerId)
+        let home = parentVC.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
+        parentVC.navigationController?.pushViewController(home, animated: true)
     }
 
     @IBAction func commentButtonAction(_ sender: Any) {

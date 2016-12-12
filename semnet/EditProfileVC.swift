@@ -87,7 +87,7 @@ class EditProfileVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         let userId = UserManager.sharedInstance.getUserId()
         let username = UserManager.sharedInstance.getUsername()
         
-        let user = SemNetUser(id: userId!, username: username!, firstname: firstnameLabel.text!, lastname: lastnameLabel.text!)
+        let user = SemNetUser(id: userId!, username: username!, firstname: firstnameLabel.text!, lastname: lastnameLabel.text!, email: emailLabel.text!, phone: phoneLabel.text!)
         
         UserManager.sharedInstance.updateUser(user: user){ (response) in
             if(response){

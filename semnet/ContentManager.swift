@@ -132,14 +132,14 @@ class ContentManager: NSObject {
                     let description = anItem["description"] as! String
                     let ownerId = anItem["ownerId"] as! String
                     let ownerName = anItem["ownerUsername"] as! String
-                    let date = anItem["creationDate"] as! Int
+                    let dateDiff = anItem["dateDiff"] as! String
                     let hasImage = anItem["hasImage"] as! Bool
                     let likeCount = anItem["likeCount"] as! Int
                     
                     var likers = [String]()
                     
                     guard let likerList = anItem["likerList"] as? [Dictionary<String, AnyObject>] else {
-                        contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, date: date, hasImage: hasImage, likeCount: likeCount, likers: likers))
+                        contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff, hasImage: hasImage, likeCount: likeCount, likers: likers))
                         
                         continue
                     }
@@ -149,7 +149,7 @@ class ContentManager: NSObject {
                         likers.append(likerId)
                     }
                     
-                    contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, date: date, hasImage: hasImage, likeCount: likeCount, likers: likers))
+                    contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff, hasImage: hasImage, likeCount: likeCount, likers: likers))
                     
                 }
                 callback(true, contentArr)
@@ -196,9 +196,9 @@ class ContentManager: NSObject {
                     let description = anItem["description"] as! String
                     let ownerId = anItem["ownerId"] as! String
                     let ownerName = anItem["ownerUsername"] as! String
-                    let date = anItem["creationDate"] as! Int
+                    let dateDiff = anItem["dateDiff"] as! String
                     
-                    commentArr.append(Comment(id: contentId, comment: description, ownerId: ownerId, ownerName: ownerName, date: date))
+                    commentArr.append(Comment(id: contentId, comment: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff))
                     
                 }
                 callback(true, commentArr)

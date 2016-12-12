@@ -7,23 +7,20 @@
 //
 
 import Foundation
+import UIKit
 
 struct Comment {
     let id: String
     let comment: String
     let ownerId: String
     let ownerName: String
-    let date: String
+    let dateDiff: String
     
-    
-    init(id: String, comment: String, ownerId: String, ownerName: String, date: Int) {
+    init(id: String, comment: String, ownerId: String, ownerName: String, dateDiff: String) {
         self.id = id
         self.comment = comment
         self.ownerId = ownerId
         self.ownerName = ownerName
-        
-        let millis: UnixTime = date
-        
-        self.date = millis.toDay
+        self.dateDiff = dateDiff
     }
 }

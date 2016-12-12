@@ -13,9 +13,7 @@ class TabBarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.tabBar.tintColor = .white
-        
         
         self.tabBar.barTintColor = UIColor(red: 37.0 / 255.0, green: 39.0 / 255.0, blue: 42.0 / 255.0, alpha: 1)
         
@@ -25,4 +23,10 @@ class TabBarVC: UITabBarController {
         
     }
 
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if(item.title == "Profile"){
+           profileUserId.removeAll()
+        }
+    }
+    
 }

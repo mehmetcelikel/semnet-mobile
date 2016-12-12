@@ -13,12 +13,12 @@ struct Content {
     let description: String
     let ownerId: String
     let ownerName: String
-    let date: String
+    let dateDiff: String
     let likeCount: Int
     let hasImage: Bool
     var likers = [String]()
     
-    init(id: String, description: String, ownerId: String, ownerName: String, date: Int, hasImage: Bool, likeCount: Int, likers: [String]) {
+    init(id: String, description: String, ownerId: String, ownerName: String, dateDiff: String, hasImage: Bool, likeCount: Int, likers: [String]) {
         self.id = id
         self.description = description
         self.ownerId = ownerId
@@ -26,9 +26,6 @@ struct Content {
         self.hasImage = hasImage
         self.likeCount = likeCount
         self.likers = likers
-        
-        let millis: UnixTime = date
-        
-        self.date = millis.toDay
+        self.dateDiff = dateDiff
     }
 }

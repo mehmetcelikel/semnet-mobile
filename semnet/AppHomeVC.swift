@@ -31,11 +31,6 @@ class AppHomeVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(uploaded(_:)), name: NSNotification.Name(rawValue: "friendAction"), object: nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func returnToLogin() {
         UserManager.sharedInstance.clearUserInfo()
@@ -82,7 +77,7 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
     
         cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
         cell.descriptionLbl.text = contentArr[indexPath.item].description
-        cell.dateLbl.text = contentArr[indexPath.item].date
+        cell.dateLbl.text = contentArr[indexPath.item].dateDiff
         cell.content = contentArr[indexPath.item]
         cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
         cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
@@ -109,6 +104,9 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         }else{
             cell.contentImageHeightConstraint.constant = 0
         }
+        
+        cell.profileImage.layer.cornerRadius = 4
+        cell.profileImage.layer.masksToBounds = true
         
         UserManager.sharedInstance.downloadImage(userId: contentArr[indexPath.item].ownerId){ (response) in
             if(response.0){

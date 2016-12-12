@@ -105,7 +105,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return
         }
         
-        var user = SemNetUser(id: "", username: usernameTxtField.text!, firstname: firstnameTxtField.text!, lastname: lastnameTxtField.text!)
+        var user = SemNetUser(id: "", username: usernameTxtField.text!, firstname: firstnameTxtField.text!, lastname: lastnameTxtField.text!, email: "", phone: "")
         user.password = passwordTxtField.text!
         
         UserManager.sharedInstance.createUser(user: user){ (response) in

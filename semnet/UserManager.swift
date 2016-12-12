@@ -71,8 +71,10 @@ class UserManager: NSObject {
                 let fname = json["firstname"] as! String?
                 let lname = json["lastname"] as! String?
                 let uname = json["username"] as! String?
+                let email = json["email"] as! String?
+                let phone = json["phone"] as! String?
                 
-                u = SemNetUser(id: userId, username: uname!, firstname: fname!, lastname: lname!)
+                u = SemNetUser(id: userId, username: uname!, firstname: fname!, lastname: lname!, email: email, phone: phone)
                 
                 callback(true, u)
         }
@@ -150,7 +152,9 @@ class UserManager: NSObject {
             "authToken": authToken!,
             "id": user.id!,
             "firstname": user.firstname,
-            "lastname": user.lastname
+            "lastname": user.lastname,
+            "email": user.email,
+            "phone": user.phone
         ]
         
         Alamofire.request(userUpdateEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
@@ -213,7 +217,7 @@ class UserManager: NSObject {
                     let firstname = anItem["firstname"] as! String
                     let lastname = anItem["lastname"] as! String
                     
-                    userArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname))
+                    userArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname, email: "", phone: ""))
                 }
                 callback(true, userArray)
         }
@@ -258,7 +262,7 @@ class UserManager: NSObject {
                     let firstname = anItem["firstname"] as! String
                     let lastname = anItem["lastname"] as! String
                     
-                    userArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname))
+                    userArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname, email: "", phone: ""))
                 }
                 callback(true, userArray)
         }

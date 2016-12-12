@@ -93,6 +93,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         cell.content = contentArr[indexPath.item]
         cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
         cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
+        cell.dateLbl.text = contentArr[indexPath.item].dateDiff
         
         cell.setLikeButtonBackground(likeAction: cell.liked)
         

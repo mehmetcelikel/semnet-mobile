@@ -51,6 +51,16 @@ class CommentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         alignment()
         loadData()
     }
+    
+    @IBAction func usernameButtonClick(_ sender: AnyObject) {
+        let i = sender.layer.value(forKey: "index") as! IndexPath
+        
+        let comment = commentArr[i.row]
+    
+        profileUserId.append(comment.ownerId)
+        let home = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
+        self.navigationController?.pushViewController(home, animated: true)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         
@@ -94,9 +104,7 @@ class CommentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             // - paragraph
         else if textView.contentSize.height < textView.frame.size.height {
             
-            
             let difference = textView.frame.size.height - textView.contentSize.height
-            
             
             textView.frame.origin.y = textView.frame.origin.y + difference
             textView.frame.size.height = textView.contentSize.height
@@ -133,18 +141,20 @@ class CommentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
 
         let comment = commentArr[indexPath.row]
         
-        cell.usernameButton.setTitle(comment.ownerName, for: UIControlState())
+        cell.usernameButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12.0)
+        
+        cell.usernameButton.setTitle("@" + comment.ownerName, for: UIControlState())
         cell.usernameButton.sizeToFit()
     
         cell.commentLabel.text = comment.comment
         
         UserManager.sharedInstance.downloadImage(userId: comment.ownerId){ (response) in
             if(response.0){
-                print("profile image has been loaded")
                 cell.userImageView.image = response.1
             }
         }
-        cell.dateLabel.text = comment.date
+        
+        cell.dateLabel.text = comment.dateDiff
         cell.usernameButton.layer.setValue(indexPath, forKey: "index")
         
         return cell
@@ -206,7 +216,7 @@ class CommentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
                 let ownerId = UserManager.sharedInstance.getUserId()
                 let ownerName = UserManager.sharedInstance.getUsername()
                 
-                let comment = Comment(id: commentId, comment: desc, ownerId: ownerId!, ownerName: ownerName!, date: 1)
+                let comment = Comment(id: commentId, comment: desc, ownerId: ownerId!, ownerName: ownerName!, dateDiff: "1s")
                 self.commentArr.append(comment)
                 
                 self.commentTableview?.reloadData()

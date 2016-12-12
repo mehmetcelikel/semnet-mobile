@@ -65,7 +65,7 @@ class FriendManager: NSObject {
                     let firstname = anItem["firstname"] as! String
                     let lastname = anItem["lastname"] as! String
                     
-                    friendArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname))
+                    friendArray.append(SemNetUser(id: personID, username: personName, firstname: firstname, lastname: lastname, email: "", phone: ""))
                 }
                 callback(true, friendArray)
         }
