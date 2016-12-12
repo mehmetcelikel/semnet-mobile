@@ -225,29 +225,21 @@
 				638308391DF33BEC00067E17 /* manager */,
 				6383083A1DF33BFD00067E17 /* image */,
 				6335B5481DEB597B007A62F0 /* Assets.xcassets */,
-				6335B5451DEB597B007A62F0 /* Main.storyboard */,
-				6335B5411DEB597B007A62F0 /* AppDelegate.swift */,
-				6335B56F1DEB59E5007A62F0 /* SignInVC.swift */,
-				6335B5711DEB5EDE007A62F0 /* SignUpVC.swift */,
-				6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */,
+				633D66D51DFF474900A335BA /* profile */,
+				633D66D61DFF475700A335BA /* photoLib */,
+				633D66D71DFF477500A335BA /* home */,
+				633D66D81DFF477D00A335BA /* comment */,
+				633D66D91DFF479C00A335BA /* signUp */,
+				633D66DA1DFF47A700A335BA /* friends */,
+				633D66DC1DFF47C400A335BA /* post */,
+				633D66DB1DFF47BB00A335BA /* search */,
 				6335B54D1DEB597B007A62F0 /* Info.plist */,
-				638308211DF2142C00067E17 /* FriendsTVC.swift */,
-				638308231DF2145B00067E17 /* FriendsTVCell.swift */,
-				638308351DF31F0000067E17 /* SearchTVC.swift */,
+				6335B54A1DEB597B007A62F0 /* LaunchScreen.storyboard */,
+				6335B5411DEB597B007A62F0 /* AppDelegate.swift */,
 				638308371DF3203F00067E17 /* NavigationVC.swift */,
 				6383084D1DF4588000067E17 /* TabBarVC.swift */,
 				6335B57B1DECB9E7007A62F0 /* SwiftyJSON.swift */,
-				6383083F1DF362EF00067E17 /* EditProfileVC.swift */,
-				638308491DF4553E00067E17 /* PhotoLibVC.swift */,
-				638308511DF4623E00067E17 /* PhotoLibCell.swift */,
-				638308631DF7486000067E17 /* AppHomeVC.swift */,
-				638308651DF7487D00067E17 /* AppHomeTVCell.swift */,
-				6383086D1DF754F600067E17 /* NewProfileVC.swift */,
-				6383086F1DF7551500067E17 /* NewProfileTVCell.swift */,
-				633D66BF1DFA023C00A335BA /* NewPostVC.swift */,
 				633D66C91DFCA35600A335BA /* UnitTime.swift */,
-				633D66CD1DFDC87000A335BA /* CommentVC.swift */,
-				633D66CF1DFDC93300A335BA /* CommentTVCell.swift */,
 			);
 			path = semnet;
 			sourceTree = "<group>";
@@ -268,6 +260,78 @@
 				6335B5631DEB597C007A62F0 /* Info.plist */,
 			);
 			path = semnetUITests;
+			sourceTree = "<group>";
+		};
+		633D66D51DFF474900A335BA /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				6383083F1DF362EF00067E17 /* EditProfileVC.swift */,
+				6383086D1DF754F600067E17 /* NewProfileVC.swift */,
+				6383086F1DF7551500067E17 /* NewProfileTVCell.swift */,
+			);
+			name = profile;
+			sourceTree = "<group>";
+		};
+		633D66D61DFF475700A335BA /* photoLib */ = {
+			isa = PBXGroup;
+			children = (
+				6335B5451DEB597B007A62F0 /* Main.storyboard */,
+				638308491DF4553E00067E17 /* PhotoLibVC.swift */,
+				638308511DF4623E00067E17 /* PhotoLibCell.swift */,
+			);
+			name = photoLib;
+			sourceTree = "<group>";
+		};
+		633D66D71DFF477500A335BA /* home */ = {
+			isa = PBXGroup;
+			children = (
+				638308631DF7486000067E17 /* AppHomeVC.swift */,
+				638308651DF7487D00067E17 /* AppHomeTVCell.swift */,
+			);
+			name = home;
+			sourceTree = "<group>";
+		};
+		633D66D81DFF477D00A335BA /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				633D66CD1DFDC87000A335BA /* CommentVC.swift */,
+				633D66CF1DFDC93300A335BA /* CommentTVCell.swift */,
+			);
+			name = comment;
+			sourceTree = "<group>";
+		};
+		633D66D91DFF479C00A335BA /* signUp */ = {
+			isa = PBXGroup;
+			children = (
+				6335B5711DEB5EDE007A62F0 /* SignUpVC.swift */,
+				6335B56F1DEB59E5007A62F0 /* SignInVC.swift */,
+			);
+			name = signUp;
+			sourceTree = "<group>";
+		};
+		633D66DA1DFF47A700A335BA /* friends */ = {
+			isa = PBXGroup;
+			children = (
+				638308211DF2142C00067E17 /* FriendsTVC.swift */,
+				638308231DF2145B00067E17 /* FriendsTVCell.swift */,
+			);
+			name = friends;
+			sourceTree = "<group>";
+		};
+		633D66DB1DFF47BB00A335BA /* search */ = {
+			isa = PBXGroup;
+			children = (
+				638308351DF31F0000067E17 /* SearchTVC.swift */,
+			);
+			name = search;
+			sourceTree = "<group>";
+		};
+		633D66DC1DFF47C400A335BA /* post */ = {
+			isa = PBXGroup;
+			children = (
+				633D66BF1DFA023C00A335BA /* NewPostVC.swift */,
+			);
+			name = post;
 			sourceTree = "<group>";
 		};
 		638308391DF33BEC00067E17 /* manager */ = {
