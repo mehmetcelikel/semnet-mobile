@@ -12,6 +12,7 @@ import Alamofire
 let userBaseURL = "http://107.170.24.239:9000/v1/user/"
 let friendBaseURL = "http://107.170.24.239:9000/v1/friend/"
 let contentBaseURL = "http://107.170.24.239:9000/v1/content/"
+let searchBaseURL = "http://107.170.24.239:9000/v1/search/"
 
 let loginEndpoint: String = userBaseURL + "/login"
 let userCreateEndpoint: String = userBaseURL + "/create"
@@ -36,6 +37,8 @@ let contentUnlikeEndpoint: String = contentBaseURL + "/unlike"
 let commentListEndpoint: String = contentBaseURL + "/listComments"
 let commentAddEndpoint: String = contentBaseURL + "/addComment"
 let commentDeleteEndpoint: String = contentBaseURL + "/removeComment"
+
+let searchLabelEndpoint: String = searchBaseURL + "/queryLabel"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;

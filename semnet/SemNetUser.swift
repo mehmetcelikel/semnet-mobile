@@ -17,7 +17,7 @@ struct SemNetUser {
     var phone: String!
     var password: String!
     
-    init(id: String, username: String, firstname: String, lastname: String, email: String!, phone: String!) {
+    init(id: String, username: String, firstname: String, lastname: String, email: String, phone: String) {
         self.id = id
         self.username = username
         self.firstname = firstname
@@ -27,5 +27,6 @@ struct SemNetUser {
     }
     
     init(){
+        
     }
 }

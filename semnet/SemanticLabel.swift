@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+struct SemanticLabel {
+
+    let label: String!
+    let clazz: String!
+    
+    init(label: String, clazz: String) {
+        self.label = label
+        self.clazz = clazz
+    }
+}

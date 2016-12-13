@@ -24,7 +24,7 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
-    var autocompleteCountries = [String]()
+    var autocompleteLabels = [SemanticLabel]()
     let countries = NSLocale.isoCountryCodes.map { (code:String) -> String in
         let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
         return NSLocale(localeIdentifier: "en_US").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
@@ -90,7 +90,9 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         if cell != nil {
             let index = indexPath.row as Int
             cell!.textLabel!.font = UIFont.italicSystemFont(ofSize: 10)
-            cell!.textLabel!.text = autocompleteCountries[index]
+            
+            let label = autocompleteLabels[index]
+            cell!.textLabel!.text = label.label + "(" + label.clazz + ")"
         }
             
         else {
@@ -108,7 +110,7 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return autocompleteCountries.count
+        return autocompleteLabels.count
     }
     
     
@@ -121,8 +123,23 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     }
     
     func searchAutocompleteEntriesWithSubstring(substring: String) {
-        autocompleteCountries.removeAll(keepingCapacity: false)
+        autocompleteLabels.removeAll(keepingCapacity: false)
         
+        
+        SearchManager.sharedInstance.getLabels(queryString: substring){ (response) in
+            if(response.0){
+                self.autocompleteLabels = response.1
+                
+                if(self.autocompleteLabels.count == 0){
+                    self.autoCompleteTableView.isHidden = true
+                }
+                
+                self.autoCompleteTableView!.reloadData()
+            }else{
+                self.autoCompleteTableView.isHidden = true
+            }
+        }
+        /*
         for curString in countries {
             //print(curString)
             let myString: NSString! = curString.lowercased() as NSString
@@ -130,11 +147,9 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             if (substringRange.location == 0) {
                 autocompleteCountries.append(curString)
             }
-        }
-        if(autocompleteCountries.count == 0){
-            autoCompleteTableView.isHidden = true
-        }
-        autoCompleteTableView!.reloadData()
+        }*/
+        
+        
     }
     
     @IBAction func postButtonClick(_ sender: Any) {
