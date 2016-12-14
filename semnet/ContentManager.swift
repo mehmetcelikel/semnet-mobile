@@ -107,7 +107,7 @@ class ContentManager: NSObject {
                     print("Error: \(response.result.error)")
                     return
                 }
-                print(json)
+                
                 var contentArr = [Content]()
                 
                 let errorCode = json["errorCode"] as! String?
@@ -171,7 +171,7 @@ class ContentManager: NSObject {
                     print("Error: \(response.result.error)")
                     return
                 }
-                print(json)
+                
                 var commentArr = [Comment]()
                 
                 let errorCode = json["errorCode"] as! String?

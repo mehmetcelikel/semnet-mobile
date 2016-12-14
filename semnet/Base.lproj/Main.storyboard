@@ -218,7 +218,7 @@
                                 <rect key="frame" x="16" y="414" width="240" height="166"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="lmM-Zo-A1G"/>
+                                    <constraint firstAttribute="height" constant="200" id="O3y-sz-4J2"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="W5G-cv-387">
@@ -248,29 +248,30 @@
                                 <rect key="frame" x="10" y="376" width="355" height="30"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="55x-nO-4QN"/>
+                                    <constraint firstAttribute="height" constant="30" id="Sba-qG-aR9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="light"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="light"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wfV-qP-n5Q" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leading" constant="10" id="1g2-sA-yrY"/>
-                            <constraint firstItem="wfV-qP-n5Q" firstAttribute="top" secondItem="yR5-FD-PV7" secondAttribute="bottom" constant="10" id="2LW-EV-OtV"/>
+                            <constraint firstItem="wfV-qP-n5Q" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leading" constant="10" id="66p-qA-x9m"/>
                             <constraint firstItem="RtN-Hj-hHG" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leading" constant="122" id="7hz-qs-5J0"/>
                             <constraint firstItem="Juv-LQ-VZU" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leading" id="7ma-Op-h5h"/>
+                            <constraint firstItem="Juv-LQ-VZU" firstAttribute="top" secondItem="PP7-HG-nfa" secondAttribute="bottom" constant="20" id="9KB-Rb-a1h"/>
                             <constraint firstAttribute="trailing" secondItem="Juv-LQ-VZU" secondAttribute="trailing" id="9nt-v6-aSH"/>
-                            <constraint firstAttribute="trailing" secondItem="PP7-HG-nfa" secondAttribute="trailing" constant="10" id="HK6-Lp-Bkf"/>
-                            <constraint firstItem="PP7-HG-nfa" firstAttribute="top" secondItem="wfV-qP-n5Q" secondAttribute="bottom" constant="10" id="JYD-rU-eDe"/>
+                            <constraint firstAttribute="trailing" secondItem="wfV-qP-n5Q" secondAttribute="trailing" constant="10" id="BzS-lG-tpS"/>
                             <constraint firstItem="d3w-Hm-VDK" firstAttribute="top" secondItem="Juv-LQ-VZU" secondAttribute="bottom" id="MJI-2d-gcM"/>
                             <constraint firstAttribute="trailing" secondItem="RtN-Hj-hHG" secondAttribute="trailing" constant="122" id="XRK-pt-sIn"/>
                             <constraint firstAttribute="trailing" secondItem="yR5-FD-PV7" secondAttribute="trailing" constant="10" id="YUQ-8T-iuA"/>
-                            <constraint firstAttribute="trailing" secondItem="wfV-qP-n5Q" secondAttribute="trailing" constant="10" id="a39-z3-Tv3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PP7-HG-nfa" secondAttribute="trailing" constant="30" id="aAl-js-LiS"/>
                             <constraint firstItem="RtN-Hj-hHG" firstAttribute="top" secondItem="Ecx-0c-SWa" secondAttribute="bottom" constant="10" id="ccY-rI-7xO"/>
+                            <constraint firstItem="PP7-HG-nfa" firstAttribute="top" secondItem="wfV-qP-n5Q" secondAttribute="bottom" constant="10" id="kan-IA-ojs"/>
                             <constraint firstItem="yR5-FD-PV7" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leading" constant="10" id="m2V-Uu-HZj"/>
-                            <constraint firstItem="PP7-HG-nfa" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leading" constant="10" id="vbd-UG-6Le"/>
+                            <constraint firstItem="PP7-HG-nfa" firstAttribute="leading" secondItem="3P5-93-z6Z" secondAttribute="leadingMargin" constant="10" id="rJg-aT-Yht"/>
                             <constraint firstItem="yR5-FD-PV7" firstAttribute="top" secondItem="RtN-Hj-hHG" secondAttribute="bottom" constant="10" id="xuf-bo-onf"/>
+                            <constraint firstItem="wfV-qP-n5Q" firstAttribute="top" secondItem="yR5-FD-PV7" secondAttribute="bottom" constant="10" id="y4j-Xa-lu3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="07s-Vt-UB8"/>

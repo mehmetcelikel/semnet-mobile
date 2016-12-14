@@ -17,12 +17,13 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     @IBOutlet weak var postButton: UIButton!
     
     @IBOutlet weak var autoCompleteTableView: UITableView!
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var imageView: UIImageView!
     
     var placeholderLabelTag : UILabel!
     
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    var selectedTags = [SemanticLabel]()
     
     var autocompleteLabels = [SemanticLabel]()
     let countries = NSLocale.isoCountryCodes.map { (code:String) -> String in
@@ -66,11 +67,13 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         // tap to hide keyboard
         let hideTap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideTap.numberOfTapsRequired = 1
+        hideTap.cancelsTouchesInView = false
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
         
         let backSwipe = UISwipeGestureRecognizer(target: self, action: #selector(back(_:)))
         backSwipe.direction = UISwipeGestureRecognizerDirection.down
+        backSwipe.cancelsTouchesInView = false
         self.view.addGestureRecognizer(backSwipe)
     }
 
@@ -92,7 +95,7 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             cell!.textLabel!.font = UIFont.italicSystemFont(ofSize: 10)
             
             let label = autocompleteLabels[index]
-            cell!.textLabel!.text = label.label + "(" + label.clazz + ")"
+            cell!.textLabel!.text = getTagLabel(label: label)
         }
             
         else {
@@ -102,9 +105,20 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         return cell!
     }
     
+    func getTagLabel(label: SemanticLabel)->String{
+        return label.label + "(" + label.clazz + ")"
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell : UITableViewCell = tableView.cellForRow(at: indexPath as IndexPath)!
-        tagTextView.text = selectedCell.textLabel!.text
+        
+        selectedTags.append(autocompleteLabels[indexPath.row])
+        
+        var text = ""
+        for object in selectedTags {
+            text += getTagLabel(label: object) + ","
+        }
+        
+        tagTextView.text = text
         autoCompleteTableView.isHidden = true
     }
     
@@ -113,18 +127,25 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         return autocompleteLabels.count
     }
     
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        autoCompleteTableView!.isHidden = false
+        
+        autocompleteLabels.removeAll(keepingCapacity: false)
         
         let substring = (tagTextView.text as NSString).replacingCharacters(in: range, with: text)
-        searchAutocompleteEntriesWithSubstring(substring: substring)
+        searchAutocompleteEntriesWithSubstring(str: substring)
         return true
     }
     
-    func searchAutocompleteEntriesWithSubstring(substring: String) {
-        autocompleteLabels.removeAll(keepingCapacity: false)
+    func searchAutocompleteEntriesWithSubstring(str: String) {
         
+        let substringArr = str.characters.split{$0 == ","}.map(String.init)
+        
+        var substring = str
+        if(substringArr.count>=1){
+            substring = substringArr[substringArr.count-1]
+        }
+        
+        autocompleteLabels.removeAll(keepingCapacity: false)
         
         SearchManager.sharedInstance.getLabels(queryString: substring){ (response) in
             if(response.0){
@@ -132,23 +153,16 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                 
                 if(self.autocompleteLabels.count == 0){
                     self.autoCompleteTableView.isHidden = true
+                }else{
+                    
+                    self.autoCompleteTableView!.isHidden = false
+                    self.autoCompleteTableView!.reloadData()
                 }
                 
-                self.autoCompleteTableView!.reloadData()
             }else{
                 self.autoCompleteTableView.isHidden = true
             }
         }
-        /*
-        for curString in countries {
-            //print(curString)
-            let myString: NSString! = curString.lowercased() as NSString
-            let substringRange: NSRange! = myString.range(of: substring.lowercased())
-            if (substringRange.location == 0) {
-                autocompleteCountries.append(curString)
-            }
-        }*/
-        
         
     }
     

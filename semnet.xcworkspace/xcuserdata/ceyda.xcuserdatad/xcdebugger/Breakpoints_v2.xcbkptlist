@@ -672,11 +672,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503356540.073289"
+            timestampString = "503444084.408121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -684,32 +684,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503356540.073289"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "searchAutocompleteEntriesWithSubstring(substring:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "semnet/NewPostVC.swift"
-            timestampString = "503360949.525982"
+            timestampString = "503444957.834324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
             endingLineNumber = "148"
-            landmarkName = "searchAutocompleteEntriesWithSubstring(substring:)"
+            landmarkName = "searchAutocompleteEntriesWithSubstring(str:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -720,27 +704,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503356540.073289"
+            timestampString = "503444084.408121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "semnet/NewPostVC.swift"
-            timestampString = "503084577.789754"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -752,28 +720,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503084577.789754"
+            timestampString = "503444084.408121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "tableView(_:heightForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "semnet/NewPostVC.swift"
-            timestampString = "503356540.073289"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1248,12 +1200,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503360568.617028"
+            timestampString = "503444957.834324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "searchAutocompleteEntriesWithSubstring(substring:)"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "searchAutocompleteEntriesWithSubstring(str:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1264,12 +1216,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503360347.651491"
+            timestampString = "503444957.834324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "searchAutocompleteEntriesWithSubstring(substring:)"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "searchAutocompleteEntriesWithSubstring(str:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1344,12 +1296,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewPostVC.swift"
-            timestampString = "503360949.525982"
+            timestampString = "503444957.834324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "searchAutocompleteEntriesWithSubstring(substring:)"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "searchAutocompleteEntriesWithSubstring(str:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "semnet/NewPostVC.swift"
+            timestampString = "503444957.834324"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "searchAutocompleteEntriesWithSubstring(str:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
