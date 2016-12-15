@@ -25,16 +25,16 @@ func formatTagText(normalText: String, tagList: [SemanticLabel]!) -> NSMutableAt
     let attrs = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 12)]
     let normalString = NSMutableAttributedString(string:normalText)
     
-    var tagSring = " #"
+    var tagSring = ""
     if(tagList != nil){
         for object in tagList {
-            if(tagSring != " #"){
-                tagSring += ", "
+            if(tagSring != ""){
+                tagSring += ","
             }
-            tagSring += object.tag + "(" + object.clazz + ")"
+            tagSring += " #" + object.tag + "(" + object.clazz + ")"
         }
     }
-    if(tagSring != " #"){
+    if(tagSring != ""){
         let attributedString = NSMutableAttributedString(string:tagSring, attributes:attrs)
         normalString.append(attributedString)
     }
