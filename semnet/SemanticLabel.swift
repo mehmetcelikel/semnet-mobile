@@ -10,11 +10,11 @@ import Foundation
 
 struct SemanticLabel {
 
-    let label: String!
+    let tag: String!
     let clazz: String!
     
-    init(label: String, clazz: String) {
-        self.label = label
+    init(tag: String, clazz: String) {
+        self.tag = tag
         self.clazz = clazz
     }
 }

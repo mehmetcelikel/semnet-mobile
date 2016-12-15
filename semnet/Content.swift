@@ -17,15 +17,15 @@ struct Content {
     let likeCount: Int
     let hasImage: Bool
     var likers = [String]()
+    var tagList = [SemanticLabel]()
     
-    init(id: String, description: String, ownerId: String, ownerName: String, dateDiff: String, hasImage: Bool, likeCount: Int, likers: [String]) {
+    init(id: String, description: String, ownerId: String, ownerName: String, dateDiff: String, hasImage: Bool, likeCount: Int) {
         self.id = id
         self.description = description
         self.ownerId = ownerId
         self.ownerName = ownerName
         self.hasImage = hasImage
         self.likeCount = likeCount
-        self.likers = likers
         self.dateDiff = dateDiff
     }
 }

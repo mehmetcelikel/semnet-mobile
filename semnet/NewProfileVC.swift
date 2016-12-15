@@ -86,27 +86,28 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewProfileTVCell
         
+        let content = contentArr[indexPath.item]
+        
         cell.parentVC = self
         cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
-        cell.descriptionLbl.text = contentArr[indexPath.item].description
-        cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
-        cell.content = contentArr[indexPath.item]
-        cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
-        cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
-        cell.dateLbl.text = contentArr[indexPath.item].dateDiff
+        cell.descriptionLbl.attributedText = formatTagText(normalText: content.description, tagList: content.tagList)
+        cell.usernameLbl.text = "@" + content.ownerName
+        cell.content = content
+        cell.likeCount.text = String(content.likeCount)
+        cell.liked = ContentManager.sharedInstance.didILike(content: content)
+        cell.dateLbl.text = content.dateDiff
         
         cell.setLikeButtonBackground(likeAction: cell.liked)
         
-        if(contentArr[indexPath.row].hasImage){
+        if(content.hasImage){
             
             let activityIndicator = createActivityIndicator(point: cell.contentImage.center)
             cell.addSubview(activityIndicator)
             
             activityIndicator.startAnimating()
             
-            ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+            ContentManager.sharedInstance.downloadContent(contentId: content.id){ (response) in
                 if(response.0){
-                    print("content has been downloaded")
                     cell.contentImage.image = response.1
                     
                     activityIndicator.stopAnimating()
@@ -198,7 +199,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         posts.font = UIFont(name: username.font.fontName, size: 10)
         posts.textAlignment = NSTextAlignment.left
         posts.contentMode = UIViewContentMode.scaleAspectFit
-        posts.attributedText = self.formatText(boldText: String(self.contentArr.count), normalText: " Posts")
+        posts.attributedText = formatText(boldText: String(self.contentArr.count), normalText: " Posts")
         
         vw.addSubview(posts)
         
@@ -213,7 +214,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
             if(response.0){
                 print("friendList query has just run")
                 self.friendArray = response.1
-                friends.attributedText = self.formatText(boldText: String(self.friendArray.count), normalText: " Friends")
+                friends.attributedText = formatText(boldText: String(self.friendArray.count), normalText: " Friends")
             }else{
                 self.returnToLogin()
             }
@@ -268,16 +269,6 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
         posts.addGestureRecognizer(postsTap)
         
         return vw
-    }
-    
-    func formatText(boldText: String, normalText: String) -> NSMutableAttributedString{
-        let attrs = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 12)]
-        let attributedString = NSMutableAttributedString(string:boldText, attributes:attrs)
-        let normalString = NSMutableAttributedString(string:normalText)
-        
-        attributedString.append(normalString)
-        
-        return attributedString
     }
     
     func editAction(sender: UIButton!) {

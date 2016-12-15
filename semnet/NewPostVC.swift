@@ -106,7 +106,7 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     }
     
     func getTagLabel(label: SemanticLabel)->String{
-        return label.label + "(" + label.clazz + ")"
+        return label.tag + "(" + label.clazz + ")"
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -174,6 +174,14 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         ContentManager.sharedInstance.createContent(description: contentTextView.text!, hasImage: hasImage){ (response) in
             if(response.0){
                 print("Content has been created")
+                
+                ContentManager.sharedInstance.tagContent(contentId: response.1, tagList: self.selectedTags){ (response) in
+                    if(response){
+                        print("Content has been tagged")
+                        
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
                 
                 if(hasImage){
                     

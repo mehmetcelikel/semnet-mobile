@@ -75,23 +75,25 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         cell.parentVC = self
         cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
     
-        cell.usernameLbl.text = "@" + contentArr[indexPath.item].ownerName
-        cell.descriptionLbl.text = contentArr[indexPath.item].description
-        cell.dateLbl.text = contentArr[indexPath.item].dateDiff
-        cell.content = contentArr[indexPath.item]
-        cell.likeCount.text = String(contentArr[indexPath.item].likeCount)
-        cell.liked = ContentManager.sharedInstance.didILike(content: contentArr[indexPath.item])
+        let content = contentArr[indexPath.item]
+        
+        cell.usernameLbl.text = "@" + content.ownerName
+        cell.descriptionLbl.attributedText = formatTagText(normalText: content.description, tagList: content.tagList)
+        cell.dateLbl.text = content.dateDiff
+        cell.content = content
+        cell.likeCount.text = String(content.likeCount)
+        cell.liked = ContentManager.sharedInstance.didILike(content: content)
         
         cell.setLikeButtonBackground(likeAction: cell.liked)
         
-        if(contentArr[indexPath.item].hasImage){
+        if(content.hasImage){
             
             let activityIndicator = createActivityIndicator(point: cell.contentImage.center)
             cell.addSubview(activityIndicator)
             
             activityIndicator.startAnimating()
             
-            ContentManager.sharedInstance.downloadContent(contentId: contentArr[indexPath.row].id){ (response) in
+            ContentManager.sharedInstance.downloadContent(contentId: content.id){ (response) in
                 if(response.0){
                     print("content has been downloaded")
                     cell.contentImage.image = response.1
@@ -108,7 +110,7 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         cell.profileImage.layer.cornerRadius = 4
         cell.profileImage.layer.masksToBounds = true
         
-        UserManager.sharedInstance.downloadImage(userId: contentArr[indexPath.item].ownerId){ (response) in
+        UserManager.sharedInstance.downloadImage(userId: content.ownerId){ (response) in
             if(response.0){
                 print("profile image has been loaded")
                 cell.profileImage.image = response.1

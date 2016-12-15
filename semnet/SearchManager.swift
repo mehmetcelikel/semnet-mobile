@@ -53,7 +53,7 @@ class SearchManager: NSObject {
                     let label = anItem["label"] as! String
                     let clazz = anItem["clazz"] as! String
                     
-                    labelArray.append(SemanticLabel(label: label, clazz: clazz))
+                    labelArray.append(SemanticLabel(tag: label, clazz: clazz))
                     
                 }
                 callback(true, labelArray)

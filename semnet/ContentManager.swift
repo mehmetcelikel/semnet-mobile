@@ -58,6 +58,47 @@ class ContentManager: NSObject {
         }
     }
     
+    func tagContent(contentId: String, tagList: Array<SemanticLabel>, callback: @escaping (Bool) -> ())  {
+        
+        let authToken = UserManager.sharedInstance.getToken()
+        
+        var tList = [Dictionary<String, String>]()
+        
+        for object in tagList {
+            var tags = [String:String]()
+            tags["tag"]=object.tag
+            tags["clazz"]=object.clazz
+            
+            tList.append(tags)
+        }
+        
+        let createParams : [String: Any] =
+            ["authToken" : authToken!,
+             "tag" : tList,
+             "entityId": contentId,
+             "add": true
+        ]
+        
+        Alamofire.request(commentTagEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(response.result.error)")
+                    callback(false)
+                    return
+                }
+                
+                let errorCode = json["errorCode"] as! String?
+                if errorCode != "SNET_0" {
+                    print(json)
+                    callback(false)
+                    return
+                }
+                
+                callback(true)
+        }
+    }
+    
     func uploadContent(image: UIImage!, contentId: String, callback: @escaping (Bool) -> ()){
         
         let authToken = UserManager.sharedInstance.getToken()
@@ -107,7 +148,7 @@ class ContentManager: NSObject {
                     print("Error: \(response.result.error)")
                     return
                 }
-                
+                print(json)
                 var contentArr = [Content]()
                 
                 let errorCode = json["errorCode"] as! String?
@@ -136,22 +177,38 @@ class ContentManager: NSObject {
                     let hasImage = anItem["hasImage"] as! Bool
                     let likeCount = anItem["likeCount"] as! Int
                     
+                    var content = Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff, hasImage: hasImage, likeCount: likeCount)
+                    
                     var likers = [String]()
+                    var tags = [SemanticLabel]()
                     
-                    guard let likerList = anItem["likerList"] as? [Dictionary<String, AnyObject>] else {
-                        contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff, hasImage: hasImage, likeCount: likeCount, likers: likers))
-                        
-                        continue
+                    let likerList = anItem["likerList"] as? [Dictionary<String, AnyObject>]
+                    if(likerList != nil){
+                        for likerItem in likerList!  {
+                            let likerId = likerItem["id"] as! String
+                            likers.append(likerId)
+                        }
                     }
                     
-                    for likerItem in likerList  {
-                        let likerId = likerItem["id"] as! String
-                        likers.append(likerId)
+                    
+                    let tagList = anItem["tagList"] as? [Dictionary<String, AnyObject>]
+                    if(tagList != nil){
+                        for tagItem in tagList!  {
+                            let tag = tagItem["tag"] as! String
+                            let clazz = tagItem["clazz"] as! String
+                            tags.append(SemanticLabel(tag: tag, clazz: clazz))
+                        }
                     }
                     
-                    contentArr.append(Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff, hasImage: hasImage, likeCount: likeCount, likers: likers))
                     
+                    content.likers = likers
+                    content.tagList = tags
+                    
+                    contentArr.append(content)
+
                 }
+                
+                
                 callback(true, contentArr)
         }
     }

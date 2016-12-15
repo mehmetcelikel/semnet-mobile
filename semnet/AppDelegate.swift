@@ -37,6 +37,7 @@ let contentUnlikeEndpoint: String = contentBaseURL + "/unlike"
 let commentListEndpoint: String = contentBaseURL + "/listComments"
 let commentAddEndpoint: String = contentBaseURL + "/addComment"
 let commentDeleteEndpoint: String = contentBaseURL + "/removeComment"
+let commentTagEndpoint: String = contentBaseURL + "/tag"
 
 let searchLabelEndpoint: String = searchBaseURL + "/queryLabel"
 
