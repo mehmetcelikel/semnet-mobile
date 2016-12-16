@@ -40,6 +40,8 @@ let commentDeleteEndpoint: String = contentBaseURL + "/removeComment"
 let commentTagEndpoint: String = contentBaseURL + "/tag"
 
 let searchLabelEndpoint: String = searchBaseURL + "/queryLabel"
+let searchTagsEndpoint: String = searchBaseURL + "/querySearchString"
+let searchEndpoint: String = searchBaseURL + "/search"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;
