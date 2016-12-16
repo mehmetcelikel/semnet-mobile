@@ -71,9 +71,17 @@ class UserManager: NSObject {
                 let fname = json["firstname"] as! String?
                 let lname = json["lastname"] as! String?
                 let uname = json["username"] as! String?
-                let email = json["email"] as! String?
-                let phone = json["phone"] as! String?
                 
+                var email = json["email"] as! String!
+                var phone = json["phone"] as! String!
+                
+                if(email == nil){
+                    email = ""
+                }
+                
+                if(phone == nil){
+                    phone = ""
+                }
                 u = SemNetUser(id: userId, username: uname!, firstname: fname!, lastname: lname!, email: email!, phone: phone!)
                 
                 callback(true, u)

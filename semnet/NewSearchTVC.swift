@@ -23,12 +23,17 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
         tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.isHidden = true
         
         searchBar.delegate = self
         searchBar.sizeToFit()
         searchBar.showsCancelButton = true
         searchBar.tintColor = UIColor.groupTableViewBackground
         searchBar.frame.size.width = self.view.frame.size.width - 34
+        
+        let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: UIColor.black]
+        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
+        
         let searchItem = UIBarButtonItem(customView: searchBar)
         self.navigationItem.leftBarButtonItem = searchItem
         
@@ -68,7 +73,7 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
         }else{
             let object = userArray[indexPath.row-semanticLabelArray.count]
             
-            lowerLabel = object.username
+            lowerLabel = "@" + object.username
             upperLabel = object.firstname + " " + object.lastname
             
             cell.user = object
@@ -89,12 +94,16 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // calling cell again to call cell data
-        let cell = tableView.cellForRow(at: indexPath) as! FriendsTVCell
+        if(indexPath.row >= semanticLabelArray.count){
+            
+            let object = userArray[indexPath.row-semanticLabelArray.count]
+            
+            profileUserId.append(object.id)
+            let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
+            self.navigationController?.pushViewController(guest, animated: true)
+        }
         
-        profileUserId.append(cell.userId)
-        let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
-        self.navigationController?.pushViewController(guest, animated: true)
+        
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
