@@ -8,6 +8,8 @@
 
 import UIKit
 
+var tabBarHeight:CGFloat!
+
 class TabBarVC: UITabBarController {
 
     override func viewDidLoad() {
@@ -16,6 +18,8 @@ class TabBarVC: UITabBarController {
         self.tabBar.tintColor = .white
         
         self.tabBar.barTintColor = UIColor(red: 37.0 / 255.0, green: 39.0 / 255.0, blue: 42.0 / 255.0, alpha: 1)
+        
+        tabBarHeight = self.tabBar.frame.height
         
         // disable translucent
         //self.tabBar.translucent = false

@@ -13,7 +13,9 @@ import UIKit
 func formatText(boldText: String, normalText: String) -> NSMutableAttributedString{
     let attrs = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 12)]
     let attributedString = NSMutableAttributedString(string:boldText, attributes:attrs)
-    let normalString = NSMutableAttributedString(string:normalText)
+    let normalString = NSMutableAttributedString(string:normalText, attributes: [NSFontAttributeName:UIFont(
+        name: "Georgia",
+        size: 10.0)!])
     
     attributedString.append(normalString)
     

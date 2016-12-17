@@ -164,7 +164,7 @@ class ContentManager: NSObject {
                     print("Error: \(response.result.error)")
                     return
                 }
-                print(json)
+                
                 var contentArr = [Content]()
                 
                 let errorCode = json["errorCode"] as! String?
@@ -192,6 +192,7 @@ class ContentManager: NSObject {
                     let dateDiff = anItem["dateDiff"] as! String
                     let hasImage = anItem["hasImage"] as! Bool
                     let likeCount = anItem["likeCount"] as! Int
+                    let distance = anItem["distance"] as? Int
                     
                     var content = Content(id: contentId, description: description, ownerId: ownerId, ownerName: ownerName, dateDiff: dateDiff, hasImage: hasImage, likeCount: likeCount)
                     
@@ -216,14 +217,12 @@ class ContentManager: NSObject {
                         }
                     }
                     
-                    
                     content.likers = likers
                     content.tagList = tags
+                    content.distance = distance
                     
                     contentArr.append(content)
-
                 }
-                
                 
                 callback(true, contentArr)
         }
@@ -330,7 +329,7 @@ class ContentManager: NSObject {
                     callback(false,0)
                     return
                 }
-                print(json)
+                
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
                     print(json)
@@ -361,7 +360,7 @@ class ContentManager: NSObject {
                     callback(false,"")
                     return
                 }
-                print(json)
+                
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
                     print(json)
@@ -392,7 +391,7 @@ class ContentManager: NSObject {
                     callback(false)
                     return
                 }
-                print(json)
+                
                 let errorCode = json["errorCode"] as! String?
                 if errorCode != "SNET_0" {
                     print(json)

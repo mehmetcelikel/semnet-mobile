@@ -22,7 +22,7 @@ class AppHomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenHeight-tabBarHeight-CGFloat(100)))
         
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(loadData), for: UIControlEvents.valueChanged)
@@ -98,11 +98,15 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppHomeTVCell
         
         cell.parentVC = self
-        cell.usernameLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
-    
+        
         let content = contentArr[indexPath.item]
         
-        cell.usernameLbl.text = "@" + content.ownerName
+        
+        var distance = ""
+        if(content.distance != nil && action == "LOCATION"){
+            distance = " (" + String(content.distance) + " meters)"
+        }
+        cell.usernameLbl.attributedText = formatText(boldText: "@" + content.ownerName, normalText: distance)
         cell.descriptionLbl.attributedText = formatTagText(normalText: content.description, tagList: content.tagList)
         cell.dateLbl.text = content.dateDiff
         cell.content = content

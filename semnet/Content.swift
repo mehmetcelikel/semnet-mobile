@@ -18,6 +18,7 @@ struct Content {
     let hasImage: Bool
     var likers = [String]()
     var tagList = [SemanticLabel]()
+    var distance:Int!
     
     init(id: String, description: String, ownerId: String, ownerName: String, dateDiff: String, hasImage: Bool, likeCount: Int) {
         self.id = id
