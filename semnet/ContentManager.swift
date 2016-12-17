@@ -8,9 +8,12 @@
 
 import Foundation
 import Alamofire
+import CoreLocation
 
 class ContentManager: NSObject {
     static let sharedInstance = ContentManager()
+    
+    var location:CLLocation!
     
     func didILike(content: Content) -> Bool{
         let userId = UserManager.sharedInstance.getUserId()
@@ -32,7 +35,9 @@ class ContentManager: NSObject {
         let createParams : [String: Any] =
             ["authToken" : authToken!,
              "description" : description,
-             "hasImage": hasImage
+             "hasImage": hasImage,
+             "longitude": location.coordinate.longitude,
+             "latitude": location.coordinate.latitude
         ]
         
         Alamofire.request(contentCreateEndpoint, method: .post, parameters: createParams, encoding: JSONEncoding.default)
@@ -136,11 +141,22 @@ class ContentManager: NSObject {
         
         let authToken = UserManager.sharedInstance.getToken()
         
-        let parameters: Parameters = [
-            "authToken": authToken!,
-            "userId": userId,
-            "type": type
-        ]
+        let parameters: Parameters!
+        if(location == nil){
+            parameters =  [
+                "authToken": authToken!,
+                "userId": userId,
+                "type": type
+                ]
+        }else{
+            parameters = [
+                "authToken": authToken!,
+                "userId": userId,
+                "type": type,
+                "latitude": location.coordinate.latitude,
+                "longitude": location.coordinate.longitude
+                ]
+        }
         
         Alamofire.request(contentListEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in

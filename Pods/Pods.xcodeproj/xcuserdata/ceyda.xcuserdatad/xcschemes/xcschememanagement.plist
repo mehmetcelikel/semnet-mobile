@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CarbonKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DLRadioButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,6 +37,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>347380C7649C6FA927B86FDE055A1E8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>352F3CCD20CDBC5C9822654BDACCE6D0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5CA8E33D3657778DDB6B207CD8FD7CA1</key>
 		<dict>
 			<key>primary</key>
@@ -43,11 +58,6 @@
 			<true/>
 		</dict>
 		<key>D9C64E30D7C0F7C82D11588B7CB9AF6A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E530D269B9F932AE6689562CDB30CC51</key>
 		<dict>
 			<key>primary</key>
 			<true/>

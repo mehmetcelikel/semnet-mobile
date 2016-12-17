@@ -12,6 +12,7 @@ struct SemanticLabel {
 
     let tag: String!
     let clazz: String!
+    var count: Int!
     
     init(tag: String, clazz: String) {
         self.tag = tag

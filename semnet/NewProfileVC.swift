@@ -24,14 +24,15 @@ class NewProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let signOut = UIBarButtonItem(image: UIImage(named: "logout.png"), style: .plain, target: self, action: #selector(signOut(_:)))
-        self.navigationItem.rightBarButtonItem = signOut
         
         self.tableView?.alwaysBounceVertical = true
         
         if profileUserId.last == nil {
             userId = UserManager.sharedInstance.getUserId()
+            
+            let signOut = UIBarButtonItem(image: UIImage(named: "logout.png"), style: .plain, target: self, action: #selector(signOut(_:)))
+            self.navigationItem.rightBarButtonItem = signOut
+            
         }else{
             userId = profileUserId.last
         }

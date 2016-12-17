@@ -8,32 +8,24 @@
 
 import UIKit
 
-class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate{
 
     var image:UIImage!
     
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var tagTextView: UITextView!
     @IBOutlet weak var postButton: UIButton!
-    
     @IBOutlet weak var autoCompleteTableView: UITableView!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var imageView: UIImageView!
     
     var placeholderLabelTag : UILabel!
-    
     var selectedTags = [SemanticLabel]()
-    
     var autocompleteLabels = [SemanticLabel]()
-    let countries = NSLocale.isoCountryCodes.map { (code:String) -> String in
-        let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
-        return NSLocale(localeIdentifier: "en_US").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         contentTextView.layer.borderWidth = 1.0
         contentTextView.layer.borderColor = UIColor.lightGray.cgColor
         
@@ -84,7 +76,6 @@ class NewPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 15
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let autoCompleteRowIdentifier = "cell"

@@ -1,15 +1,18 @@
 PODS:
   - Alamofire (4.2.0)
+  - CarbonKit (2.1.9)
   - DLRadioButton (1.4.9)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - CarbonKit
   - DLRadioButton (~> 1.4)
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  CarbonKit: af16a9c0d2b6c908a5985fe4633424d38c9bfc0a
   DLRadioButton: 7bb8a6e3768b572469ace553391ab4d2af6f9c19
 
-PODFILE CHECKSUM: b9885d9b62252a78a225d0561a35ff2e1631b864
+PODFILE CHECKSUM: faaa525af8ec53e2bb63386376cd13a6aa7d59c9
 
 COCOAPODS: 1.1.1

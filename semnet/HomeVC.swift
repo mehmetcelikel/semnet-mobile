@@ -7,29 +7,80 @@
 //
 
 import UIKit
+import CarbonKit
+import CoreLocation
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, CarbonTabSwipeNavigationDelegate, CLLocationManagerDelegate {
 
+    var items = NSArray()
+    var carbonTabSwipeNavigation: CarbonTabSwipeNavigation = CarbonTabSwipeNavigation()
+    
+    var locationManager:CLLocationManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        items = ["Friend", "Popular", "NearBy"]
+        carbonTabSwipeNavigation = CarbonTabSwipeNavigation(items: items as [AnyObject], delegate: self)
+        carbonTabSwipeNavigation.insert(intoRootViewController: self)
+        self.style()
+        
+        self.navigationItem.title = "SemNet"
+        self.navigationController?.title = "Home"
+        
+        style()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        ContentManager.sharedInstance.location = locations[0]
     }
-    */
-
+    
+    func style() {
+        
+        let color: UIColor = UIColor(red: 24.0 / 255, green: 75.0 / 255, blue: 152.0 / 255, alpha: 1)
+        
+        carbonTabSwipeNavigation.toolbar.isTranslucent = false
+        carbonTabSwipeNavigation.setIndicatorColor(color)
+        carbonTabSwipeNavigation.setTabExtraWidth(30)
+        carbonTabSwipeNavigation.carbonSegmentedControl!.setWidth(screenWidth/3, forSegmentAt: 0)
+        carbonTabSwipeNavigation.carbonSegmentedControl!.setWidth(screenWidth/3, forSegmentAt: 1)
+        carbonTabSwipeNavigation.carbonSegmentedControl!.setWidth(screenWidth/3, forSegmentAt: 2)
+        
+        carbonTabSwipeNavigation.setNormalColor(UIColor.black.withAlphaComponent(0.6))
+        carbonTabSwipeNavigation.setSelectedColor(color, font: UIFont.boldSystemFont(ofSize: 14))
+    }
+    
+    func carbonTabSwipeNavigation(_ carbonTabSwipeNavigation: CarbonTabSwipeNavigation, viewControllerAt index: UInt) -> UIViewController {
+       
+        switch index {
+        case 0:
+            let view = self.storyboard!.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+            view.action = "FRIEND"
+            return view
+        case 1:
+            let view = self.storyboard!.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+            view.action = "POPULAR"
+            return view
+        case 2:
+            let view = self.storyboard!.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+            view.action = "LOCATION"
+            return view
+            
+            
+            
+        default:
+            let view = self.storyboard!.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+            
+            
+            return view
+        }
+    }
+    
+    
 }

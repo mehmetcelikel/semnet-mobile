@@ -49,21 +49,7 @@ class AppHomeVC: UIViewController {
     func loadData() {
         refresher.beginRefreshing()
         
-        if(action == nil){
-            
-            let userId = UserManager.sharedInstance.getUserId()
-            ContentManager.sharedInstance.loadContentlist(userId: userId!, type: "FRIEND"){ (response) in
-                if(response.0){
-                    self.contentArr = response.1
-                    
-                    self.refresher.endRefreshing()
-                    self.tableView?.reloadData()
-                }else{
-                    self.returnToLogin()
-                }
-            }
-        }else{
-            
+        if(action == "SemanticSearch"){
             SearchManager.sharedInstance.searchContent(param: selectedTag!){ (response) in
                 if(response.0){
                     self.contentArr = response.1
@@ -73,6 +59,25 @@ class AppHomeVC: UIViewController {
                 }else{
                     self.returnToLogin()
                 }
+            }
+            return;
+        }
+        
+        loadContents()
+        
+        return
+    }
+    
+    func loadContents(){
+        let userId = UserManager.sharedInstance.getUserId()
+        ContentManager.sharedInstance.loadContentlist(userId: userId!, type: action){ (response)in
+            if(response.0){
+                self.contentArr = response.1
+                
+                self.refresher.endRefreshing()
+                self.tableView?.reloadData()
+            }else{
+                self.returnToLogin()
             }
         }
     }

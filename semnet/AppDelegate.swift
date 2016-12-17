@@ -43,6 +43,7 @@ let searchLabelEndpoint: String = searchBaseURL + "/queryLabel"
 let searchTagsEndpoint: String = searchBaseURL + "/querySearchString"
 let searchContentEndpoint: String = searchBaseURL + "/searchContent"
 let searchUserEndpoint: String = searchBaseURL + "/searchUser"
+let searchAllTagsEndpoint: String = searchBaseURL + "/queryAllTags"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;
@@ -94,13 +95,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if authToken != nil {
             let userId = UserManager.sharedInstance.getUserId()
             
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+            self.window?.rootViewController = myTabBar
+            
             FriendManager.sharedInstance.loadFriendlist(userId: userId!) { (response) in
                     if(response.0){
                         FriendManager.sharedInstance.myFriendArray = response.1
-                        
-                        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let myTabBar = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-                        self.window?.rootViewController = myTabBar
                     }
                 }
             }

@@ -15,7 +15,10 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
     var allUsersArray = [SemNetUser]()//user
     
     var userArray = [SemNetUser]()//user
+    var allSemanticLabels = [SemanticLabel]()
     var semanticLabelArray = [SemanticLabel]()
+    
+    var initialView = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +26,7 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
         tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isHidden = true
+        tableView.isHidden = false
         
         searchBar.delegate = self
         searchBar.sizeToFit()
@@ -46,10 +49,22 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
                 self.tableView.reloadData()
             }
         }
+        
+        SearchManager.sharedInstance.getAllTags() { (response) in
+            if(response.0){
+                self.allSemanticLabels = response.1
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
+        if(initialView){
+            return allSemanticLabels.count
+        }
+        
         return userArray.count + semanticLabelArray.count
     }
     
@@ -64,24 +79,39 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
         var upperLabel = ""
         var lowerLabel = ""
         
-        if(indexPath.row < semanticLabelArray.count){
-            let semLabel = semanticLabelArray[indexPath.row]
-            
+        if(initialView){
+            let semLabel = allSemanticLabels[indexPath.row]
             upperLabel = semLabel.tag + "(" + semLabel.clazz + ")"
             
+            if(semLabel.count > 1){
+                lowerLabel = String(semLabel.count) + " posts"
+            }else{
+                lowerLabel = String(semLabel.count) + " post"
+            }
+            
             cell.searchImageView.image = UIImage(named: "users.png")!
+            
         }else{
-            let object = userArray[indexPath.row-semanticLabelArray.count]
             
-            lowerLabel = "@" + object.username
-            upperLabel = object.firstname + " " + object.lastname
-            
-            cell.user = object
-            
-            UserManager.sharedInstance.downloadImage(userId: object.id){ (response) in
+            if(indexPath.row < semanticLabelArray.count){
+                let semLabel = semanticLabelArray[indexPath.row]
                 
-                if(response.0){
-                    cell.searchImageView.image=response.1
+                upperLabel = semLabel.tag + "(" + semLabel.clazz + ")"
+                
+                cell.searchImageView.image = UIImage(named: "users.png")!
+            }else{
+                let object = userArray[indexPath.row-semanticLabelArray.count]
+                
+                lowerLabel = "@" + object.username
+                upperLabel = object.firstname + " " + object.lastname
+                
+                cell.user = object
+                
+                UserManager.sharedInstance.downloadImage(userId: object.id){ (response) in
+                    
+                    if(response.0){
+                        cell.searchImageView.image=response.1
+                    }
                 }
             }
         }
@@ -94,20 +124,31 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if(indexPath.row >= semanticLabelArray.count){
-            
-            let object = userArray[indexPath.row-semanticLabelArray.count]
-            
-            profileUserId.append(object.id)
-            let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
-            self.navigationController?.pushViewController(guest, animated: true)
-        }else{
+        if(initialView){
             
             let home = self.storyboard?.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
             home.action = "SemanticSearch"
-            home.selectedTag = semanticLabelArray[indexPath.row]
+            home.selectedTag = allSemanticLabels[indexPath.row]
             
             self.navigationController?.pushViewController(home, animated: true)
+            
+        }else{
+            
+            if(indexPath.row >= semanticLabelArray.count){
+                
+                let object = userArray[indexPath.row-semanticLabelArray.count]
+                
+                profileUserId.append(object.id)
+                let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
+                self.navigationController?.pushViewController(guest, animated: true)
+            }else{
+                
+                let home = self.storyboard?.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+                home.action = "SemanticSearch"
+                home.selectedTag = semanticLabelArray[indexPath.row]
+                
+                self.navigationController?.pushViewController(home, animated: true)
+            }
         }
     }
     
@@ -119,13 +160,19 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.initialView = false
+        
         self.tableView.isHidden = false
         searchBar.showsCancelButton = true
+        
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-        self.tableView.isHidden = true
+        self.initialView = true
+        
+        // self.tableView.isHidden = true
         // dismiss keyboard
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
