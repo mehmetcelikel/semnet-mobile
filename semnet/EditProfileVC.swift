@@ -59,6 +59,8 @@ class EditProfileVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             if(response.0){
                 self.firstnameLabel.text = response.1.firstname
                 self.lastnameLabel.text = response.1.lastname
+                self.emailLabel.text = response.1.email
+                self.phoneLabel.text = response.1.phone
             }
         }
         

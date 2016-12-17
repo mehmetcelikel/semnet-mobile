@@ -101,9 +101,14 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
             profileUserId.append(object.id)
             let guest = self.storyboard?.instantiateViewController(withIdentifier: "ProfileCVC") as! NewProfileVC
             self.navigationController?.pushViewController(guest, animated: true)
+        }else{
+            
+            let home = self.storyboard?.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+            home.action = "SemanticSearch"
+            home.selectedTag = semanticLabelArray[indexPath.row]
+            
+            self.navigationController?.pushViewController(home, animated: true)
         }
-        
-        
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

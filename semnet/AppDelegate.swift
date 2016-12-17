@@ -41,7 +41,8 @@ let commentTagEndpoint: String = contentBaseURL + "/tag"
 
 let searchLabelEndpoint: String = searchBaseURL + "/queryLabel"
 let searchTagsEndpoint: String = searchBaseURL + "/querySearchString"
-let searchEndpoint: String = searchBaseURL + "/search"
+let searchContentEndpoint: String = searchBaseURL + "/searchContent"
+let searchUserEndpoint: String = searchBaseURL + "/searchUser"
 
 let screenWidth = UIScreen.main.bounds.width;
 let screenHeight = UIScreen.main.bounds.height;

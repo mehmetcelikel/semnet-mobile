@@ -12,6 +12,9 @@ class AppHomeVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var action:String!
+    var selectedTag:SemanticLabel!
+    
     var contentArr = [Content]()
     
     var refresher : UIRefreshControl!
@@ -44,17 +47,34 @@ class AppHomeVC: UIViewController {
     }
     
     func loadData() {
-        let userId = UserManager.sharedInstance.getUserId()
+        refresher.beginRefreshing()
         
-        ContentManager.sharedInstance.loadContentlist(userId: userId!, type: "FRIEND"){ (response) in
-            if(response.0){
-                self.contentArr = response.1
-                self.tableView?.reloadData()
-            }else{
-                self.returnToLogin()
+        if(action == nil){
+            
+            let userId = UserManager.sharedInstance.getUserId()
+            ContentManager.sharedInstance.loadContentlist(userId: userId!, type: "FRIEND"){ (response) in
+                if(response.0){
+                    self.contentArr = response.1
+                    
+                    self.refresher.endRefreshing()
+                    self.tableView?.reloadData()
+                }else{
+                    self.returnToLogin()
+                }
+            }
+        }else{
+            
+            SearchManager.sharedInstance.searchContent(param: selectedTag!){ (response) in
+                if(response.0){
+                    self.contentArr = response.1
+                    
+                    self.refresher.endRefreshing()
+                    self.tableView?.reloadData()
+                }else{
+                    self.returnToLogin()
+                }
             }
         }
-        refresher.endRefreshing()
     }
 }
 

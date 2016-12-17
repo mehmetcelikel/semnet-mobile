@@ -602,7 +602,7 @@
         <!--App HomeVC-->
         <scene sceneID="Evq-wp-65W">
             <objects>
-                <viewController id="eXQ-wy-erb" customClass="AppHomeVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AppHomeVC" id="eXQ-wy-erb" customClass="AppHomeVC" customModule="semnet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gvF-u1-qwP"/>
                         <viewControllerLayoutGuide type="bottom" id="sW6-Tx-7Ae"/>
