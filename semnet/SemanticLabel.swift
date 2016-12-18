@@ -14,7 +14,7 @@ struct SemanticLabel {
     let clazz: String!
     var count: Int!
     
-    init(tag: String, clazz: String) {
+    init(tag: String, clazz: String!) {
         self.tag = tag
         self.clazz = clazz
     }

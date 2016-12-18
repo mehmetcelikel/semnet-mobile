@@ -1102,12 +1102,12 @@
                   moduleName = "semnet"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ceyda/Documents/semnet/semnet/CommentVC.swift"
-                  timestampString = "503694436.440171"
+                  timestampString = "503789972.365297"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "151"
                   endingLineNumber = "151"
-                  offsetFromSymbolStart = "1856">
+                  offsetFromSymbolStart = "2432">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1117,12 +1117,12 @@
                   moduleName = "semnet"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ceyda/Documents/semnet/semnet/CommentVC.swift"
-                  timestampString = "503694436.441479"
+                  timestampString = "503789972.366542"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "152"
                   endingLineNumber = "152"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "27">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1326,11 +1326,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewSearchTVC.swift"
-            timestampString = "503680601.236227"
+            timestampString = "503789959.695457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "searchBar(_:textDidChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1338,15 +1338,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "semnet/NewSearchTVC.swift"
-            timestampString = "503680601.236227"
+            timestampString = "503789959.695457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "searchBar(_:textDidChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1413,6 +1413,54 @@
             endingLineNumber = "71"
             landmarkName = "carbonTabSwipeNavigation(_:viewControllerAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "semnet/NewSearchTVC.swift"
+            timestampString = "503789971.495808"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "searchBarSearchButtonClicked(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "semnet.NewSearchTVC.searchBarSearchButtonClicked (__ObjC.UISearchBar) -&gt; ()"
+                  moduleName = "semnet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ceyda/Documents/semnet/semnet/NewSearchTVC.swift"
+                  timestampString = "503789971.912188"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "semnet.NewSearchTVC.searchBarSearchButtonClicked (__ObjC.UISearchBar) -&gt; ()"
+                  moduleName = "semnet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ceyda/Documents/semnet/semnet/NewSearchTVC.swift"
+                  timestampString = "503789971.913563"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "1729">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

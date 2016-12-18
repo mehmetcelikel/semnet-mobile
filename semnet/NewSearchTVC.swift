@@ -159,6 +159,18 @@ class NewSearchTVC: UITableViewController, UISearchBarDelegate {
         }
     }
 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let home = self.storyboard?.instantiateViewController(withIdentifier: "AppHomeVC") as! AppHomeVC
+        home.action = "SemanticSearch"
+        
+        var label = SemanticLabel(tag: searchBar.text!, clazz: nil)
+        
+        home.selectedTag = label
+        
+        self.navigationController?.pushViewController(home, animated: true)
+    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.initialView = false
         
