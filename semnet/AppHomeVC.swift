@@ -22,7 +22,12 @@ class AppHomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenHeight-tabBarHeight-CGFloat(100)))
+        if(action == "SemanticSearch"){
+            tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenHeight-tabBarHeight))
+        }else{
+            tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenHeight-tabBarHeight-CGFloat(100)))
+        }
+        
         
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(loadData), for: UIControlEvents.valueChanged)
@@ -125,6 +130,7 @@ extension AppHomeVC:UITableViewDataSource,UITableViewDelegate{
             ContentManager.sharedInstance.downloadContent(contentId: content.id){ (response) in
                 if(response.0){
                     print("content has been downloaded")
+                    cell.contentImage.contentMode = UIViewContentMode.scaleAspectFit;
                     cell.contentImage.image = response.1
                 }else{
                     self.returnToLogin()

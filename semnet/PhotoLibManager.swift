@@ -12,7 +12,11 @@ class PhotoLibManager: NSObject {
         
         let fetchOptions = PHFetchOptions()
         
-        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .moment, subtype: .any, options: fetchOptions)
+        var collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: fetchOptions)
+        #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
+            collection = PHAssetCollection.fetchAssetCollections(with: .moment, subtype: .any, options: fetchOptions)
+        #endif
+        
         
         assetCollection = collection.firstObject
         

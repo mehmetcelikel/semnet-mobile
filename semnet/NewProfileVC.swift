@@ -109,6 +109,7 @@ extension NewProfileVC:UITableViewDataSource,UITableViewDelegate{
             
             ContentManager.sharedInstance.downloadContent(contentId: content.id){ (response) in
                 if(response.0){
+                    cell.contentImage.contentMode = UIViewContentMode.scaleAspectFit;
                     cell.contentImage.image = response.1
                     
                     activityIndicator.stopAnimating()
